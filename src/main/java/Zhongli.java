@@ -22,21 +22,21 @@ public class Zhongli {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        ArrayList<String> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         displayWelcomeMessage();
         String userInput = input.nextLine();
         while (!userInput.equals("bye")) {
             if (userInput.equals("list")) {
                 printHorizontalLine();
                 for (int i = 1; i <= tasks.size(); i++) {
-                    System.out.println(i + ". " + tasks.get(i-1));
+                    System.out.println(i + ". " + tasks.get(i-1).toString());
                 }
                 printHorizontalLine();
             } else {
                 printHorizontalLine();
                 System.out.println("Added: " + userInput);
                 printHorizontalLine();
-                tasks.add(userInput);
+                tasks.add(new Task(userInput));
             }
             userInput = input.nextLine();
         }

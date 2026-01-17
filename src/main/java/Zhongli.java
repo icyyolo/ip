@@ -7,12 +7,22 @@ public class Zhongli {
         System.out.println(horizontalLine);
     }
 
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+    public static void displayWelcomeMessage() {
         printHorizontalLine();
         System.out.println("Hello! I'm Zhongli");
         System.out.println("What can I do for you?");
         printHorizontalLine();
+    }
+
+    public static  void displayGoodbyeMessage() {
+        printHorizontalLine();
+        System.out.println("Bye. Hope to see you again soon!");
+        printHorizontalLine();
+    }
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        displayWelcomeMessage();
         String userInput = input.nextLine();
         while (!userInput.equals("bye")) {
             printHorizontalLine();
@@ -20,8 +30,6 @@ public class Zhongli {
             printHorizontalLine();
             userInput = input.nextLine();
         }
-        printHorizontalLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        printHorizontalLine();
+        displayGoodbyeMessage();
     }
 }

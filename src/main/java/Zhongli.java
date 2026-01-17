@@ -27,7 +27,11 @@ public class Zhongli {
         String userInput = input.nextLine();
         while (!userInput.equals("bye")) {
             if (userInput.equals("list")) {
-                System.out.println(tasks.toString());
+                printHorizontalLine();
+                for (int i = 1; i <= tasks.size(); i++) {
+                    System.out.println(i + ". " + tasks.get(i-1));
+                }
+                printHorizontalLine();
             } else {
                 printHorizontalLine();
                 System.out.println("Added: " + userInput);

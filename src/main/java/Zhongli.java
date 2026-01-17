@@ -26,18 +26,37 @@ public class Zhongli {
         displayWelcomeMessage();
         String userInput = input.nextLine();
         while (!userInput.equals("bye")) {
+            printHorizontalLine();
+            String[] userInputArray = userInput.split(" ");
             if (userInput.equals("list")) {
-                printHorizontalLine();
                 for (int i = 1; i <= tasks.size(); i++) {
                     System.out.println(i + ". " + tasks.get(i-1).toString());
                 }
-                printHorizontalLine();
+            } else if (userInputArray[0].equals("mark")) {
+                int index = Integer.parseInt(userInputArray[1]) - 1;
+                if (index < 0 || index > tasks.size()) {
+                    System.out.println("This index does not exist. Please try again");
+                } else {
+                    System.out.println("Nice! I've marked this task as done");
+                    Task curr = tasks.get(index);
+                    curr.markDone();
+                    System.out.println("  " + curr.toString());
+                }
+            } else if (userInputArray[0].equals("unmark")) {
+                int index = Integer.parseInt(userInputArray[1]) - 1;
+                if (index < 0 || index > tasks.size()) {
+                    System.out.println("This index does not exist. Please try again");
+                } else {
+                    System.out.println("OK, I've marked this task as not done yet");
+                    Task curr = tasks.get(index);
+                    curr.markUndone();
+                    System.out.println("  " + curr.toString());
+                }
             } else {
-                printHorizontalLine();
                 System.out.println("Added: " + userInput);
-                printHorizontalLine();
                 tasks.add(new Task(userInput));
             }
+            printHorizontalLine();
             userInput = input.nextLine();
         }
         displayGoodbyeMessage();

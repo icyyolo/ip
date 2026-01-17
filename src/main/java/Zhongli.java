@@ -10,5 +10,7 @@ public class Zhongli {
         System.out.println("Hello! I'm Zhongli");
         System.out.println("What can I do for you?");
         printHorizontalLine();
+        System.out.println("Bye. Hope to see you again soon!");
+        printHorizontalLine();
     }
 }

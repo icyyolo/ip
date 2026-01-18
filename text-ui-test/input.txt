@@ -1,0 +1,12 @@
+todo hello world
+list
+deadline some deadline /by today
+list
+event some event /from today /to tomorrow
+list
+deadline some deadline a /by Monday
+deadline some deadline a /by Tuesday
+event some event a /from today /to next week
+todo something
+todo this is a todo
+bye

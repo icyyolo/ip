@@ -58,6 +58,33 @@ public class Zhongli {
         }
     }
 
+    public static void getValidRange(int index) throws ZhongliException {
+        if (tasks.isEmpty()) {
+            throw new ZhongliException("The list is empty, please add some tasks before deleting");
+        } else if (index < 0 || index >= tasks.size()) {
+            throw new ZhongliException("This index does not exist. The range should be between 1 and " + tasks.size());
+        }
+    }
+
+    public static void deleteTasks(String[] str) {
+        try {
+            String number = str[1];
+            int index = Integer.parseInt(number) - 1;
+            getValidRange(index);
+            Task deletedTask = tasks.get(index);
+            tasks.remove(index);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + deletedTask.toString());
+            System.out.println("Now you have " + tasks.size() + " in the lists");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Please input a number after delete");
+        } catch (NumberFormatException e) {
+            System.out.println("Please input a valid number");
+        } catch (ZhongliException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static ToDo parseToDo(String input) throws ZhongliException {
         String[] toDoArr = input.split("todo", 2);
         if (toDoArr.length < 2) {
@@ -160,6 +187,8 @@ public class Zhongli {
                 } catch (ZhongliException e) {
                     System.out.println(e.getMessage());
                 }
+            } else if (firstWord.equals("delete")) {
+                deleteTasks(userInputArray);
             } else {
                 System.out.println("The previous command is not a correct input.");
             }

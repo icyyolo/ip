@@ -34,9 +34,9 @@ public class Zhongli {
         }
     }
 
-    public static boolean markTasks(int index, boolean isDone) {
+    public static void markTasks(int index, boolean isDone) throws ZhongliException {
         if (index < 0 || index > tasks.size()) {
-            return false;
+            throw new ZhongliException("This index does not exist. Please try again");
         } else {
             Task curr = tasks.get(index);
             if (isDone) {
@@ -44,49 +44,81 @@ public class Zhongli {
             } else {
                 curr.markUndone();
             }
-            return true;
+        }
+    }
+
+    public static void displayMarkTasks(String[] userInputArray, String successMessage) {
+        int index = Integer.parseInt(userInputArray[1]) - 1;
+        try {
+            markTasks(index, false);
+            System.out.println(successMessage);
+            System.out.println("  " + tasks.get(index).toString());
+        } catch (ZhongliException e) {
+            System.out.println(e.getMessage());
         }
     }
 
     public static ToDo parseToDo(String input) throws ZhongliException {
-        String[] toDoArr = input.split("todo ", 2);
+        String[] toDoArr = input.split("todo", 2);
         if (toDoArr.length < 2) {
             throw new ZhongliException("Missing Description of ToDo");
         }
-        return new ToDo(toDoArr[1]);
+        String description = toDoArr[1].trim();
+        if (description.isEmpty()) {
+            throw new ZhongliException("Description cannot be empty");
+        }
+        return new ToDo(description);
     }
 
     public static Deadline parseDeadline(String input) throws ZhongliException {
-        String[] descriptionArr = input.split("deadline ", 2);
+        String[] descriptionArr = input.split("deadline", 2);
         if (descriptionArr.length < 2) {
             throw new ZhongliException("Missing Description of Deadline");
         }
-        String[] deadline = descriptionArr[1].split("/by ", 2);
-        if (deadline.length < 2) {
+        String[] deadlineArr = descriptionArr[1].split("/by", 2);
+        if (deadlineArr.length < 2) {
             throw new ZhongliException("Missing /by command");
         }
-        return new Deadline(deadline[0], deadline[1]);
+        String deadline = deadlineArr[0].trim();
+        if (deadline.isEmpty()) {
+            throw new ZhongliException("Description cannot be empty");
+        }
+
+        String endTime = deadlineArr[1].trim();
+        if (endTime.isEmpty()) {
+            throw new ZhongliException("End Time cannot be empty");
+        }
+        return new Deadline(deadline, endTime);
     }
 
     public static Event parseEvent(String input) throws ZhongliException {
-        String[] eventArr = input.split("event ", 2);
+        String[] eventArr = input.split("event", 2);
         if (eventArr.length < 2) {
             throw new ZhongliException("Missing Description of Event");
         }
 
-        String[] fromArr = eventArr[1].split("/from ", 2);
+        String[] fromArr = eventArr[1].split("/from", 2);
         if (fromArr.length < 2) {
             throw new ZhongliException("Missing /from command");
         }
 
-        String[] toArr = fromArr[1].split("/to ", 2);
+        String[] toArr = fromArr[1].split("/to", 2);
         if (toArr.length < 2) {
             throw new ZhongliException("Missing /to command");
         }
 
-        String description = fromArr[0];
-        String startTime = toArr[0];
-        String endTime = toArr[1];
+        String description = fromArr[0].trim();
+        if (description.isEmpty()) {
+            throw new ZhongliException("Description cannot be empty");
+        }
+        String startTime = toArr[0].trim();
+        if (startTime.isEmpty()) {
+            throw new ZhongliException("Start Time cannot be empty");
+        }
+        String endTime = toArr[1].trim();
+        if (endTime.isEmpty()) {
+            throw new ZhongliException("End Time cannot be empty");
+        }
         return new Event(description, startTime, endTime);
     }
 
@@ -99,23 +131,11 @@ public class Zhongli {
             if (userInput.equals("list")) {
                 listTasksArray();
             } else if (firstWord.equals("mark")) {
-                int index = Integer.parseInt(userInputArray[1]) - 1;
-                boolean isMark = markTasks(index, true);
-                if (!isMark) {
-                    System.out.println("This index does not exist. Please try again");
-                } else {
-                    System.out.println("Nice! I've marked this task as done");
-                    System.out.println("  " + tasks.get(index).toString() );
-                }
+                String successMessage = "Nice! I've marked this task as done";
+                displayMarkTasks(userInputArray, successMessage);
             } else if (firstWord.equals("unmark")) {
-                int index = Integer.parseInt(userInputArray[1]) - 1;
-                boolean isMark = markTasks(index, false);
-                if (!isMark) {
-                    System.out.println("This index does not exist. Please try again");
-                } else {
-                    System.out.println("OK, I've marked this task as not done yet");
-                    System.out.println("  " + tasks.get(index).toString());
-                }
+                String successMessage = "OK, I've marked this task as not done yet";
+                displayMarkTasks(userInputArray, successMessage);
             } else if (firstWord.equalsIgnoreCase("todo")) {
                 try {
                     ToDo newTask = parseToDo(userInput);

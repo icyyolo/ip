@@ -10,4 +10,8 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + "(by: " + endTime + ")";
     }
+
+    public static void getNormalDescription() {
+        System.out.println("The correct call to description is : ");
+    }
 }

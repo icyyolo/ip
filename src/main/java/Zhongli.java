@@ -42,11 +42,10 @@ public class Zhongli {
         }
     }
 
-    public static ToDo parseToDo(String input)  {
+    public static ToDo parseToDo(String input) throws ZhongliException {
         String[] toDoArr = input.split("todo ", 2);
         if (toDoArr.length < 2) {
-            System.out.println("Missing Description of ToDo");
-            return null;
+            throw new ZhongliException("Missing Description of ToDo");
         }
         return new ToDo(toDoArr[1]);
     }
@@ -121,14 +120,14 @@ public class Zhongli {
                     System.out.println("  " + tasks.get(index).toString());
                 }
             } else if (userInputArray[0].equalsIgnoreCase("todo")) {
-                ToDo newTask = parseToDo(userInput);
-                if (newTask == null) {
-                    System.out.println("That was an invalid input");
-                } else {
+                try {
+                    ToDo newTask = parseToDo(userInput);
                     tasks.add(newTask);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + newTask.toString());
                     System.out.println("Now you have " + tasks.size() + " in the lists");
+                } catch (ZhongliException e) {
+                    System.out.println(e.getMessage());
                 }
             } else if (userInputArray[0].equalsIgnoreCase("deadline")) {
                 Deadline newDeadline = parseDeadline(userInput);
@@ -147,8 +146,7 @@ public class Zhongli {
                     System.out.println("Now you have " + tasks.size() + " in the lists");
                 }
             } else {
-                System.out.println("Added: " + userInput);
-                tasks.add(new Task(userInput));
+                System.out.println("The previous command is not a correct input.");
             }
             printHorizontalLine();
             userInput = input.nextLine();

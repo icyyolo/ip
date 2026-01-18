@@ -54,7 +54,7 @@ public class Zhongli {
             } else if (isToDo) {
                 sb.append(curr);
             }
-            if (curr.toLowerCase().equals("todo")) {
+            if (curr.equalsIgnoreCase("todo")) {
                 isToDo = true;
             }
         }
@@ -65,6 +65,23 @@ public class Zhongli {
         } else {
             return new ToDo(sb.toString());
         }
+    }
+
+    public static Deadline parseDeadline(String input) {
+        System.out.println("Parsing Deadline");
+        String[] descriptionArr = input.split("deadline ", 2);
+        if (descriptionArr.length < 2) {
+            System.out.println("Invalid syntax");
+            return null;
+        }
+
+        String[] deadline = descriptionArr[1].split("/by ", 2);
+        if (deadline.length < 2) {
+            System.out.println("Missing /by statement");
+            return null;
+        }
+
+        return new Deadline(deadline[0], deadline[1]);
     }
 
     public static void main(String[] args) {
@@ -95,7 +112,7 @@ public class Zhongli {
                     System.out.println("OK, I've marked this task as not done yet");
                     System.out.println("  " + tasks.get(index).toString());
                 }
-            } else if (userInputArray[0].toLowerCase().equals("todo")) {
+            } else if (userInputArray[0].equalsIgnoreCase("todo")) {
                 ToDo newTask = parseToDo(userInput);
                 if (newTask == null) {
                     System.out.println("That was an invalid input");
@@ -103,6 +120,14 @@ public class Zhongli {
                     tasks.add(newTask);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + newTask.toString());
+                    System.out.println("Now you have " + tasks.size() + " in the lists");
+                }
+            } else if (userInputArray[0].equalsIgnoreCase("deadline")) {
+                Deadline newDeadline = parseDeadline(userInput);
+                if (!(newDeadline== null)) {
+                    tasks.add(newDeadline);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + newDeadline.toString());
                     System.out.println("Now you have " + tasks.size() + " in the lists");
                 }
             } else {

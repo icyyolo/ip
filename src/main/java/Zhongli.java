@@ -42,6 +42,31 @@ public class Zhongli {
         }
     }
 
+    public static ToDo parseToDo(String input)  {
+        String[] inputArr = input.split(" ");
+        StringBuilder sb = new StringBuilder();
+        boolean isToDo = false;
+        for (int i = 0; i < inputArr.length; i++) {
+            String curr = inputArr[i];
+            if (isToDo && i != inputArr.length -1) {
+                sb.append(curr);
+                sb.append(" ");
+            } else if (isToDo) {
+                sb.append(curr);
+            }
+            if (curr.toLowerCase().equals("todo")) {
+                isToDo = true;
+            }
+        }
+
+//        Throws an error here return NULL
+        if (!isToDo) {
+            return null;
+        } else {
+            return new ToDo(sb.toString());
+        }
+    }
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         tasks = new ArrayList<>();
@@ -69,6 +94,16 @@ public class Zhongli {
                 } else {
                     System.out.println("OK, I've marked this task as not done yet");
                     System.out.println("  " + tasks.get(index).toString());
+                }
+            } else if (userInputArray[0].toLowerCase().equals("todo")) {
+                ToDo newTask = parseToDo(userInput);
+                if (newTask == null) {
+                    System.out.println("That was an invalid input");
+                } else {
+                    tasks.add(newTask);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + newTask.toString());
+                    System.out.println("Now you have " + tasks.size() + " in the lists");
                 }
             } else {
                 System.out.println("Added: " + userInput);

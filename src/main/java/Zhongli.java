@@ -22,6 +22,12 @@ public class Zhongli {
         printHorizontalLine();
     }
 
+    public static void displaySuccessfulAddedTask(Task task) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task.toString());
+        System.out.println("Now you have " + tasks.size() + " in the lists");
+    }
+
     public static void listTasksArray() {
         for (int i = 1; i <= tasks.size(); i++) {
             System.out.println(i + ". " + tasks.get(i-1).toString());
@@ -50,19 +56,15 @@ public class Zhongli {
         return new ToDo(toDoArr[1]);
     }
 
-    public static Deadline parseDeadline(String input) {
+    public static Deadline parseDeadline(String input) throws ZhongliException {
         String[] descriptionArr = input.split("deadline ", 2);
         if (descriptionArr.length < 2) {
-            System.out.println("Invalid syntax");
-            return null;
+            throw new ZhongliException("Missing Description of Deadline");
         }
-
         String[] deadline = descriptionArr[1].split("/by ", 2);
         if (deadline.length < 2) {
-            System.out.println("Missing /by statement");
-            return null;
+            throw new ZhongliException("Missing /by command");
         }
-
         return new Deadline(deadline[0], deadline[1]);
     }
 
@@ -123,19 +125,17 @@ public class Zhongli {
                 try {
                     ToDo newTask = parseToDo(userInput);
                     tasks.add(newTask);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + newTask.toString());
-                    System.out.println("Now you have " + tasks.size() + " in the lists");
+                    displaySuccessfulAddedTask(newTask);
                 } catch (ZhongliException e) {
                     System.out.println(e.getMessage());
                 }
             } else if (userInputArray[0].equalsIgnoreCase("deadline")) {
-                Deadline newDeadline = parseDeadline(userInput);
-                if (!(newDeadline== null)) {
+                try {
+                    Deadline newDeadline = parseDeadline(userInput);
                     tasks.add(newDeadline);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + newDeadline.toString());
-                    System.out.println("Now you have " + tasks.size() + " in the lists");
+                    displaySuccessfulAddedTask(newDeadline);
+                } catch (ZhongliException e) {
+                    System.out.println(e.getMessage());
                 }
             } else if (userInputArray[0].equalsIgnoreCase("event")) {
                 Event newEvent = parseEvent(userInput);

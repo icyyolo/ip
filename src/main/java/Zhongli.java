@@ -43,28 +43,12 @@ public class Zhongli {
     }
 
     public static ToDo parseToDo(String input)  {
-        String[] inputArr = input.split(" ");
-        StringBuilder sb = new StringBuilder();
-        boolean isToDo = false;
-        for (int i = 0; i < inputArr.length; i++) {
-            String curr = inputArr[i];
-            if (isToDo && i != inputArr.length -1) {
-                sb.append(curr);
-                sb.append(" ");
-            } else if (isToDo) {
-                sb.append(curr);
-            }
-            if (curr.equalsIgnoreCase("todo")) {
-                isToDo = true;
-            }
-        }
-
-//        Throws an error here return NULL
-        if (!isToDo) {
+        String[] toDoArr = input.split("todo ", 2);
+        if (toDoArr.length < 2) {
+            System.out.println("Missing Description of ToDo");
             return null;
-        } else {
-            return new ToDo(sb.toString());
         }
+        return new ToDo(toDoArr[1]);
     }
 
     public static Deadline parseDeadline(String input) {

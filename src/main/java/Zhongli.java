@@ -90,17 +90,15 @@ public class Zhongli {
         return new Event(description, startTime, endTime);
     }
 
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        tasks = new ArrayList<>();
-        displayWelcomeMessage();
+    public static void chatbotLoop(Scanner input) {
         String userInput = input.nextLine();
         while (!userInput.equals("bye")) {
             printHorizontalLine();
             String[] userInputArray = userInput.split(" ");
+            String firstWord = userInputArray[0];
             if (userInput.equals("list")) {
                 listTasksArray();
-            } else if (userInputArray[0].equals("mark")) {
+            } else if (firstWord.equals("mark")) {
                 int index = Integer.parseInt(userInputArray[1]) - 1;
                 boolean isMark = markTasks(index, true);
                 if (!isMark) {
@@ -109,7 +107,7 @@ public class Zhongli {
                     System.out.println("Nice! I've marked this task as done");
                     System.out.println("  " + tasks.get(index).toString() );
                 }
-            } else if (userInputArray[0].equals("unmark")) {
+            } else if (firstWord.equals("unmark")) {
                 int index = Integer.parseInt(userInputArray[1]) - 1;
                 boolean isMark = markTasks(index, false);
                 if (!isMark) {
@@ -118,7 +116,7 @@ public class Zhongli {
                     System.out.println("OK, I've marked this task as not done yet");
                     System.out.println("  " + tasks.get(index).toString());
                 }
-            } else if (userInputArray[0].equalsIgnoreCase("todo")) {
+            } else if (firstWord.equalsIgnoreCase("todo")) {
                 try {
                     ToDo newTask = parseToDo(userInput);
                     tasks.add(newTask);
@@ -126,7 +124,7 @@ public class Zhongli {
                 } catch (ZhongliException e) {
                     System.out.println(e.getMessage());
                 }
-            } else if (userInputArray[0].equalsIgnoreCase("deadline")) {
+            } else if (firstWord.equalsIgnoreCase("deadline")) {
                 try {
                     Deadline newDeadline = parseDeadline(userInput);
                     tasks.add(newDeadline);
@@ -134,7 +132,7 @@ public class Zhongli {
                 } catch (ZhongliException e) {
                     System.out.println(e.getMessage());
                 }
-            } else if (userInputArray[0].equalsIgnoreCase("event")) {
+            } else if (firstWord.equalsIgnoreCase("event")) {
                 try {
                     Event newEvent = parseEvent(userInput);
                     tasks.add(newEvent);
@@ -148,6 +146,13 @@ public class Zhongli {
             printHorizontalLine();
             userInput = input.nextLine();
         }
+    }
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        tasks = new ArrayList<>();
+        displayWelcomeMessage();
+        chatbotLoop(input);
         displayGoodbyeMessage();
     }
 }

@@ -68,23 +68,20 @@ public class Zhongli {
         return new Deadline(deadline[0], deadline[1]);
     }
 
-    public static Event parseEvent(String input) {
+    public static Event parseEvent(String input) throws ZhongliException {
         String[] eventArr = input.split("event ", 2);
         if (eventArr.length < 2) {
-            System.out.println("Invalid syntax");
-            return null;
+            throw new ZhongliException("Missing Description of Event");
         }
 
         String[] fromArr = eventArr[1].split("/from ", 2);
         if (fromArr.length < 2) {
-            System.out.println("Missing /from statement");
-            return null;
+            throw new ZhongliException("Missing /from command");
         }
 
         String[] toArr = fromArr[1].split("/to ", 2);
         if (toArr.length < 2) {
-            System.out.println("Missing /to statement");
-            return null;
+            throw new ZhongliException("Missing /to command");
         }
 
         String description = fromArr[0];
@@ -138,12 +135,12 @@ public class Zhongli {
                     System.out.println(e.getMessage());
                 }
             } else if (userInputArray[0].equalsIgnoreCase("event")) {
-                Event newEvent = parseEvent(userInput);
-                if (!(newEvent == null)) {
+                try {
+                    Event newEvent = parseEvent(userInput);
                     tasks.add(newEvent);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + newEvent.toString());
-                    System.out.println("Now you have " + tasks.size() + " in the lists");
+                    displaySuccessfulAddedTask(newEvent);
+                } catch (ZhongliException e) {
+                    System.out.println(e.getMessage());
                 }
             } else {
                 System.out.println("The previous command is not a correct input.");

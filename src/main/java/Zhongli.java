@@ -68,7 +68,6 @@ public class Zhongli {
     }
 
     public static Deadline parseDeadline(String input) {
-        System.out.println("Parsing Deadline");
         String[] descriptionArr = input.split("deadline ", 2);
         if (descriptionArr.length < 2) {
             System.out.println("Invalid syntax");
@@ -82,6 +81,31 @@ public class Zhongli {
         }
 
         return new Deadline(deadline[0], deadline[1]);
+    }
+
+    public static Event parseEvent(String input) {
+        String[] eventArr = input.split("event ", 2);
+        if (eventArr.length < 2) {
+            System.out.println("Invalid syntax");
+            return null;
+        }
+
+        String[] fromArr = eventArr[1].split("/from ", 2);
+        if (fromArr.length < 2) {
+            System.out.println("Missing /from statement");
+            return null;
+        }
+
+        String[] toArr = fromArr[1].split("/to ", 2);
+        if (toArr.length < 2) {
+            System.out.println("Missing /to statement");
+            return null;
+        }
+
+        String description = fromArr[0];
+        String startTime = toArr[0];
+        String endTime = toArr[1];
+        return new Event(description, startTime, endTime);
     }
 
     public static void main(String[] args) {
@@ -128,6 +152,14 @@ public class Zhongli {
                     tasks.add(newDeadline);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + newDeadline.toString());
+                    System.out.println("Now you have " + tasks.size() + " in the lists");
+                }
+            } else if (userInputArray[0].equalsIgnoreCase("event")) {
+                Event newEvent = parseEvent(userInput);
+                if (!(newEvent == null)) {
+                    tasks.add(newEvent);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + newEvent.toString());
                     System.out.println("Now you have " + tasks.size() + " in the lists");
                 }
             } else {

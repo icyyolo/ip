@@ -1,12 +1,33 @@
+list
+todo
 todo hello world
+deadline
+deadline do ip
+deadline /by
+deadline do ip /by
+deadline do ip /by this Friday
+event
+event do tp
+event /from
+event /from /to
+event do tp /from /to
+event do tp /from today
+event do tp /from today /to
+event do tp /from today /to
+event do tp /from today /to next Monday
+todo task a
+todo task b
 list
-deadline some deadline /by today
+mark -5
+mark 20
+mark 1
 list
-event some event /from today /to tomorrow
+unmark -5
+unmark 20
+unmark 1
+delete -20
+delete 0
+delete 500
+delete 1
 list
-deadline some deadline a /by Monday
-deadline some deadline a /by Tuesday
-event some event a /from today /to next week
-todo something
-todo this is a todo
 bye

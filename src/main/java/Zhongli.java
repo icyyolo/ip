@@ -1,8 +1,9 @@
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
 import java.io.File;
+import java.util.*;
+import java.time.*;
 
 public class Zhongli {
 
@@ -288,11 +289,24 @@ public class Zhongli {
         fileWriter.close();
     }
 
+    private static LocalDate parseDate(String dateText) {
+        LocalDate date;
+        try {
+            date = LocalDate.parse(dateText);
+        } catch (DateTimeException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        System.out.println(date.toString());
+        return date;
+    }
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        tasks = initializeChatBot();
-        displayWelcomeMessage();
-        chatbotLoop(input);
-        displayGoodbyeMessage();
+        parseDate("2000-01-01");
+//        tasks = initializeChatBot();
+//        displayWelcomeMessage();
+//        chatbotLoop(input);
+//        displayGoodbyeMessage();
     }
 }

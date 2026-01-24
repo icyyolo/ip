@@ -121,7 +121,8 @@ public class Zhongli {
         if (endTime.isEmpty()) {
             throw new ZhongliException("End Time cannot be empty");
         }
-        return new Deadline(deadline, endTime);
+        LocalDate endTimeDate = parseDate(endTime);
+        return new Deadline(deadline, endTimeDate);
     }
 
     public static Event parseEvent(String input) throws ZhongliException {
@@ -289,24 +290,28 @@ public class Zhongli {
         fileWriter.close();
     }
 
-    private static LocalDate parseDate(String dateText) {
+    private static LocalDate parseDate(String dateText) throws ZhongliException {
         LocalDate date;
+        // Special cases:
+        if (dateText.equals("now")) {
+            date = LocalDate.now();
+            return date;
+        }
+
         try {
             date = LocalDate.parse(dateText);
         } catch (DateTimeException e) {
-            System.out.println(e.getMessage());
-            return null;
+            throw new ZhongliException(e.getMessage() +
+                    "\n Date Shoule be in this format YYYY-MM-DD");
         }
-        System.out.println(date.toString());
         return date;
     }
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        parseDate("2000-01-01");
-//        tasks = initializeChatBot();
-//        displayWelcomeMessage();
-//        chatbotLoop(input);
-//        displayGoodbyeMessage();
+        tasks = initializeChatBot();
+        displayWelcomeMessage();
+        chatbotLoop(input);
+        displayGoodbyeMessage();
     }
 }

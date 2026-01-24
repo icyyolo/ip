@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 import java.io.File;
@@ -169,16 +170,16 @@ public class Zhongli {
                 displayMarkTasks(userInputArray, successMessage);
             } else if (firstWord.equalsIgnoreCase("todo")) {
                 try {
-                    ToDo newTask = parseToDo(userInput);
-                    tasks.add(newTask);
-                    displaySuccessfulAddedTask(newTask);
+                    ToDo newTodo= parseToDo(userInput);
+                    addTaskToArray(newTodo, userInput);
+                    displaySuccessfulAddedTask(newTodo);
                 } catch (ZhongliException e) {
                     System.out.println(e.getMessage());
                 }
             } else if (firstWord.equalsIgnoreCase("deadline")) {
                 try {
                     Deadline newDeadline = parseDeadline(userInput);
-                    tasks.add(newDeadline);
+                    addTaskToArray(newDeadline, userInput);
                     displaySuccessfulAddedTask(newDeadline);
                 } catch (ZhongliException e) {
                     System.out.println(e.getMessage());
@@ -186,7 +187,7 @@ public class Zhongli {
             } else if (firstWord.equalsIgnoreCase("event")) {
                 try {
                     Event newEvent = parseEvent(userInput);
-                    tasks.add(newEvent);
+                    addTaskToArray(newEvent, userInput);
                     displaySuccessfulAddedTask(newEvent);
                 } catch (ZhongliException e) {
                     System.out.println(e.getMessage());
@@ -198,6 +199,18 @@ public class Zhongli {
             }
             printHorizontalLine();
             userInput = input.nextLine();
+        }
+    }
+
+    private static void addTaskToArray(Task task, String taskString) {
+        tasks.add(task);
+        try {
+            if (! taskString.endsWith("\n")) {
+                taskString += "\n";
+            }
+            writeToFile(filePath, taskString);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -267,6 +280,12 @@ public class Zhongli {
             System.out.println(e.getMessage());
         }
         return tasks;
+    }
+
+    private static void writeToFile(String filePath, String text) throws IOException{
+        FileWriter fileWriter = new FileWriter(filePath, true);
+        fileWriter.write(text);
+        fileWriter.close();
     }
 
     public static void main(String[] args) {

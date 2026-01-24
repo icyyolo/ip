@@ -1,8 +1,9 @@
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
 import java.io.File;
+import java.util.*;
+import java.time.*;
 
 public class Zhongli {
 
@@ -120,7 +121,8 @@ public class Zhongli {
         if (endTime.isEmpty()) {
             throw new ZhongliException("End Time cannot be empty");
         }
-        return new Deadline(deadline, endTime);
+        LocalDate endTimeDate = parseDate(endTime);
+        return new Deadline(deadline, endTimeDate);
     }
 
     public static Event parseEvent(String input) throws ZhongliException {
@@ -147,11 +149,13 @@ public class Zhongli {
         if (startTime.isEmpty()) {
             throw new ZhongliException("Start Time cannot be empty");
         }
+        LocalDate startTimeDate = parseDate(startTime);
         String endTime = toArr[1].trim();
         if (endTime.isEmpty()) {
             throw new ZhongliException("End Time cannot be empty");
         }
-        return new Event(description, startTime, endTime);
+        LocalDate endTimeDate = parseDate(endTime);
+        return new Event(description, startTimeDate, endTimeDate);
     }
 
     public static void chatbotLoop(Scanner input) {
@@ -286,6 +290,23 @@ public class Zhongli {
         FileWriter fileWriter = new FileWriter(filePath, true);
         fileWriter.write(text);
         fileWriter.close();
+    }
+
+    private static LocalDate parseDate(String dateText) throws ZhongliException {
+        LocalDate date;
+        // Special cases:
+        if (dateText.equals("now")) {
+            date = LocalDate.now();
+            return date;
+        }
+
+        try {
+            date = LocalDate.parse(dateText);
+        } catch (DateTimeException e) {
+            throw new ZhongliException(e.getMessage() +
+                    "\nDate Should be in this format YYYY-MM-DD");
+        }
+        return date;
     }
 
     public static void main(String[] args) {

@@ -1,14 +1,17 @@
-public class Deadline extends Task {
-    private String endTime;
+import java.time.LocalDate;
 
-    public Deadline(String description, String endTime) {
+public class Deadline extends Task {
+    private LocalDate endTime;
+
+    public Deadline(String description, LocalDate endTime) {
         super(description);
         this.endTime = endTime;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + endTime + ")";
+        return "[D]" + super.toString()
+                + " (by: " + super.formatDate(endTime) + ")";
     }
 
     public static void getNormalDescription() {

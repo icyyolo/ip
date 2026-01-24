@@ -1,8 +1,13 @@
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
+import java.io.File;
 
 public class Zhongli {
 
     static ArrayList<Task> tasks;
+    private final static String filePath = ".taskstxt";
 
     public static void printHorizontalLine() {
         String horizontalLine = "_____________________________________________________________________________________";
@@ -165,16 +170,16 @@ public class Zhongli {
                 displayMarkTasks(userInputArray, successMessage);
             } else if (firstWord.equalsIgnoreCase("todo")) {
                 try {
-                    ToDo newTask = parseToDo(userInput);
-                    tasks.add(newTask);
-                    displaySuccessfulAddedTask(newTask);
+                    ToDo newTodo= parseToDo(userInput);
+                    addTaskToArray(newTodo, userInput);
+                    displaySuccessfulAddedTask(newTodo);
                 } catch (ZhongliException e) {
                     System.out.println(e.getMessage());
                 }
             } else if (firstWord.equalsIgnoreCase("deadline")) {
                 try {
                     Deadline newDeadline = parseDeadline(userInput);
-                    tasks.add(newDeadline);
+                    addTaskToArray(newDeadline, userInput);
                     displaySuccessfulAddedTask(newDeadline);
                 } catch (ZhongliException e) {
                     System.out.println(e.getMessage());
@@ -182,7 +187,7 @@ public class Zhongli {
             } else if (firstWord.equalsIgnoreCase("event")) {
                 try {
                     Event newEvent = parseEvent(userInput);
-                    tasks.add(newEvent);
+                    addTaskToArray(newEvent, userInput);
                     displaySuccessfulAddedTask(newEvent);
                 } catch (ZhongliException e) {
                     System.out.println(e.getMessage());
@@ -197,9 +202,95 @@ public class Zhongli {
         }
     }
 
+    private static void addTaskToArray(Task task, String taskString) {
+        tasks.add(task);
+        try {
+            if (! taskString.endsWith("\n")) {
+                taskString += "\n";
+            }
+            writeToFile(filePath, taskString);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static File readFile(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                createFile(file);
+            } catch (IOException e) {
+                System.out.println("Unable to find file");
+            }
+        }
+        return file;
+    }
+
+    private static void createFile(File file) throws IOException {
+        file.createNewFile();
+    }
+
+    private static ArrayList<Task> getTasksFromFile(File file) throws FileNotFoundException {
+        Scanner s = new Scanner(file);
+        ArrayList<Task> tasks = new ArrayList<>();
+        boolean isCorrupted = false;
+        int lineNum = 0;
+        while (s.hasNext()) {
+            lineNum++;
+            isCorrupted = false;
+            String curr = s.nextLine();
+            String errorMsg = "";
+            String typeOfTask = curr.split(" ")[0].toLowerCase(Locale.ROOT);
+            Task currTask = null;
+            try {
+                switch (typeOfTask) {
+                    case ("todo"):
+                        currTask = parseToDo(curr);
+                        break;
+                    case ("deadline"):
+                        currTask = parseDeadline(curr);
+                        break;
+                    case ("event"):
+                        currTask = parseEvent(curr);
+                        break;
+                    default:
+                        isCorrupted = true;
+                        errorMsg = "Default task type not found";
+                }
+            } catch (ZhongliException e) {
+                isCorrupted = true;
+                errorMsg = e.getMessage();
+            }
+            if (isCorrupted) {
+                System.out.println("Line Number " + lineNum + " has error: "+ errorMsg);
+                continue;
+            }
+            tasks.add(currTask);
+
+        }
+        return tasks;
+    }
+
+    private static ArrayList<Task> initializeChatBot() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            File textFile = readFile(filePath);
+            tasks = getTasksFromFile(textFile);
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        return tasks;
+    }
+
+    private static void writeToFile(String filePath, String text) throws IOException{
+        FileWriter fileWriter = new FileWriter(filePath, true);
+        fileWriter.write(text);
+        fileWriter.close();
+    }
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        tasks = new ArrayList<>();
+        tasks = initializeChatBot();
         displayWelcomeMessage();
         chatbotLoop(input);
         displayGoodbyeMessage();

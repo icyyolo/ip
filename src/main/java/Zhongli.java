@@ -1,8 +1,12 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
+import java.io.File;
 
 public class Zhongli {
 
     static ArrayList<Task> tasks;
+    private final static String filePath = ".taskstxt";
 
     public static void printHorizontalLine() {
         String horizontalLine = "_____________________________________________________________________________________";
@@ -197,11 +201,71 @@ public class Zhongli {
         }
     }
 
+    private static File readFile(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                createFile(file);
+            } catch (IOException e) {
+                System.out.println("Unable to find file");
+            }
+        }
+        return file;
+    }
+
+    private static void createFile(File file) throws IOException {
+        file.createNewFile();
+    }
+
+    private static ArrayList<Task> getTasksFromFile(File file) throws FileNotFoundException {
+        Scanner s = new Scanner(file);
+        ArrayList<Task> tasks = new ArrayList<>();
+        boolean isCorrupted = false;
+        int lineNum = 0;
+        while (s.hasNext()) {
+            lineNum++;
+            isCorrupted = false;
+            String curr = s.nextLine();
+            String typeOfTask = curr.split(" ")[0].toLowerCase(Locale.ROOT);
+            Task currTask = null;
+            try {
+                switch (typeOfTask) {
+                    case ("todo"):
+                        currTask = parseToDo(curr);
+                        break;
+                    case ("deadline"):
+                        currTask = parseDeadline(curr);
+                        break;
+                    case ("event"):
+                        currTask = parseEvent(curr);
+                        break;
+                    default:
+                        isCorrupted = true;
+                }
+            } catch (ZhongliException e) {
+                isCorrupted = true;
+            }
+            if (isCorrupted) {
+                System.out.println("Line Number " + lineNum + " has error: "+ curr);
+                continue;
+            }
+            tasks.add(currTask);
+
+        }
+        return tasks;
+    }
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        tasks = new ArrayList<>();
-        displayWelcomeMessage();
-        chatbotLoop(input);
-        displayGoodbyeMessage();
+        try {
+            File textFile = readFile(filePath);
+            ArrayList<Task> tasks = getTasksFromFile(textFile);
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+//        tasks = new ArrayList<>();
+//        displayWelcomeMessage();
+//        chatbotLoop(input);
+//        displayGoodbyeMessage();
     }
 }

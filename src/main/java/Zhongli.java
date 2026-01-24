@@ -149,11 +149,13 @@ public class Zhongli {
         if (startTime.isEmpty()) {
             throw new ZhongliException("Start Time cannot be empty");
         }
+        LocalDate startTimeDate = parseDate(startTime);
         String endTime = toArr[1].trim();
         if (endTime.isEmpty()) {
             throw new ZhongliException("End Time cannot be empty");
         }
-        return new Event(description, startTime, endTime);
+        LocalDate endTimeDate = parseDate(endTime);
+        return new Event(description, startTimeDate, endTimeDate);
     }
 
     public static void chatbotLoop(Scanner input) {
@@ -302,7 +304,7 @@ public class Zhongli {
             date = LocalDate.parse(dateText);
         } catch (DateTimeException e) {
             throw new ZhongliException(e.getMessage() +
-                    "\n Date Shoule be in this format YYYY-MM-DD");
+                    "\nDate Should be in this format YYYY-MM-DD");
         }
         return date;
     }

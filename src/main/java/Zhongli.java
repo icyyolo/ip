@@ -226,6 +226,7 @@ public class Zhongli {
             lineNum++;
             isCorrupted = false;
             String curr = s.nextLine();
+            String errorMsg = "";
             String typeOfTask = curr.split(" ")[0].toLowerCase(Locale.ROOT);
             Task currTask = null;
             try {
@@ -241,12 +242,14 @@ public class Zhongli {
                         break;
                     default:
                         isCorrupted = true;
+                        errorMsg = "Default task type not found";
                 }
             } catch (ZhongliException e) {
                 isCorrupted = true;
+                errorMsg = e.getMessage();
             }
             if (isCorrupted) {
-                System.out.println("Line Number " + lineNum + " has error: "+ curr);
+                System.out.println("Line Number " + lineNum + " has error: "+ errorMsg);
                 continue;
             }
             tasks.add(currTask);
@@ -255,17 +258,22 @@ public class Zhongli {
         return tasks;
     }
 
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+    private static ArrayList<Task> initializeChatBot() {
+        ArrayList<Task> tasks = new ArrayList<>();
         try {
             File textFile = readFile(filePath);
-            ArrayList<Task> tasks = getTasksFromFile(textFile);
+            tasks = getTasksFromFile(textFile);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
-//        tasks = new ArrayList<>();
-//        displayWelcomeMessage();
-//        chatbotLoop(input);
-//        displayGoodbyeMessage();
+        return tasks;
+    }
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        tasks = initializeChatBot();
+        displayWelcomeMessage();
+        chatbotLoop(input);
+        displayGoodbyeMessage();
     }
 }

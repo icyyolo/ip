@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.*;
 import java.time.*;
 
+import Storage.Storage;
 import Task.*;
 import Ui.Ui;
 import TaskList.TaskList;
@@ -14,6 +15,7 @@ import Parser.Parser;
 public class Zhongli {
 
     private final static String filePath = ".taskstxt";
+    private Storage storage;
 
     public static void printHorizontalLine() {
         String horizontalLine = "_____________________________________________________________________________________";
@@ -119,22 +121,6 @@ public class Zhongli {
         }
     }
 
-    private static File readFile(String filePath, Ui ui) {
-        File file = new File(filePath);
-        if (!file.exists()) {
-            try {
-                createFile(file);
-            } catch (IOException e) {
-                ui.displayExceptionMessage("Unable to find file");
-            }
-        }
-        return file;
-    }
-
-    private static void createFile(File file) throws IOException {
-        file.createNewFile();
-    }
-
     private static ArrayList<Task> getTasksFromFile(File file) throws FileNotFoundException {
         Scanner s = new Scanner(file);
         ArrayList<Task> tasks = new ArrayList<>();
@@ -176,10 +162,10 @@ public class Zhongli {
         return tasks;
     }
 
-    private static ArrayList<Task> initializeChatBot(Ui ui) {
+    private ArrayList<Task> initializeChatBot(Ui ui) {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            File textFile = readFile(filePath, ui);
+            File textFile = this.storage.readFile(filePath, ui);
             tasks = getTasksFromFile(textFile);
         } catch (FileNotFoundException e) {
             ui.displayExceptionMessage(e.getMessage());
@@ -193,12 +179,17 @@ public class Zhongli {
         fileWriter.close();
     }
 
-    public static void main(String[] args) {
+    public Zhongli() {
         Ui ui = new Ui();
         Scanner input = new Scanner(System.in);
         TaskList taskList = new TaskList(initializeChatBot(ui));
+        storage = new Storage(filePath);
         ui.displayWelcomeMessage();
         chatbotLoop(input, ui, taskList);
         ui.displayGoodbyeMessage();
+    }
+
+    public static void main(String[] args) {
+        new Zhongli();
     }
 }

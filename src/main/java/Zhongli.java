@@ -9,6 +9,7 @@ import Task.*;
 import Ui.Ui;
 import TaskList.TaskList;
 import ZhongliException.ZhongliException;
+import Parser.Parser;
 
 public class Zhongli {
 
@@ -58,73 +59,6 @@ public class Zhongli {
         }
     }
 
-    public static ToDo parseToDo(String input) throws ZhongliException {
-        String[] toDoArr = input.split("todo", 2);
-        if (toDoArr.length < 2) {
-            throw new ZhongliException("Missing Description of ToDo");
-        }
-        String description = toDoArr[1].trim();
-        if (description.isEmpty()) {
-            throw new ZhongliException("Description cannot be empty");
-        }
-        return new ToDo(description);
-    }
-
-    public static Deadline parseDeadline(String input) throws ZhongliException {
-        String[] descriptionArr = input.split("deadline", 2);
-        if (descriptionArr.length < 2) {
-            throw new ZhongliException("Missing Description of Deadline");
-        }
-        String[] deadlineArr = descriptionArr[1].split("/by", 2);
-        if (deadlineArr.length < 2) {
-            throw new ZhongliException("Missing /by command");
-        }
-        String deadline = deadlineArr[0].trim();
-        if (deadline.isEmpty()) {
-            throw new ZhongliException("Description cannot be empty");
-        }
-
-        String endTime = deadlineArr[1].trim();
-        if (endTime.isEmpty()) {
-            throw new ZhongliException("End Time cannot be empty");
-        }
-        LocalDate endTimeDate = parseDate(endTime);
-        return new Deadline(deadline, endTimeDate);
-    }
-
-    public static Event parseEvent(String input) throws ZhongliException {
-        String[] eventArr = input.split("event", 2);
-        if (eventArr.length < 2) {
-            throw new ZhongliException("Missing Description of Event");
-        }
-
-        String[] fromArr = eventArr[1].split("/from", 2);
-        if (fromArr.length < 2) {
-            throw new ZhongliException("Missing /from command");
-        }
-
-        String[] toArr = fromArr[1].split("/to", 2);
-        if (toArr.length < 2) {
-            throw new ZhongliException("Missing /to command");
-        }
-
-        String description = fromArr[0].trim();
-        if (description.isEmpty()) {
-            throw new ZhongliException("Description cannot be empty");
-        }
-        String startTime = toArr[0].trim();
-        if (startTime.isEmpty()) {
-            throw new ZhongliException("Start Time cannot be empty");
-        }
-        LocalDate startTimeDate = parseDate(startTime);
-        String endTime = toArr[1].trim();
-        if (endTime.isEmpty()) {
-            throw new ZhongliException("End Time cannot be empty");
-        }
-        LocalDate endTimeDate = parseDate(endTime);
-        return new Event(description, startTimeDate, endTimeDate);
-    }
-
     public static void chatbotLoop(Scanner input, Ui ui, TaskList taskList) {
         String userInput = input.nextLine();
         while (!userInput.equals("bye")) {
@@ -141,7 +75,7 @@ public class Zhongli {
                 displayMarkTasks(userInputArray, successMessage, taskList, ui);
             } else if (firstWord.equalsIgnoreCase("todo")) {
                 try {
-                    ToDo newTodo= parseToDo(userInput);
+                    ToDo newTodo= Parser.parseToDo(userInput);
                     addTaskToArray(newTodo, userInput, taskList, ui);
                     ui.displaySuccessfulAddedTask(newTodo, taskList);
                 } catch (ZhongliException e) {
@@ -149,7 +83,7 @@ public class Zhongli {
                 }
             } else if (firstWord.equalsIgnoreCase("deadline")) {
                 try {
-                    Deadline newDeadline = parseDeadline(userInput);
+                    Deadline newDeadline = Parser.parseDeadline(userInput);
                     addTaskToArray(newDeadline, userInput, taskList, ui);
                     ui.displaySuccessfulAddedTask(newDeadline, taskList);
                 } catch (ZhongliException e) {
@@ -157,7 +91,7 @@ public class Zhongli {
                 }
             } else if (firstWord.equalsIgnoreCase("event")) {
                 try {
-                    Event newEvent = parseEvent(userInput);
+                    Event newEvent = Parser.parseEvent(userInput);
                     addTaskToArray(newEvent, userInput, taskList, ui);
                     ui.displaySuccessfulAddedTask(newEvent, taskList);
                 } catch (ZhongliException e) {
@@ -216,13 +150,13 @@ public class Zhongli {
             try {
                 switch (typeOfTask) {
                     case ("todo"):
-                        currTask = parseToDo(curr);
+                        currTask = Parser.parseToDo(curr);
                         break;
                     case ("deadline"):
-                        currTask = parseDeadline(curr);
+                        currTask = Parser.parseDeadline(curr);
                         break;
                     case ("event"):
-                        currTask = parseEvent(curr);
+                        currTask = Parser.parseEvent(curr);
                         break;
                     default:
                         isCorrupted = true;
@@ -257,23 +191,6 @@ public class Zhongli {
         FileWriter fileWriter = new FileWriter(filePath, true);
         fileWriter.write(text);
         fileWriter.close();
-    }
-
-    private static LocalDate parseDate(String dateText) throws ZhongliException {
-        LocalDate date;
-        // Special cases:
-        if (dateText.equals("now")) {
-            date = LocalDate.now();
-            return date;
-        }
-
-        try {
-            date = LocalDate.parse(dateText);
-        } catch (DateTimeException e) {
-            throw new ZhongliException(e.getMessage() +
-                    "\nDate Should be in this format YYYY-MM-DD");
-        }
-        return date;
     }
 
     public static void main(String[] args) {

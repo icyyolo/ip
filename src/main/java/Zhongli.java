@@ -11,7 +11,7 @@ import TaskList.TaskList;
 import ZhongliException.ZhongliException;
 
 public class Zhongli {
-    
+
     private final static String filePath = ".taskstxt";
 
     public static void printHorizontalLine() {

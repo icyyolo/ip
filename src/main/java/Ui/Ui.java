@@ -40,6 +40,10 @@ public class Ui {
         System.out.println("Now you have " + tasks.size() + " in the lists");
     }
 
+    public void displayWrongCommandErrorMessage(String input) {
+        System.out.println("The previous command [" +input + "] is not a correct input.");
+    }
+
     public void listTasksArray(ArrayList<Task> tasks) {
         for (int i = 1; i <= tasks.size(); i++) {
             System.out.println(i + ". " + tasks.get(i-1).toString());

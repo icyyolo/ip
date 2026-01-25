@@ -175,7 +175,7 @@ public class Zhongli {
             } else if (firstWord.equals("delete")) {
                 deleteTasks(userInputArray, ui);
             } else {
-                System.out.println("The previous command is not a correct input.");
+                ui.displayWrongCommandErrorMessage(userInput);
             }
             printHorizontalLine();
             userInput = input.nextLine();

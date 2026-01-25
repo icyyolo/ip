@@ -1,6 +1,8 @@
 package Ui;
 import Task.Task;
 import TaskList.TaskList;
+import ZhongliException.ZhongliException;
+
 import java.util.ArrayList;
 
 public class Ui {
@@ -28,21 +30,27 @@ public class Ui {
         printHorizontalLine();
     }
 
-    public void displaySuccessfulAddedTask(Task task, ArrayList<Task> tasks) {
+    public void displaySuccessfulAddedTask(Task task, TaskList tasks) {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task.toString());
-        System.out.println("Now you have " + tasks.size() + " in the lists");
+        System.out.println("Now you have " + tasks.getSize() + " in the lists");
     }
 
-    public void displaySuccessfulDeleteTask(Task task, ArrayList<Task> tasks) {
+    public void displaySuccessfulDeleteTask(Task task, TaskList tasks) {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task.toString());
-        System.out.println("Now you have " + tasks.size() + " in the lists");
+        System.out.println("Now you have " + tasks.getSize() + " in the lists");
     }
 
-    public void displayMarkTask(int index, String successMessage, ArrayList<Task> tasks) {
-        System.out.println(successMessage);
-        System.out.println("  " + tasks.get(index).toString());
+    public void displayMarkTask(int index, String successMessage, TaskList tasks) {
+        try {
+            Task task = tasks.getTask(index);
+            System.out.println(successMessage);
+            System.out.println("  " + task.toString());
+        } catch (ZhongliException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void displayWrongCommandErrorMessage(String input) {

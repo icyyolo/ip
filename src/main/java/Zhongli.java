@@ -8,6 +8,7 @@ import java.time.*;
 import Task.*;
 import Ui.Ui;
 import TaskList.TaskList;
+import ZhongliException.ZhongliException;
 
 public class Zhongli {
 
@@ -32,32 +33,23 @@ public class Zhongli {
         }
     }
 
-    public static void displayMarkTasks(String[] userInputArray, String successMessage, ArrayList<Task> tasks, Ui ui) {
+    public static void displayMarkTasks(String[] userInputArray, String successMessage, TaskList taskList, Ui ui) {
         int index = Integer.parseInt(userInputArray[1]) - 1;
         try {
             markTasks(index, false);
-            ui.displayMarkTask(index, successMessage, tasks);
+            ui.displayMarkTask(index, successMessage, taskList);
         } catch (ZhongliException e) {
             ui.displayExceptionMessage(e.getMessage());
         }
     }
 
-    public static void getValidRange(int index) throws ZhongliException {
-        if (tasks.isEmpty()) {
-            throw new ZhongliException("The list is empty, please add some tasks before deleting");
-        } else if (index < 0 || index >= tasks.size()) {
-            throw new ZhongliException("This index does not exist. The range should be between 1 and " + tasks.size());
-        }
-    }
-
-    public static void deleteTasks(String[] str, Ui ui) {
+    public static void deleteTasks(String[] str, Ui ui, TaskList taskList) {
         try {
             String number = str[1];
             int index = Integer.parseInt(number) - 1;
-            getValidRange(index);
-            Task deletedTask = tasks.get(index);
-            tasks.remove(index);
-            ui.displaySuccessfulDeleteTask(deletedTask, tasks);
+            Task deletedTask = taskList.getTask(index);
+            taskList.deleteTask(index);
+            ui.displaySuccessfulDeleteTask(deletedTask, taskList);
         } catch (IndexOutOfBoundsException e) {
             ui.displayExceptionMessage("Please input a number after delete");
         } catch (NumberFormatException e) {
@@ -144,15 +136,15 @@ public class Zhongli {
                 ui.listTasksArray(taskList);
             } else if (firstWord.equals("mark")) {
                 String successMessage = "Nice! I've marked this task as done";
-                displayMarkTasks(userInputArray, successMessage, tasks, ui);
+                displayMarkTasks(userInputArray, successMessage, taskList, ui);
             } else if (firstWord.equals("unmark")) {
                 String successMessage = "OK, I've marked this task as not done yet";
-                displayMarkTasks(userInputArray, successMessage, tasks, ui);
+                displayMarkTasks(userInputArray, successMessage, taskList, ui);
             } else if (firstWord.equalsIgnoreCase("todo")) {
                 try {
                     ToDo newTodo= parseToDo(userInput);
                     addTaskToArray(newTodo, userInput, taskList, ui);
-                    ui.displaySuccessfulAddedTask(newTodo, tasks);
+                    ui.displaySuccessfulAddedTask(newTodo, taskList);
                 } catch (ZhongliException e) {
                     ui.displayExceptionMessage(e.getMessage());
                 }
@@ -160,7 +152,7 @@ public class Zhongli {
                 try {
                     Deadline newDeadline = parseDeadline(userInput);
                     addTaskToArray(newDeadline, userInput, taskList, ui);
-                    ui.displaySuccessfulAddedTask(newDeadline, tasks);
+                    ui.displaySuccessfulAddedTask(newDeadline, taskList);
                 } catch (ZhongliException e) {
                     ui.displayExceptionMessage(e.getMessage());
                 }
@@ -168,12 +160,12 @@ public class Zhongli {
                 try {
                     Event newEvent = parseEvent(userInput);
                     addTaskToArray(newEvent, userInput, taskList, ui);
-                    ui.displaySuccessfulAddedTask(newEvent, tasks);
+                    ui.displaySuccessfulAddedTask(newEvent, taskList);
                 } catch (ZhongliException e) {
                     ui.displayExceptionMessage(e.getMessage());
                 }
             } else if (firstWord.equals("delete")) {
-                deleteTasks(userInputArray, ui);
+                deleteTasks(userInputArray, ui, taskList);
             } else {
                 ui.displayWrongCommandErrorMessage(userInput);
             }

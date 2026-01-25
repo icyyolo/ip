@@ -27,8 +27,6 @@ public class Zhongli {
 
     public void markTasks(TaskList taskList, int index, boolean isDone) throws ZhongliException {
         Task curr = taskList.getTask(index);
-        System.out.println("Marking Task");
-        System.out.println(isDone);
         if (isDone) {
             curr.markDone();
         } else {
@@ -142,8 +140,8 @@ public class Zhongli {
     public void runLoop() {
         boolean isExitCommand = false;
         while (!isExitCommand) {
-            ui.printHorizontalLine();
             String input = this.ui.readCommand();
+            ui.printHorizontalLine();
             Command command = Parser.parseCommand(input);
             command.run(taskList, ui, storage);
             isExitCommand = command.getIsExit();

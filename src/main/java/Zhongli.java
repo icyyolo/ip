@@ -11,8 +11,7 @@ import TaskList.TaskList;
 import ZhongliException.ZhongliException;
 
 public class Zhongli {
-
-    static ArrayList<Task> tasks;
+    
     private final static String filePath = ".taskstxt";
 
     public static void printHorizontalLine() {
@@ -20,24 +19,24 @@ public class Zhongli {
         System.out.println(horizontalLine);
     }
 
-    public static void markTasks(int index, boolean isDone) throws ZhongliException {
-        if (index < 0 || index > tasks.size()) {
-            throw new ZhongliException("This index does not exist. Please try again");
+    public static void markTasks(TaskList taskList, int index, boolean isDone) throws ZhongliException {
+        Task curr = taskList.getTask(index);
+        if (isDone) {
+            curr.markDone();
         } else {
-            Task curr = tasks.get(index);
-            if (isDone) {
-                curr.markDone();
-            } else {
-                curr.markUndone();
-            }
+            curr.markUndone();
         }
     }
 
     public static void displayMarkTasks(String[] userInputArray, String successMessage, TaskList taskList, Ui ui) {
-        int index = Integer.parseInt(userInputArray[1]) - 1;
         try {
-            markTasks(index, false);
+            int index = Integer.parseInt(userInputArray[1]) - 1;
+            markTasks(taskList, index, false);
             ui.displayMarkTask(index, successMessage, taskList);
+        } catch (IndexOutOfBoundsException e) {
+            ui.displayExceptionMessage("Please input a number after delete");
+        } catch (NumberFormatException e) {
+            ui.displayExceptionMessage("Please input a valid number");
         } catch (ZhongliException e) {
             ui.displayExceptionMessage(e.getMessage());
         }

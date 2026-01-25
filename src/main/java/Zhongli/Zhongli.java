@@ -1,11 +1,12 @@
+package Zhongli;
+
 import java.util.*;
 
-import Command.Command;
-import Storage.Storage;
-import Task.*;
-import Ui.Ui;
-import TaskList.TaskList;
-import Parser.Parser;
+import Zhongli.Command.Command;
+import Zhongli.Storage.Storage;
+import Zhongli.Ui.Ui;
+import Zhongli.TaskList.TaskList;
+import Zhongli.Parser.Parser;
 
 public class Zhongli {
 

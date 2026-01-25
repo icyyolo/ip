@@ -1,14 +1,14 @@
-package Storage;
+package Zhongli.Storage;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Ui.Ui;
-import TaskList.TaskList;
-import Task.Task;
-import ZhongliException.ZhongliException;
-import Parser.Parser;
+import Zhongli.Ui.Ui;
+import Zhongli.TaskList.TaskList;
+import Zhongli.Task.Task;
+import Zhongli.ZhongliException.ZhongliException;
+import Zhongli.Parser.Parser;
 
 public class Storage {
 

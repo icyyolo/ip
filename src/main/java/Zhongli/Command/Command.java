@@ -1,8 +1,8 @@
-package Command;
+package Zhongli.Command;
 
-import Storage.Storage;
-import TaskList.TaskList;
-import Ui.Ui;
+import Zhongli.Storage.Storage;
+import Zhongli.TaskList.TaskList;
+import Zhongli.Ui.Ui;
 
 public abstract class Command {
     private boolean isExit;

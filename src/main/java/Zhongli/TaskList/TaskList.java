@@ -1,8 +1,8 @@
-package TaskList;
+package Zhongli.TaskList;
 
 import java.util.ArrayList;
-import Task.Task;
-import ZhongliException.ZhongliException;
+import Zhongli.Task.Task;
+import Zhongli.ZhongliException.ZhongliException;
 
 public class TaskList {
     private ArrayList<Task> tasks;

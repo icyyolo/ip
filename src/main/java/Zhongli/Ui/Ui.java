@@ -1,9 +1,8 @@
-package Ui;
-import Task.Task;
-import TaskList.TaskList;
-import ZhongliException.ZhongliException;
+package Zhongli.Ui;
+import Zhongli.Task.Task;
+import Zhongli.TaskList.TaskList;
+import Zhongli.ZhongliException.ZhongliException;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {

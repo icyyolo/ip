@@ -1,10 +1,7 @@
-package Parser;
-import Task.*;
-import Command.*;
-import TaskList.TaskList;
-import Ui.Ui;
-import Storage.Storage;
-import ZhongliException.ZhongliException;
+package Zhongli.Parser;
+import Zhongli.Task.*;
+import Zhongli.Command.*;
+import Zhongli.ZhongliException.ZhongliException;
 
 import java.time.*;
 

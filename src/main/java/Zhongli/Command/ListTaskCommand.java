@@ -1,9 +1,8 @@
-package Command;
+package Zhongli.Command;
 
-import Storage.Storage;
-import Task.Task;
-import TaskList.TaskList;
-import Ui.Ui;
+import Zhongli.Storage.Storage;
+import Zhongli.TaskList.TaskList;
+import Zhongli.Ui.Ui;
 
 public class ListTaskCommand extends Command {
 

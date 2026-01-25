@@ -1,11 +1,11 @@
-package Command;
+package Zhongli.Command;
 
-import Parser.Parser;
-import Storage.Storage;
-import Task.Task;
-import TaskList.TaskList;
-import Ui.Ui;
-import ZhongliException.ZhongliException;
+import Zhongli.Parser.Parser;
+import Zhongli.Storage.Storage;
+import Zhongli.Task.Task;
+import Zhongli.TaskList.TaskList;
+import Zhongli.Ui.Ui;
+import Zhongli.ZhongliException.ZhongliException;
 
 import java.io.IOException;
 

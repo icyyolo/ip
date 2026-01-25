@@ -1,19 +1,18 @@
-package Command;
+package Zhongli.Command;
 
-import Storage.Storage;
-import Task.Task;
-import TaskList.TaskList;
-import Ui.Ui;
-import ZhongliException.ZhongliException;
+import Zhongli.Storage.Storage;
+import Zhongli.Task.Task;
+import Zhongli.TaskList.TaskList;
+import Zhongli.Ui.Ui;
+import Zhongli.ZhongliException.ZhongliException;
 
 import java.io.IOException;
 
-public class UnmarkCommand extends Command{
-
+public class MarkCommand extends Command{
     private final String command;
-    private final static String successMessage = "OK, I've marked this task as not done yet";
+    private final static String successMessage = "Nice! I've marked this task as done";
 
-    public UnmarkCommand(String command) {
+    public MarkCommand(String command) {
         super();
         this.command = command;
     }
@@ -24,7 +23,7 @@ public class UnmarkCommand extends Command{
         try {
             int index = Integer.parseInt(userInputArray[1]) - 1;
             Task curr = taskList.getTask(index);
-            curr.markUndone();
+            curr.markDone();
             ui.displayMarkTask(index, successMessage, taskList);
             storage.writeTaskListToFile(taskList);
         } catch (IndexOutOfBoundsException e) {

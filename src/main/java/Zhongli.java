@@ -59,28 +59,6 @@ public class Zhongli {
         }
     }
 
-    public static Deadline parseDeadline(String input) throws ZhongliException {
-        String[] descriptionArr = input.split("deadline", 2);
-        if (descriptionArr.length < 2) {
-            throw new ZhongliException("Missing Description of Deadline");
-        }
-        String[] deadlineArr = descriptionArr[1].split("/by", 2);
-        if (deadlineArr.length < 2) {
-            throw new ZhongliException("Missing /by command");
-        }
-        String deadline = deadlineArr[0].trim();
-        if (deadline.isEmpty()) {
-            throw new ZhongliException("Description cannot be empty");
-        }
-
-        String endTime = deadlineArr[1].trim();
-        if (endTime.isEmpty()) {
-            throw new ZhongliException("End Time cannot be empty");
-        }
-        LocalDate endTimeDate = Parser.parseDate(endTime);
-        return new Deadline(deadline, endTimeDate);
-    }
-
     public static Event parseEvent(String input) throws ZhongliException {
         String[] eventArr = input.split("event", 2);
         if (eventArr.length < 2) {
@@ -138,7 +116,7 @@ public class Zhongli {
                 }
             } else if (firstWord.equalsIgnoreCase("deadline")) {
                 try {
-                    Deadline newDeadline = parseDeadline(userInput);
+                    Deadline newDeadline = Parser.parseDeadline(userInput);
                     addTaskToArray(newDeadline, userInput, taskList, ui);
                     ui.displaySuccessfulAddedTask(newDeadline, taskList);
                 } catch (ZhongliException e) {
@@ -208,7 +186,7 @@ public class Zhongli {
                         currTask = Parser.parseToDo(curr);
                         break;
                     case ("deadline"):
-                        currTask = parseDeadline(curr);
+                        currTask = Parser.parseDeadline(curr);
                         break;
                     case ("event"):
                         currTask = parseEvent(curr);

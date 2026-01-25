@@ -1,4 +1,5 @@
 package Parser;
+import Task.Deadline;
 import Task.ToDo;
 import ZhongliException.ZhongliException;
 
@@ -39,6 +40,17 @@ public class Parser {
         String description = toDoArr[1].trim();
         checkStringIsEmpty(description, "Description cannot be empty");
         return new ToDo(description);
+    }
+
+    public static Deadline parseDeadline(String input) throws ZhongliException {
+        String[] descriptionArr = splitStringIntoTwo(input, "deadline", "Missing Description of Deadline");
+        String[] deadlineArr = splitStringIntoTwo(descriptionArr[1], "/by", "Missing /by command");
+        String deadline = deadlineArr[0].trim();
+        checkStringIsEmpty(deadline, "Description cannot be empty");
+        String endTime = deadlineArr[1].trim();
+        checkStringIsEmpty(endTime, "End Time cannot be empty");
+        LocalDate endTimeDate = Parser.parseDate(endTime);
+        return new Deadline(deadline, endTimeDate);
     }
 
 }

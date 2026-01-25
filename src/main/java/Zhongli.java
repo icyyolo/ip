@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.*;
 import java.time.*;
 
+import Storage.Storage;
 import Task.*;
 import Ui.Ui;
 import TaskList.TaskList;
@@ -14,13 +15,14 @@ import Parser.Parser;
 public class Zhongli {
 
     private final static String filePath = ".taskstxt";
+    private Storage storage;
 
     public static void printHorizontalLine() {
         String horizontalLine = "_____________________________________________________________________________________";
         System.out.println(horizontalLine);
     }
 
-    public static void markTasks(TaskList taskList, int index, boolean isDone) throws ZhongliException {
+    public void markTasks(TaskList taskList, int index, boolean isDone) throws ZhongliException {
         Task curr = taskList.getTask(index);
         if (isDone) {
             curr.markDone();
@@ -29,7 +31,7 @@ public class Zhongli {
         }
     }
 
-    public static void displayMarkTasks(String[] userInputArray, String successMessage, TaskList taskList, Ui ui) {
+    public void displayMarkTasks(String[] userInputArray, String successMessage, TaskList taskList, Ui ui) {
         try {
             int index = Integer.parseInt(userInputArray[1]) - 1;
             markTasks(taskList, index, false);
@@ -43,7 +45,7 @@ public class Zhongli {
         }
     }
 
-    public static void deleteTasks(String[] str, Ui ui, TaskList taskList) {
+    public void deleteTasks(String[] str, Ui ui, TaskList taskList) {
         try {
             String number = str[1];
             int index = Integer.parseInt(number) - 1;
@@ -59,7 +61,7 @@ public class Zhongli {
         }
     }
 
-    public static void chatbotLoop(Scanner input, Ui ui, TaskList taskList) {
+    public void chatbotLoop(Scanner input, Ui ui, TaskList taskList) {
         String userInput = input.nextLine();
         while (!userInput.equals("bye")) {
             printHorizontalLine();
@@ -76,7 +78,7 @@ public class Zhongli {
             } else if (firstWord.equalsIgnoreCase("todo")) {
                 try {
                     ToDo newTodo= Parser.parseToDo(userInput);
-                    addTaskToArray(newTodo, userInput, taskList, ui);
+                    addTaskToArray(newTodo, taskList, ui);
                     ui.displaySuccessfulAddedTask(newTodo, taskList);
                 } catch (ZhongliException e) {
                     ui.displayExceptionMessage(e.getMessage());
@@ -84,7 +86,7 @@ public class Zhongli {
             } else if (firstWord.equalsIgnoreCase("deadline")) {
                 try {
                     Deadline newDeadline = Parser.parseDeadline(userInput);
-                    addTaskToArray(newDeadline, userInput, taskList, ui);
+                    addTaskToArray(newDeadline, taskList, ui);
                     ui.displaySuccessfulAddedTask(newDeadline, taskList);
                 } catch (ZhongliException e) {
                     ui.displayExceptionMessage(e.getMessage());
@@ -92,7 +94,7 @@ public class Zhongli {
             } else if (firstWord.equalsIgnoreCase("event")) {
                 try {
                     Event newEvent = Parser.parseEvent(userInput);
-                    addTaskToArray(newEvent, userInput, taskList, ui);
+                    addTaskToArray(newEvent, taskList, ui);
                     ui.displaySuccessfulAddedTask(newEvent, taskList);
                 } catch (ZhongliException e) {
                     ui.displayExceptionMessage(e.getMessage());
@@ -107,98 +109,26 @@ public class Zhongli {
         }
     }
 
-    private static void addTaskToArray(Task task, String taskString, TaskList taskList, Ui ui) {
+    private void addTaskToArray(Task task, TaskList taskList, Ui ui) {
         taskList.addTask(task);
         try {
-            if (! taskString.endsWith("\n")) {
-                taskString += "\n";
-            }
-            writeToFile(filePath, taskString);
+            this.storage.writeTaskListToFile(taskList);
         } catch (IOException e) {
             ui.displayExceptionMessage(e.getMessage());
         }
     }
 
-    private static File readFile(String filePath, Ui ui) {
-        File file = new File(filePath);
-        if (!file.exists()) {
-            try {
-                createFile(file);
-            } catch (IOException e) {
-                ui.displayExceptionMessage("Unable to find file");
-            }
-        }
-        return file;
-    }
-
-    private static void createFile(File file) throws IOException {
-        file.createNewFile();
-    }
-
-    private static ArrayList<Task> getTasksFromFile(File file) throws FileNotFoundException {
-        Scanner s = new Scanner(file);
-        ArrayList<Task> tasks = new ArrayList<>();
-        boolean isCorrupted = false;
-        int lineNum = 0;
-        while (s.hasNext()) {
-            lineNum++;
-            isCorrupted = false;
-            String curr = s.nextLine();
-            String errorMsg = "";
-            String typeOfTask = curr.split(" ")[0].toLowerCase(Locale.ROOT);
-            Task currTask = null;
-            try {
-                switch (typeOfTask) {
-                    case ("todo"):
-                        currTask = Parser.parseToDo(curr);
-                        break;
-                    case ("deadline"):
-                        currTask = Parser.parseDeadline(curr);
-                        break;
-                    case ("event"):
-                        currTask = Parser.parseEvent(curr);
-                        break;
-                    default:
-                        isCorrupted = true;
-                        errorMsg = "Default task type not found";
-                }
-            } catch (ZhongliException e) {
-                isCorrupted = true;
-                errorMsg = e.getMessage();
-            }
-            if (isCorrupted) {
-                System.out.println("Line Number " + lineNum + " has error: "+ errorMsg);
-                continue;
-            }
-            tasks.add(currTask);
-
-        }
-        return tasks;
-    }
-
-    private static ArrayList<Task> initializeChatBot(Ui ui) {
-        ArrayList<Task> tasks = new ArrayList<>();
-        try {
-            File textFile = readFile(filePath, ui);
-            tasks = getTasksFromFile(textFile);
-        } catch (FileNotFoundException e) {
-            ui.displayExceptionMessage(e.getMessage());
-        }
-        return tasks;
-    }
-
-    private static void writeToFile(String filePath, String text) throws IOException{
-        FileWriter fileWriter = new FileWriter(filePath, true);
-        fileWriter.write(text);
-        fileWriter.close();
-    }
-
-    public static void main(String[] args) {
+    public Zhongli() {
         Ui ui = new Ui();
         Scanner input = new Scanner(System.in);
-        TaskList taskList = new TaskList(initializeChatBot(ui));
+        storage = new Storage(filePath);
+        TaskList taskList = this.storage.initializeTaskList(ui);
         ui.displayWelcomeMessage();
         chatbotLoop(input, ui, taskList);
         ui.displayGoodbyeMessage();
+    }
+
+    public static void main(String[] args) {
+        new Zhongli();
     }
 }

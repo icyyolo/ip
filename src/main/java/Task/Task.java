@@ -3,7 +3,7 @@ package Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Task {
+public abstract class Task {
     private boolean isDone;
     private String description;
 
@@ -20,10 +20,24 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
     @Override
     public String toString() {
         String checkbox = isDone ? "[X] " : "[ ] ";
         return checkbox + this.description;
+    }
+
+    abstract public String convertToText();
+
+    public String getStringIsDone() {
+        return this.getIsDone() ? "/mark" : "/unmark";
     }
 
     public String formatDate(LocalDate date) {

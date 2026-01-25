@@ -9,6 +9,7 @@ import Task.*;
 import Ui.Ui;
 import TaskList.TaskList;
 import ZhongliException.ZhongliException;
+import Parser.Parser;
 
 public class Zhongli {
 
@@ -88,7 +89,7 @@ public class Zhongli {
         if (endTime.isEmpty()) {
             throw new ZhongliException("End Time cannot be empty");
         }
-        LocalDate endTimeDate = parseDate(endTime);
+        LocalDate endTimeDate = Parser.parseDate(endTime);
         return new Deadline(deadline, endTimeDate);
     }
 
@@ -116,12 +117,12 @@ public class Zhongli {
         if (startTime.isEmpty()) {
             throw new ZhongliException("Start Time cannot be empty");
         }
-        LocalDate startTimeDate = parseDate(startTime);
+        LocalDate startTimeDate = Parser.parseDate(startTime);
         String endTime = toArr[1].trim();
         if (endTime.isEmpty()) {
             throw new ZhongliException("End Time cannot be empty");
         }
-        LocalDate endTimeDate = parseDate(endTime);
+        LocalDate endTimeDate = Parser.parseDate(endTime);
         return new Event(description, startTimeDate, endTimeDate);
     }
 
@@ -257,23 +258,6 @@ public class Zhongli {
         FileWriter fileWriter = new FileWriter(filePath, true);
         fileWriter.write(text);
         fileWriter.close();
-    }
-
-    private static LocalDate parseDate(String dateText) throws ZhongliException {
-        LocalDate date;
-        // Special cases:
-        if (dateText.equals("now")) {
-            date = LocalDate.now();
-            return date;
-        }
-
-        try {
-            date = LocalDate.parse(dateText);
-        } catch (DateTimeException e) {
-            throw new ZhongliException(e.getMessage() +
-                    "\nDate Should be in this format YYYY-MM-DD");
-        }
-        return date;
     }
 
     public static void main(String[] args) {

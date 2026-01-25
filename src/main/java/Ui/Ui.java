@@ -1,4 +1,7 @@
 package Ui;
+import Task.Task;
+
+import java.util.ArrayList;
 
 public class Ui {
     private static final String horizontalLine =
@@ -23,5 +26,11 @@ public class Ui {
         printHorizontalLine();
         System.out.println("Bye. Hope to see you again soon!");
         printHorizontalLine();
+    }
+
+    public static void displaySuccessfulAddedTask(Task task, ArrayList<Task> tasks) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task.toString());
+        System.out.println("Now you have " + tasks.size() + " in the lists");
     }
 }

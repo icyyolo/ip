@@ -1,33 +1,30 @@
 package Command;
 
+import Parser.Parser;
 import Storage.Storage;
 import Task.Task;
 import TaskList.TaskList;
 import Ui.Ui;
+import ZhongliException.ZhongliException;
 
 import java.io.IOException;
 
 public class AddTaskCommand extends Command {
+    private String userInput;
 
-    private final Task task;
-    private final TaskList taskList;
-    private final Ui ui;
-    private final Storage storage;
-
-    public AddTaskCommand(Task task, TaskList taskList, Ui ui, Storage storage) {
+    public AddTaskCommand(String userInput) {
         super();
-        this.task = task;
-        this.taskList = taskList;
-        this.ui = ui;
-        this.storage = storage;
+        this.userInput = userInput;
     }
 
     @Override
-    public void run() {
-        taskList.addTask(task);
+    public void run(TaskList taskList, Ui ui, Storage storage) {
         try {
-            this.storage.writeTaskListToFile(taskList);
-        } catch (IOException e) {
+            Task task = Parser.parseTaskFromInput(userInput);
+            taskList.addTask(task);
+            storage.writeTaskListToFile(taskList);
+            ui.displaySuccessfulAddedTask(task, taskList);
+        } catch (IOException | ZhongliException e) {
             ui.displayExceptionMessage(e.getMessage());
         }
     }

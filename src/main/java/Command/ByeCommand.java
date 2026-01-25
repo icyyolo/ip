@@ -5,14 +5,14 @@ import Task.Task;
 import TaskList.TaskList;
 import Ui.Ui;
 
-public class ListTaskCommand extends Command {
+public class ByeCommand extends Command{
 
-    public ListTaskCommand() {
+    public ByeCommand () {
         super();
     }
 
     @Override
     public void run(TaskList taskList, Ui ui, Storage storage) {
-        ui.listTasksArray(taskList);
+        super.setIsExit(true);
     }
 }

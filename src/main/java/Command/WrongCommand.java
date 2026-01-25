@@ -5,14 +5,14 @@ import Task.Task;
 import TaskList.TaskList;
 import Ui.Ui;
 
-public class ListTaskCommand extends Command {
+public class WrongCommand extends Command{
 
-    public ListTaskCommand() {
+    public WrongCommand() {
         super();
     }
 
     @Override
     public void run(TaskList taskList, Ui ui, Storage storage) {
-        ui.listTasksArray(taskList);
+        ui.displayExceptionMessage("This is a wrong command");
     }
 }

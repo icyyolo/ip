@@ -1,5 +1,9 @@
 package Parser;
 import Task.*;
+import Command.*;
+import TaskList.TaskList;
+import Ui.Ui;
+import Storage.Storage;
 import ZhongliException.ZhongliException;
 
 import java.time.*;
@@ -45,6 +49,16 @@ public class Parser {
             case ("todo") -> Parser.parseToDo(line, isMark);
             case ("deadline") -> Parser.parseDeadline(line, isMark);
             case ("event") -> Parser.parseEvent(line, isMark);
+            default -> throw new ZhongliException("task type not found");
+        };
+    }
+
+    public static Task parseTaskFromInput(String line) throws ZhongliException {
+        String typeOfTask = line.split(" ")[0].toLowerCase();
+        return switch (typeOfTask) {
+            case ("todo") -> Parser.parseToDo(line);
+            case ("deadline") -> Parser.parseDeadline(line);
+            case ("event") -> Parser.parseEvent(line);
             default -> throw new ZhongliException("task type not found");
         };
     }
@@ -110,5 +124,18 @@ public class Parser {
             event.markDone();
         }
         return event;
+    }
+
+    public static Command parseCommand(String command) {
+        String firstWord = command.split(" ")[0];
+        return switch (firstWord) {
+            case "list" -> new ListTaskCommand();
+            case "todo" -> new AddTaskCommand(command);
+            case "deadline" -> new AddTaskCommand(command);
+            case "event" -> new AddTaskCommand(command);
+
+            case "bye" -> new ByeCommand();
+            default -> new WrongCommand();
+        };
     }
 }

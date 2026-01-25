@@ -4,16 +4,22 @@ import TaskList.TaskList;
 import ZhongliException.ZhongliException;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Ui {
     private static final String horizontalLine =
             "_____________________________________________________________________________________";
-
+    private Scanner scanner;
 
     public Ui(){
+        this.scanner = new Scanner(System.in);
     }
 
-    private void printHorizontalLine() {
+    public String readCommand() {
+        return scanner.nextLine();
+    }
+
+    public void printHorizontalLine() {
         System.out.println(Ui.horizontalLine);
     }
 

@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.*;
 import java.time.*;
 
+import Command.Command;
 import Storage.Storage;
 import Task.*;
 import Ui.Ui;
@@ -15,7 +16,9 @@ import Parser.Parser;
 public class Zhongli {
 
     private final static String filePath = ".taskstxt";
-    private Storage storage;
+    private final Storage storage;
+    private final Ui ui;
+    private final TaskList taskList;
 
     public static void printHorizontalLine() {
         String horizontalLine = "_____________________________________________________________________________________";
@@ -126,13 +129,26 @@ public class Zhongli {
     }
 
     public Zhongli() {
-        Ui ui = new Ui();
+        ui = new Ui();
         Scanner input = new Scanner(System.in);
         storage = new Storage(filePath);
-        TaskList taskList = this.storage.initializeTaskList(ui);
+        taskList = this.storage.initializeTaskList(ui);
         ui.displayWelcomeMessage();
-        chatbotLoop(input, ui, taskList);
+//        chatbotLoop(input, ui, taskList);
+        runLoop();
         ui.displayGoodbyeMessage();
+    }
+
+    public void runLoop() {
+        boolean isExitCommand = false;
+        while (!isExitCommand) {
+            ui.printHorizontalLine();
+            String input = this.ui.readCommand();
+            Command command = Parser.parseCommand(input);
+            command.run(taskList, ui, storage);
+            isExitCommand = command.getIsExit();
+            ui.printHorizontalLine();
+        }
     }
 
     public static void main(String[] args) {

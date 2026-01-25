@@ -5,7 +5,7 @@ import java.io.File;
 import java.util.*;
 import java.time.*;
 
-import Task.Task;
+import Task.*;
 import Ui.Ui;
 
 public class Zhongli {

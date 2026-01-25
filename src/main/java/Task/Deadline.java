@@ -1,4 +1,4 @@
-import Task.Task;
+package Task;
 import java.time.LocalDate;
 
 public class Deadline extends Task {
@@ -18,4 +18,5 @@ public class Deadline extends Task {
     public static void getNormalDescription() {
         System.out.println("The correct call to description is : ");
     }
+
 }

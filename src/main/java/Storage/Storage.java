@@ -28,6 +28,8 @@ public class Storage {
         return file;
     }
 
+
+
     public void writeTaskListToFile(TaskList taskList) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath, false);
         for (int i = 0; i < taskList.getSize(); i++) {

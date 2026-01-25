@@ -112,9 +112,6 @@ public class Zhongli {
     private void addTaskToArray(Task task, TaskList taskList, Ui ui) {
         taskList.addTask(task);
         try {
-//            if (! taskString.endsWith("\n")) {
-//                taskString += "\n";
-//            }
             this.storage.writeTaskListToFile(taskList);
         } catch (IOException e) {
             ui.displayExceptionMessage(e.getMessage());

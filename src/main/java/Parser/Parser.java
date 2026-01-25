@@ -1,7 +1,5 @@
 package Parser;
-import Task.Deadline;
-import Task.Event;
-import Task.ToDo;
+import Task.*;
 import ZhongliException.ZhongliException;
 
 import java.time.*;
@@ -36,11 +34,34 @@ public class Parser {
         }
     }
 
+    public static Task parseTaskFromTextFile(String line) throws ZhongliException {
+        String typeOfTask = line.split(" ")[0].toLowerCase();
+        boolean isMark = line.contains("/mark");
+        boolean isUnmark = line.contains("/unmark");
+        if ((isMark && isUnmark) || (!isMark && !isUnmark)) {
+            throw new ZhongliException("Confusion about /mark and /unmark in text file");
+        }
+        return switch (typeOfTask) {
+            case ("todo") -> Parser.parseToDo(line, isMark);
+            case ("deadline") -> Parser.parseDeadline(line, isMark);
+            case ("event") -> Parser.parseEvent(line, isMark);
+            default -> throw new ZhongliException("task type not found");
+        };
+    }
+
     public static ToDo parseToDo(String input) throws ZhongliException {
         String[] toDoArr = splitStringIntoTwo(input, "todo", "Missing Description of ToDo");
         String description = toDoArr[1].trim();
         checkStringIsEmpty(description, "Description cannot be empty");
         return new ToDo(description);
+    }
+
+    private static ToDo parseToDo(String input, Boolean isDone) throws ZhongliException {
+        ToDo toDo = parseToDo(input);
+        if (isDone) {
+            toDo.markDone();
+        }
+        return toDo;
     }
 
     public static Deadline parseDeadline(String input) throws ZhongliException {
@@ -52,6 +73,14 @@ public class Parser {
         checkStringIsEmpty(endTime, "End Time cannot be empty");
         LocalDate endTimeDate = Parser.parseDate(endTime);
         return new Deadline(deadline, endTimeDate);
+    }
+
+    private static Deadline parseDeadline(String input, boolean isDone) throws ZhongliException {
+        Deadline deadline = parseDeadline(input);
+        if (isDone) {
+            deadline.markDone();
+        }
+        return deadline;
     }
 
     public static Event parseEvent(String input) throws ZhongliException {
@@ -67,5 +96,13 @@ public class Parser {
         checkStringIsEmpty(endTime, "End Time cannot be empty");
         LocalDate endTimeDate = Parser.parseDate(endTime);
         return new Event(description, startTimeDate, endTimeDate);
+    }
+
+    private static Event parseEvent(String input, boolean isDone) throws ZhongliException {
+        Event event = parseEvent(input);
+        if (isDone) {
+            event.markDone();
+        }
+        return event;
     }
 }

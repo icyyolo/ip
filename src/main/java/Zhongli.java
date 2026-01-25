@@ -31,12 +31,11 @@ public class Zhongli {
         }
     }
 
-    public static void displayMarkTasks(String[] userInputArray, String successMessage, Ui ui) {
+    public static void displayMarkTasks(String[] userInputArray, String successMessage, ArrayList<Task> tasks, Ui ui) {
         int index = Integer.parseInt(userInputArray[1]) - 1;
         try {
             markTasks(index, false);
-            System.out.println(successMessage);
-            System.out.println("  " + tasks.get(index).toString());
+            ui.displayMarkTask(index, successMessage, tasks);
         } catch (ZhongliException e) {
             ui.displayExceptionMessage(e.getMessage());
         }
@@ -144,10 +143,10 @@ public class Zhongli {
                 ui.listTasksArray(tasks);
             } else if (firstWord.equals("mark")) {
                 String successMessage = "Nice! I've marked this task as done";
-                displayMarkTasks(userInputArray, successMessage, ui);
+                displayMarkTasks(userInputArray, successMessage, tasks, ui);
             } else if (firstWord.equals("unmark")) {
                 String successMessage = "OK, I've marked this task as not done yet";
-                displayMarkTasks(userInputArray, successMessage, ui);
+                displayMarkTasks(userInputArray, successMessage, tasks, ui);
             } else if (firstWord.equalsIgnoreCase("todo")) {
                 try {
                     ToDo newTodo= parseToDo(userInput);

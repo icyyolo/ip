@@ -59,18 +59,6 @@ public class Zhongli {
         }
     }
 
-    public static ToDo parseToDo(String input) throws ZhongliException {
-        String[] toDoArr = input.split("todo", 2);
-        if (toDoArr.length < 2) {
-            throw new ZhongliException("Missing Description of ToDo");
-        }
-        String description = toDoArr[1].trim();
-        if (description.isEmpty()) {
-            throw new ZhongliException("Description cannot be empty");
-        }
-        return new ToDo(description);
-    }
-
     public static Deadline parseDeadline(String input) throws ZhongliException {
         String[] descriptionArr = input.split("deadline", 2);
         if (descriptionArr.length < 2) {
@@ -142,7 +130,7 @@ public class Zhongli {
                 displayMarkTasks(userInputArray, successMessage, taskList, ui);
             } else if (firstWord.equalsIgnoreCase("todo")) {
                 try {
-                    ToDo newTodo= parseToDo(userInput);
+                    ToDo newTodo= Parser.parseToDo(userInput);
                     addTaskToArray(newTodo, userInput, taskList, ui);
                     ui.displaySuccessfulAddedTask(newTodo, taskList);
                 } catch (ZhongliException e) {
@@ -217,7 +205,7 @@ public class Zhongli {
             try {
                 switch (typeOfTask) {
                     case ("todo"):
-                        currTask = parseToDo(curr);
+                        currTask = Parser.parseToDo(curr);
                         break;
                     case ("deadline"):
                         currTask = parseDeadline(curr);

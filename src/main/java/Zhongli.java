@@ -18,18 +18,6 @@ public class Zhongli {
         System.out.println(horizontalLine);
     }
 
-    public static void displaySuccessfulAddedTask(Task task) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task.toString());
-        System.out.println("Now you have " + tasks.size() + " in the lists");
-    }
-
-    public static void listTasksArray() {
-        for (int i = 1; i <= tasks.size(); i++) {
-            System.out.println(i + ". " + tasks.get(i-1).toString());
-        }
-    }
-
     public static void markTasks(int index, boolean isDone) throws ZhongliException {
         if (index < 0 || index > tasks.size()) {
             throw new ZhongliException("This index does not exist. Please try again");
@@ -62,16 +50,14 @@ public class Zhongli {
         }
     }
 
-    public static void deleteTasks(String[] str) {
+    public static void deleteTasks(String[] str, Ui ui) {
         try {
             String number = str[1];
             int index = Integer.parseInt(number) - 1;
             getValidRange(index);
             Task deletedTask = tasks.get(index);
             tasks.remove(index);
-            System.out.println("Noted. I've removed this task:");
-            System.out.println("  " + deletedTask.toString());
-            System.out.println("Now you have " + tasks.size() + " in the lists");
+            ui.displaySuccessfulDeleteTask(deletedTask, tasks);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Please input a number after delete");
         } catch (NumberFormatException e) {
@@ -148,14 +134,14 @@ public class Zhongli {
         return new Event(description, startTimeDate, endTimeDate);
     }
 
-    public static void chatbotLoop(Scanner input) {
+    public static void chatbotLoop(Scanner input, Ui ui) {
         String userInput = input.nextLine();
         while (!userInput.equals("bye")) {
             printHorizontalLine();
             String[] userInputArray = userInput.split(" ");
             String firstWord = userInputArray[0];
             if (userInput.equals("list")) {
-                listTasksArray();
+                ui.listTasksArray(tasks);
             } else if (firstWord.equals("mark")) {
                 String successMessage = "Nice! I've marked this task as done";
                 displayMarkTasks(userInputArray, successMessage);
@@ -166,7 +152,7 @@ public class Zhongli {
                 try {
                     ToDo newTodo= parseToDo(userInput);
                     addTaskToArray(newTodo, userInput);
-                    displaySuccessfulAddedTask(newTodo);
+                    ui.displaySuccessfulAddedTask(newTodo, tasks);
                 } catch (ZhongliException e) {
                     System.out.println(e.getMessage());
                 }
@@ -174,7 +160,7 @@ public class Zhongli {
                 try {
                     Deadline newDeadline = parseDeadline(userInput);
                     addTaskToArray(newDeadline, userInput);
-                    displaySuccessfulAddedTask(newDeadline);
+                    ui.displaySuccessfulAddedTask(newDeadline, tasks);
                 } catch (ZhongliException e) {
                     System.out.println(e.getMessage());
                 }
@@ -182,12 +168,12 @@ public class Zhongli {
                 try {
                     Event newEvent = parseEvent(userInput);
                     addTaskToArray(newEvent, userInput);
-                    displaySuccessfulAddedTask(newEvent);
+                    ui.displaySuccessfulAddedTask(newEvent, tasks);
                 } catch (ZhongliException e) {
                     System.out.println(e.getMessage());
                 }
             } else if (firstWord.equals("delete")) {
-                deleteTasks(userInputArray);
+                deleteTasks(userInputArray, ui);
             } else {
                 System.out.println("The previous command is not a correct input.");
             }
@@ -304,7 +290,7 @@ public class Zhongli {
         Scanner input = new Scanner(System.in);
         tasks = initializeChatBot();
         ui.displayWelcomeMessage();
-        chatbotLoop(input);
+        chatbotLoop(input, ui);
         ui.displayGoodbyeMessage();
     }
 }

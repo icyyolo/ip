@@ -28,9 +28,21 @@ public class Ui {
         printHorizontalLine();
     }
 
-    public static void displaySuccessfulAddedTask(Task task, ArrayList<Task> tasks) {
+    public void displaySuccessfulAddedTask(Task task, ArrayList<Task> tasks) {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task.toString());
         System.out.println("Now you have " + tasks.size() + " in the lists");
+    }
+
+    public void displaySuccessfulDeleteTask(Task task, ArrayList<Task> tasks) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + task.toString());
+        System.out.println("Now you have " + tasks.size() + " in the lists");
+    }
+
+    public void listTasksArray(ArrayList<Task> tasks) {
+        for (int i = 1; i <= tasks.size(); i++) {
+            System.out.println(i + ". " + tasks.get(i-1).toString());
+        }
     }
 }

@@ -31,14 +31,14 @@ public class Zhongli {
         }
     }
 
-    public static void displayMarkTasks(String[] userInputArray, String successMessage) {
+    public static void displayMarkTasks(String[] userInputArray, String successMessage, Ui ui) {
         int index = Integer.parseInt(userInputArray[1]) - 1;
         try {
             markTasks(index, false);
             System.out.println(successMessage);
             System.out.println("  " + tasks.get(index).toString());
         } catch (ZhongliException e) {
-            System.out.println(e.getMessage());
+            ui.displayExceptionMessage(e.getMessage());
         }
     }
 
@@ -59,11 +59,11 @@ public class Zhongli {
             tasks.remove(index);
             ui.displaySuccessfulDeleteTask(deletedTask, tasks);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Please input a number after delete");
+            ui.displayExceptionMessage("Please input a number after delete");
         } catch (NumberFormatException e) {
-            System.out.println("Please input a valid number");
+            ui.displayExceptionMessage("Please input a valid number");
         } catch (ZhongliException e) {
-            System.out.println(e.getMessage());
+            ui.displayExceptionMessage(e.getMessage());
         }
     }
 
@@ -144,33 +144,33 @@ public class Zhongli {
                 ui.listTasksArray(tasks);
             } else if (firstWord.equals("mark")) {
                 String successMessage = "Nice! I've marked this task as done";
-                displayMarkTasks(userInputArray, successMessage);
+                displayMarkTasks(userInputArray, successMessage, ui);
             } else if (firstWord.equals("unmark")) {
                 String successMessage = "OK, I've marked this task as not done yet";
-                displayMarkTasks(userInputArray, successMessage);
+                displayMarkTasks(userInputArray, successMessage, ui);
             } else if (firstWord.equalsIgnoreCase("todo")) {
                 try {
                     ToDo newTodo= parseToDo(userInput);
-                    addTaskToArray(newTodo, userInput);
+                    addTaskToArray(newTodo, userInput, ui);
                     ui.displaySuccessfulAddedTask(newTodo, tasks);
                 } catch (ZhongliException e) {
-                    System.out.println(e.getMessage());
+                    ui.displayExceptionMessage(e.getMessage());
                 }
             } else if (firstWord.equalsIgnoreCase("deadline")) {
                 try {
                     Deadline newDeadline = parseDeadline(userInput);
-                    addTaskToArray(newDeadline, userInput);
+                    addTaskToArray(newDeadline, userInput, ui);
                     ui.displaySuccessfulAddedTask(newDeadline, tasks);
                 } catch (ZhongliException e) {
-                    System.out.println(e.getMessage());
+                    ui.displayExceptionMessage(e.getMessage());
                 }
             } else if (firstWord.equalsIgnoreCase("event")) {
                 try {
                     Event newEvent = parseEvent(userInput);
-                    addTaskToArray(newEvent, userInput);
+                    addTaskToArray(newEvent, userInput, ui);
                     ui.displaySuccessfulAddedTask(newEvent, tasks);
                 } catch (ZhongliException e) {
-                    System.out.println(e.getMessage());
+                    ui.displayExceptionMessage(e.getMessage());
                 }
             } else if (firstWord.equals("delete")) {
                 deleteTasks(userInputArray, ui);
@@ -182,7 +182,7 @@ public class Zhongli {
         }
     }
 
-    private static void addTaskToArray(Task task, String taskString) {
+    private static void addTaskToArray(Task task, String taskString, Ui ui) {
         tasks.add(task);
         try {
             if (! taskString.endsWith("\n")) {
@@ -190,17 +190,17 @@ public class Zhongli {
             }
             writeToFile(filePath, taskString);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            ui.displayExceptionMessage(e.getMessage());
         }
     }
 
-    private static File readFile(String filePath) {
+    private static File readFile(String filePath, Ui ui) {
         File file = new File(filePath);
         if (!file.exists()) {
             try {
                 createFile(file);
             } catch (IOException e) {
-                System.out.println("Unable to find file");
+                ui.displayExceptionMessage("Unable to find file");
             }
         }
         return file;
@@ -251,13 +251,13 @@ public class Zhongli {
         return tasks;
     }
 
-    private static ArrayList<Task> initializeChatBot() {
+    private static ArrayList<Task> initializeChatBot(Ui ui) {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            File textFile = readFile(filePath);
+            File textFile = readFile(filePath, ui);
             tasks = getTasksFromFile(textFile);
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            ui.displayExceptionMessage(e.getMessage());
         }
         return tasks;
     }
@@ -288,7 +288,7 @@ public class Zhongli {
     public static void main(String[] args) {
         Ui ui = new Ui();
         Scanner input = new Scanner(System.in);
-        tasks = initializeChatBot();
+        tasks = initializeChatBot(ui);
         ui.displayWelcomeMessage();
         chatbotLoop(input, ui);
         ui.displayGoodbyeMessage();

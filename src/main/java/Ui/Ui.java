@@ -44,6 +44,10 @@ public class Ui {
         System.out.println("The previous command [" +input + "] is not a correct input.");
     }
 
+    public void displayExceptionMessage(String exceptionMessage) {
+        System.out.println(exceptionMessage);
+    }
+
     public void listTasksArray(ArrayList<Task> tasks) {
         for (int i = 1; i <= tasks.size(); i++) {
             System.out.println(i + ". " + tasks.get(i-1).toString());

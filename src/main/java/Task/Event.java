@@ -20,10 +20,9 @@ public class Event extends Task{
 
     @Override
     public String convertToText() {
-        String isDone = super.getIsDone() ? " /mark" : " /unmark";
         return "event " + super.getDescription()
                 + "/from " + startTime.toString()
                 + "/to " + endTime.toString()
-                + isDone + "\n";
+                + super.getStringIsDone() + "\n";
     }
 }

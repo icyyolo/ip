@@ -118,63 +118,11 @@ public class Zhongli {
         }
     }
 
-    private static ArrayList<Task> getTasksFromFile(File file) throws FileNotFoundException {
-        Scanner s = new Scanner(file);
-        ArrayList<Task> tasks = new ArrayList<>();
-        boolean isCorrupted = false;
-        int lineNum = 0;
-        while (s.hasNext()) {
-            lineNum++;
-            isCorrupted = false;
-            String curr = s.nextLine();
-            String errorMsg = "";
-            String typeOfTask = curr.split(" ")[0].toLowerCase(Locale.ROOT);
-            Task currTask = null;
-            try {
-                switch (typeOfTask) {
-                    case ("todo"):
-                        currTask = Parser.parseToDo(curr);
-                        break;
-                    case ("deadline"):
-                        currTask = Parser.parseDeadline(curr);
-                        break;
-                    case ("event"):
-                        currTask = Parser.parseEvent(curr);
-                        break;
-                    default:
-                        isCorrupted = true;
-                        errorMsg = "Default task type not found";
-                }
-            } catch (ZhongliException e) {
-                isCorrupted = true;
-                errorMsg = e.getMessage();
-            }
-            if (isCorrupted) {
-                System.out.println("Line Number " + lineNum + " has error: "+ errorMsg);
-                continue;
-            }
-            tasks.add(currTask);
-
-        }
-        return tasks;
-    }
-
-    private ArrayList<Task> initializeChatBot(Ui ui) {
-        ArrayList<Task> tasks = new ArrayList<>();
-        try {
-            File textFile = this.storage.readFile(filePath, ui);
-            tasks = getTasksFromFile(textFile);
-        } catch (FileNotFoundException e) {
-            ui.displayExceptionMessage(e.getMessage());
-        }
-        return tasks;
-    }
-
     public Zhongli() {
         Ui ui = new Ui();
         Scanner input = new Scanner(System.in);
         storage = new Storage(filePath);
-        TaskList taskList = new TaskList(initializeChatBot(ui));
+        TaskList taskList = this.storage.initializeTaskList(ui);
         ui.displayWelcomeMessage();
         chatbotLoop(input, ui, taskList);
         ui.displayGoodbyeMessage();

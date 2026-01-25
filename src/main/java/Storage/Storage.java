@@ -1,20 +1,24 @@
 package Storage;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import Ui.Ui;
 import TaskList.TaskList;
 import Task.Task;
 import ZhongliException.ZhongliException;
+import Parser.Parser;
 
 public class Storage {
 
-    private String filePath;
+    private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public File readFile(String filePath, Ui ui) {
+    private File readFile(String filePath, Ui ui) {
         File file = new File(filePath);
         if (!file.exists()) {
             try {
@@ -28,7 +32,34 @@ public class Storage {
         return file;
     }
 
+    private ArrayList<Task> getTasksFromFile(Ui ui) throws FileNotFoundException {
+        File file = readFile(filePath, ui);
+        Scanner s = new Scanner(file);
+        ArrayList<Task> tasks = new ArrayList<>();
+        int lineNum = 0;
+        while (s.hasNext()) {
+            lineNum++;
+            String curr = s.nextLine();
+            try {
+                Task task = Parser.parseTaskFromTextFile(curr);
+                tasks.add(task);
+            } catch (ZhongliException e) {
+                System.out.println("Line Number " + lineNum + " has error: " + e.getMessage());
+            }
+        }
+        return tasks;
+    }
 
+    public TaskList initializeTaskList(Ui ui) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            File textFile = this.readFile(filePath, ui);
+            tasks = this.getTasksFromFile(ui);
+        } catch (FileNotFoundException e) {
+            ui.displayExceptionMessage(e.getMessage());
+        }
+        return new TaskList(tasks);
+    }
 
     public void writeTaskListToFile(TaskList taskList) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath, false);

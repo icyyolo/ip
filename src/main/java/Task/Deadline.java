@@ -17,10 +17,9 @@ public class Deadline extends Task {
 
     @Override
     public String convertToText() {
-        String isDone = super.getIsDone() ? " /mark" : " /unmark";
         return "deadline " + super.getDescription()
                 + "/by " + endTime.toString()
-                + isDone + "\n";
+                + super.getStringIsDone() + "\n";
     }
 
     public static void getNormalDescription() {

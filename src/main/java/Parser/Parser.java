@@ -49,6 +49,12 @@ public class Parser {
         };
     }
 
+    public static String formatTextToExcludeIsMark(String input, boolean isDone) {
+        return isDone
+                ? input.split("/mark")[0]
+                : input.split("/unmark")[0];
+    }
+
     public static ToDo parseToDo(String input) throws ZhongliException {
         String[] toDoArr = splitStringIntoTwo(input, "todo", "Missing Description of ToDo");
         String description = toDoArr[1].trim();
@@ -57,7 +63,7 @@ public class Parser {
     }
 
     private static ToDo parseToDo(String input, Boolean isDone) throws ZhongliException {
-        ToDo toDo = parseToDo(input);
+        ToDo toDo = parseToDo(formatTextToExcludeIsMark(input, isDone));
         if (isDone) {
             toDo.markDone();
         }
@@ -76,7 +82,7 @@ public class Parser {
     }
 
     private static Deadline parseDeadline(String input, boolean isDone) throws ZhongliException {
-        Deadline deadline = parseDeadline(input);
+        Deadline deadline = parseDeadline(formatTextToExcludeIsMark(input, isDone));
         if (isDone) {
             deadline.markDone();
         }
@@ -99,7 +105,7 @@ public class Parser {
     }
 
     private static Event parseEvent(String input, boolean isDone) throws ZhongliException {
-        Event event = parseEvent(input);
+        Event event = parseEvent(formatTextToExcludeIsMark(input, isDone));
         if (isDone) {
             event.markDone();
         }

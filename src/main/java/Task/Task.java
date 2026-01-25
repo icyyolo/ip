@@ -36,6 +36,10 @@ public abstract class Task {
 
     abstract public String convertToText();
 
+    public String getStringIsDone() {
+        return this.getIsDone() ? "/mark" : "/unmark";
+    }
+
     public String formatDate(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }

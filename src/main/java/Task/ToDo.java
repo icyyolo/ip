@@ -12,7 +12,7 @@ public class ToDo extends Task {
 
     @Override
     public String convertToText() {
-        String isDone = super.getIsDone() ? " /mark" : " /unmark";
-        return "todo " + super.getDescription() + isDone + "\n";
+        return "todo " + super.getDescription()
+                + super.getStringIsDone() + "\n";
     }
 }

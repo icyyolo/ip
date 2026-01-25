@@ -5,6 +5,8 @@ import java.io.File;
 import java.util.*;
 import java.time.*;
 
+import Ui.Ui;
+
 public class Zhongli {
 
     static ArrayList<Task> tasks;
@@ -310,10 +312,11 @@ public class Zhongli {
     }
 
     public static void main(String[] args) {
+        Ui ui = new Ui();
         Scanner input = new Scanner(System.in);
         tasks = initializeChatBot();
-        displayWelcomeMessage();
+        ui.displayWelcomeMessage();
         chatbotLoop(input);
-        displayGoodbyeMessage();
+        ui.displayGoodbyeMessage();
     }
 }

@@ -59,39 +59,6 @@ public class Zhongli {
         }
     }
 
-    public static Event parseEvent(String input) throws ZhongliException {
-        String[] eventArr = input.split("event", 2);
-        if (eventArr.length < 2) {
-            throw new ZhongliException("Missing Description of Event");
-        }
-
-        String[] fromArr = eventArr[1].split("/from", 2);
-        if (fromArr.length < 2) {
-            throw new ZhongliException("Missing /from command");
-        }
-
-        String[] toArr = fromArr[1].split("/to", 2);
-        if (toArr.length < 2) {
-            throw new ZhongliException("Missing /to command");
-        }
-
-        String description = fromArr[0].trim();
-        if (description.isEmpty()) {
-            throw new ZhongliException("Description cannot be empty");
-        }
-        String startTime = toArr[0].trim();
-        if (startTime.isEmpty()) {
-            throw new ZhongliException("Start Time cannot be empty");
-        }
-        LocalDate startTimeDate = Parser.parseDate(startTime);
-        String endTime = toArr[1].trim();
-        if (endTime.isEmpty()) {
-            throw new ZhongliException("End Time cannot be empty");
-        }
-        LocalDate endTimeDate = Parser.parseDate(endTime);
-        return new Event(description, startTimeDate, endTimeDate);
-    }
-
     public static void chatbotLoop(Scanner input, Ui ui, TaskList taskList) {
         String userInput = input.nextLine();
         while (!userInput.equals("bye")) {
@@ -124,7 +91,7 @@ public class Zhongli {
                 }
             } else if (firstWord.equalsIgnoreCase("event")) {
                 try {
-                    Event newEvent = parseEvent(userInput);
+                    Event newEvent = Parser.parseEvent(userInput);
                     addTaskToArray(newEvent, userInput, taskList, ui);
                     ui.displaySuccessfulAddedTask(newEvent, taskList);
                 } catch (ZhongliException e) {
@@ -189,7 +156,7 @@ public class Zhongli {
                         currTask = Parser.parseDeadline(curr);
                         break;
                     case ("event"):
-                        currTask = parseEvent(curr);
+                        currTask = Parser.parseEvent(curr);
                         break;
                     default:
                         isCorrupted = true;

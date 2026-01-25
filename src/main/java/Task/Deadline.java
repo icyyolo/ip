@@ -15,6 +15,14 @@ public class Deadline extends Task {
                 + " (by: " + super.formatDate(endTime) + ")";
     }
 
+    @Override
+    public String convertToText() {
+        String isDone = super.getIsDone() ? " /mark" : " /unmark";
+        return "deadline " + super.getDescription()
+                + "/by " + endTime.toString()
+                + isDone + "\n";
+    }
+
     public static void getNormalDescription() {
         System.out.println("The correct call to description is : ");
     }

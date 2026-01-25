@@ -17,4 +17,13 @@ public class Event extends Task{
                 + " (from: " + super.formatDate(startTime)
                 + " to: " + super.formatDate(endTime) +")";
     }
+
+    @Override
+    public String convertToText() {
+        String isDone = super.getIsDone() ? " /mark" : " /unmark";
+        return "event " + super.getDescription()
+                + "/from " + startTime.toString()
+                + "/to " + endTime.toString()
+                + isDone + "\n";
+    }
 }

@@ -22,7 +22,7 @@ public class Zhongli {
         System.out.println(horizontalLine);
     }
 
-    public static void markTasks(TaskList taskList, int index, boolean isDone) throws ZhongliException {
+    public void markTasks(TaskList taskList, int index, boolean isDone) throws ZhongliException {
         Task curr = taskList.getTask(index);
         if (isDone) {
             curr.markDone();
@@ -31,7 +31,7 @@ public class Zhongli {
         }
     }
 
-    public static void displayMarkTasks(String[] userInputArray, String successMessage, TaskList taskList, Ui ui) {
+    public void displayMarkTasks(String[] userInputArray, String successMessage, TaskList taskList, Ui ui) {
         try {
             int index = Integer.parseInt(userInputArray[1]) - 1;
             markTasks(taskList, index, false);
@@ -45,7 +45,7 @@ public class Zhongli {
         }
     }
 
-    public static void deleteTasks(String[] str, Ui ui, TaskList taskList) {
+    public void deleteTasks(String[] str, Ui ui, TaskList taskList) {
         try {
             String number = str[1];
             int index = Integer.parseInt(number) - 1;
@@ -61,7 +61,7 @@ public class Zhongli {
         }
     }
 
-    public static void chatbotLoop(Scanner input, Ui ui, TaskList taskList) {
+    public void chatbotLoop(Scanner input, Ui ui, TaskList taskList) {
         String userInput = input.nextLine();
         while (!userInput.equals("bye")) {
             printHorizontalLine();
@@ -78,7 +78,7 @@ public class Zhongli {
             } else if (firstWord.equalsIgnoreCase("todo")) {
                 try {
                     ToDo newTodo= Parser.parseToDo(userInput);
-                    addTaskToArray(newTodo, userInput, taskList, ui);
+                    addTaskToArray(newTodo, taskList, ui);
                     ui.displaySuccessfulAddedTask(newTodo, taskList);
                 } catch (ZhongliException e) {
                     ui.displayExceptionMessage(e.getMessage());
@@ -86,7 +86,7 @@ public class Zhongli {
             } else if (firstWord.equalsIgnoreCase("deadline")) {
                 try {
                     Deadline newDeadline = Parser.parseDeadline(userInput);
-                    addTaskToArray(newDeadline, userInput, taskList, ui);
+                    addTaskToArray(newDeadline, taskList, ui);
                     ui.displaySuccessfulAddedTask(newDeadline, taskList);
                 } catch (ZhongliException e) {
                     ui.displayExceptionMessage(e.getMessage());
@@ -94,7 +94,7 @@ public class Zhongli {
             } else if (firstWord.equalsIgnoreCase("event")) {
                 try {
                     Event newEvent = Parser.parseEvent(userInput);
-                    addTaskToArray(newEvent, userInput, taskList, ui);
+                    addTaskToArray(newEvent, taskList, ui);
                     ui.displaySuccessfulAddedTask(newEvent, taskList);
                 } catch (ZhongliException e) {
                     ui.displayExceptionMessage(e.getMessage());
@@ -109,13 +109,13 @@ public class Zhongli {
         }
     }
 
-    private static void addTaskToArray(Task task, String taskString, TaskList taskList, Ui ui) {
+    private void addTaskToArray(Task task, TaskList taskList, Ui ui) {
         taskList.addTask(task);
         try {
-            if (! taskString.endsWith("\n")) {
-                taskString += "\n";
-            }
-            writeToFile(filePath, taskString);
+//            if (! taskString.endsWith("\n")) {
+//                taskString += "\n";
+//            }
+            this.storage.writeTaskListToFile(taskList);
         } catch (IOException e) {
             ui.displayExceptionMessage(e.getMessage());
         }
@@ -173,17 +173,11 @@ public class Zhongli {
         return tasks;
     }
 
-    private static void writeToFile(String filePath, String text) throws IOException{
-        FileWriter fileWriter = new FileWriter(filePath, true);
-        fileWriter.write(text);
-        fileWriter.close();
-    }
-
     public Zhongli() {
         Ui ui = new Ui();
         Scanner input = new Scanner(System.in);
-        TaskList taskList = new TaskList(initializeChatBot(ui));
         storage = new Storage(filePath);
+        TaskList taskList = new TaskList(initializeChatBot(ui));
         ui.displayWelcomeMessage();
         chatbotLoop(input, ui, taskList);
         ui.displayGoodbyeMessage();

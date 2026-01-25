@@ -2,6 +2,9 @@ package Storage;
 
 import java.io.*;
 import Ui.Ui;
+import TaskList.TaskList;
+import Task.Task;
+import ZhongliException.ZhongliException;
 
 public class Storage {
 
@@ -25,4 +28,17 @@ public class Storage {
         return file;
     }
 
+    public void writeTaskListToFile(TaskList taskList) throws IOException {
+        FileWriter fileWriter = new FileWriter(filePath, false);
+        for (int i = 0; i < taskList.getSize(); i++) {
+            try {
+                Task task = taskList.getTask(i);
+                fileWriter.write(task.convertToText());
+            } catch (ZhongliException e) {
+                System.out.println(e.getMessage());
+                continue;
+            }
+        }
+        fileWriter.close();
+    }
 }

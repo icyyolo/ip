@@ -133,7 +133,7 @@ public class Parser {
             case "todo", "event", "deadline" -> new AddTaskCommand(command);
             case "mark" -> new MarkCommand(command);
             case "unmark" -> new UnmarkCommand(command);
-
+            case "delete" -> new DeleteCommand(command);
             case "bye" -> new ByeCommand();
             default -> new WrongCommand();
         };

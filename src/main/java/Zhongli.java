@@ -145,6 +145,9 @@ public class Zhongli {
             Command command = Parser.parseCommand(input);
             command.run(taskList, ui, storage);
             isExitCommand = command.getIsExit();
+            if (isExitCommand) {    //To avoid printing one more horizontal line
+                break;
+            }
             ui.printHorizontalLine();
         }
     }

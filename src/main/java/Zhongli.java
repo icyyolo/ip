@@ -7,6 +7,7 @@ import java.time.*;
 
 import Task.*;
 import Ui.Ui;
+import TaskList.TaskList;
 
 public class Zhongli {
 
@@ -133,14 +134,14 @@ public class Zhongli {
         return new Event(description, startTimeDate, endTimeDate);
     }
 
-    public static void chatbotLoop(Scanner input, Ui ui) {
+    public static void chatbotLoop(Scanner input, Ui ui, TaskList taskList) {
         String userInput = input.nextLine();
         while (!userInput.equals("bye")) {
             printHorizontalLine();
             String[] userInputArray = userInput.split(" ");
             String firstWord = userInputArray[0];
             if (userInput.equals("list")) {
-                ui.listTasksArray(tasks);
+                ui.listTasksArray(taskList);
             } else if (firstWord.equals("mark")) {
                 String successMessage = "Nice! I've marked this task as done";
                 displayMarkTasks(userInputArray, successMessage, tasks, ui);
@@ -150,7 +151,7 @@ public class Zhongli {
             } else if (firstWord.equalsIgnoreCase("todo")) {
                 try {
                     ToDo newTodo= parseToDo(userInput);
-                    addTaskToArray(newTodo, userInput, ui);
+                    addTaskToArray(newTodo, userInput, taskList, ui);
                     ui.displaySuccessfulAddedTask(newTodo, tasks);
                 } catch (ZhongliException e) {
                     ui.displayExceptionMessage(e.getMessage());
@@ -158,7 +159,7 @@ public class Zhongli {
             } else if (firstWord.equalsIgnoreCase("deadline")) {
                 try {
                     Deadline newDeadline = parseDeadline(userInput);
-                    addTaskToArray(newDeadline, userInput, ui);
+                    addTaskToArray(newDeadline, userInput, taskList, ui);
                     ui.displaySuccessfulAddedTask(newDeadline, tasks);
                 } catch (ZhongliException e) {
                     ui.displayExceptionMessage(e.getMessage());
@@ -166,7 +167,7 @@ public class Zhongli {
             } else if (firstWord.equalsIgnoreCase("event")) {
                 try {
                     Event newEvent = parseEvent(userInput);
-                    addTaskToArray(newEvent, userInput, ui);
+                    addTaskToArray(newEvent, userInput, taskList, ui);
                     ui.displaySuccessfulAddedTask(newEvent, tasks);
                 } catch (ZhongliException e) {
                     ui.displayExceptionMessage(e.getMessage());
@@ -181,8 +182,8 @@ public class Zhongli {
         }
     }
 
-    private static void addTaskToArray(Task task, String taskString, Ui ui) {
-        tasks.add(task);
+    private static void addTaskToArray(Task task, String taskString, TaskList taskList, Ui ui) {
+        taskList.addTask(task);
         try {
             if (! taskString.endsWith("\n")) {
                 taskString += "\n";
@@ -287,9 +288,9 @@ public class Zhongli {
     public static void main(String[] args) {
         Ui ui = new Ui();
         Scanner input = new Scanner(System.in);
-        tasks = initializeChatBot(ui);
+        TaskList taskList = new TaskList(initializeChatBot(ui));
         ui.displayWelcomeMessage();
-        chatbotLoop(input, ui);
+        chatbotLoop(input, ui, taskList);
         ui.displayGoodbyeMessage();
     }
 }

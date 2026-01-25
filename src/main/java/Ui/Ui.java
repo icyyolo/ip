@@ -1,6 +1,6 @@
 package Ui;
 import Task.Task;
-
+import TaskList.TaskList;
 import java.util.ArrayList;
 
 public class Ui {
@@ -53,9 +53,7 @@ public class Ui {
         System.out.println(exceptionMessage);
     }
 
-    public void listTasksArray(ArrayList<Task> tasks) {
-        for (int i = 1; i <= tasks.size(); i++) {
-            System.out.println(i + ". " + tasks.get(i-1).toString());
-        }
+    public void listTasksArray(TaskList tasks) {
+        System.out.println(tasks.toString());
     }
 }

@@ -130,10 +130,9 @@ public class Parser {
         String firstWord = command.split(" ")[0];
         return switch (firstWord) {
             case "list" -> new ListTaskCommand();
-            case "todo" -> new AddTaskCommand(command);
-            case "deadline" -> new AddTaskCommand(command);
-            case "event" -> new AddTaskCommand(command);
+            case "todo", "event", "deadline" -> new AddTaskCommand(command);
             case "mark" -> new MarkCommand(command);
+            case "unmark" -> new UnmarkCommand(command);
 
             case "bye" -> new ByeCommand();
             default -> new WrongCommand();

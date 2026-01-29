@@ -1,6 +1,12 @@
 package Zhongli.Task;
 
 public class ToDo extends Task {
+
+    /**
+     * Represents a ToDo task. The task must have a description.
+     *
+     * @param description - Description of the task.
+     */
     public ToDo (String description) {
         super(description);
     }

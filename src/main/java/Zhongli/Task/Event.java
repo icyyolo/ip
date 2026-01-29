@@ -6,11 +6,11 @@ public class Event extends Task{
     private LocalDate endTime;
 
     /**
-     * Represents an event task. The task must have a start time, a description and an end time
+     * Represents an event task. The task must have a start time, a description and an end time.
      *
-     * @param description - Description of the task
-     * @param startTime - a LocalDate time object which represents the start time
-     * @param endTime - a LocalDate time object which represents the end time
+     * @param description - Description of the task.
+     * @param startTime - a LocalDate time object which represents the start time.
+     * @param endTime - a LocalDate time object which represents the end time.
      */
     public Event(String description, LocalDate startTime, LocalDate endTime) {
         super(description);

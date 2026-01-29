@@ -4,6 +4,12 @@ import java.time.LocalDate;
 public class Deadline extends Task {
     private LocalDate endTime;
 
+    /**
+     * Represents a deadline task. The task must have a description and an end time.
+     *
+     * @param description - Description of the task.
+     * @param endTime - LocalDate time object which represents the end time.
+     */
     public Deadline(String description, LocalDate endTime) {
         super(description);
         this.endTime = endTime;

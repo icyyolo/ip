@@ -9,7 +9,7 @@ public abstract class Task {
 
     /**
      * Represents a task.
-     * The task require a description, and a isDone variable will be marked false
+     * The task require a description, and a isDone variable will be marked false.
      *
      * @param description - Description of the task
      */
@@ -19,7 +19,7 @@ public abstract class Task {
     }
 
     /**
-     * Sets the isDone variable to true
+     * Sets the isDone variable to true.
      *
      */
     public void markDone() {
@@ -27,7 +27,7 @@ public abstract class Task {
     }
 
     /**
-     * Sets the isDone variable to false
+     * Sets the isDone variable to false.
      */
     public void markUndone() {
         this.isDone = false;
@@ -49,16 +49,14 @@ public abstract class Task {
     }
 
     /**
-     * Returns the text to be inserted into the text file
+     * Returns the text to be inserted into the text file.
      *
-     * @return text - String to be inserted into text file
      */
     abstract public String convertToText();
 
     /**
-     * Returns /mark if isDone variable is true, else it will return /unmark
+     * Returns /mark if isDone variable is true, else it will return /unmark.
      *
-     * @return string - "/mark" or "/unmark" depending on isDone variable
      */
     public String getStringIsDone() {
         return this.getIsDone() ? "/mark" : "/unmark";

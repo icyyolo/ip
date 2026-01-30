@@ -1,7 +1,5 @@
 package Zhongli;
 
-import java.util.*;
-
 import Zhongli.Command.Command;
 import Zhongli.Storage.Storage;
 import Zhongli.Ui.Ui;
@@ -17,25 +15,32 @@ public class Zhongli {
 
     public Zhongli() {
         ui = new Ui();
-        Scanner input = new Scanner(System.in);
         storage = new Storage(filePath);
         taskList = this.storage.initializeTaskList(ui);
+
         ui.displayWelcomeMessage();
+
         runLoop();
+
         ui.displayGoodbyeMessage();
     }
 
     public void runLoop() {
         boolean isExitCommand = false;
+
         while (!isExitCommand) {
             String input = this.ui.readCommand();
+
             ui.printHorizontalLine();
+
             Command command = Parser.parseCommand(input);
             command.run(taskList, ui, storage);
+
             isExitCommand = command.getIsExit();
             if (isExitCommand) {    //To avoid printing one more horizontal line
                 break;
             }
+            
             ui.printHorizontalLine();
         }
     }

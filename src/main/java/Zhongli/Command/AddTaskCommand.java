@@ -9,6 +9,13 @@ import Zhongli.ZhongliException.ZhongliException;
 
 import java.io.IOException;
 
+/**
+ * Represents an Add Task to tasklist command.
+ * If the task is valid and has been successfully added to the text file,
+ * the ui will display a success message.
+ * Else the ui will display an error message
+ *
+ */
 public class AddTaskCommand extends Command {
     private String userInput;
 

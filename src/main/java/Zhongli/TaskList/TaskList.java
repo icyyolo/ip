@@ -6,7 +6,7 @@ import Zhongli.ZhongliException.ZhongliException;
 
 /**
  * Represents an ArrayList of tasks
- * 
+ *
  */
 public class TaskList {
     private ArrayList<Task> tasks;

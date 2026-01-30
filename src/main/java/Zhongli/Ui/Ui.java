@@ -24,14 +24,18 @@ public class Ui {
 
     public void displayWelcomeMessage() {
         printHorizontalLine();
+
         System.out.println("Hello! I'm Zhongli");
         System.out.println("What can I do for you?");
+
         printHorizontalLine();
     }
 
     public void displayGoodbyeMessage() {
         printHorizontalLine();
+
         System.out.println("Bye. Hope to see you again soon!");
+        
         printHorizontalLine();
     }
 

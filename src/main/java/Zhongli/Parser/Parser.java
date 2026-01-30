@@ -150,7 +150,7 @@ public class Parser {
 
     public static Command parseCommand(String command) {
         String firstWord = command.split(" ")[0];
-        
+
         return switch (firstWord) {
             case "list" -> new ListTaskCommand();
             case "todo", "event", "deadline" -> new AddTaskCommand(command);

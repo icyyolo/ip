@@ -4,6 +4,10 @@ import Zhongli.Storage.Storage;
 import Zhongli.TaskList.TaskList;
 import Zhongli.Ui.Ui;
 
+/**
+ * Represents a command class.
+ *
+ */
 public abstract class Command {
     private boolean isExit;
 
@@ -17,5 +21,9 @@ public abstract class Command {
 
     protected void setIsExit(boolean isExit) { this.isExit = isExit;}
 
+    /**
+     * Runs the current command with the given parameters.
+     *
+     */
     public abstract void run(TaskList taskList, Ui ui, Storage storage);
 }

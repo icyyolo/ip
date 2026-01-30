@@ -8,6 +8,13 @@ import Zhongli.ZhongliException.ZhongliException;
 
 import java.io.IOException;
 
+/**
+ * Represents a mark Task as not done command.
+ * If the index of the task is valid and has been successfully updated in the text file,
+ * the ui will display a success message.
+ * Else the ui will display an error message.
+ *
+ */
 public class UnmarkCommand extends Command{
 
     private final String command;

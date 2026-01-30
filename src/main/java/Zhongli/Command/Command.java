@@ -19,7 +19,9 @@ public abstract class Command {
         return isExit;
     }
 
-    protected void setIsExit(boolean isExit) { this.isExit = isExit;}
+    protected void setIsExit(boolean isExit) {
+        this.isExit = isExit;
+    }
 
     /**
      * Runs the current command with the given parameters.

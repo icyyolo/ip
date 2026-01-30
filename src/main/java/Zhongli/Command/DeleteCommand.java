@@ -29,9 +29,12 @@ public class DeleteCommand extends Command {
         try {
             String number = this.command.split(" ")[1];
             int index = Integer.parseInt(number) - 1;
+
             Task deletedTask = taskList.getTask(index);
             taskList.deleteTask(index);
+
             ui.displaySuccessfulDeleteTask(deletedTask, taskList);
+
             storage.writeTaskListToFile(taskList);
         } catch (IndexOutOfBoundsException e) {
             ui.displayExceptionMessage("Please input a number after delete");

@@ -28,6 +28,7 @@ public class Storage {
      */
     private File readFile(String filePath, Ui ui) {
         File file = new File(filePath);
+
         if (!file.exists()) {
             try {
                 boolean isSuccessful = file.createNewFile();
@@ -37,6 +38,7 @@ public class Storage {
                 ui.displayExceptionMessage(e.getMessage());
             }
         }
+
         return file;
     }
 
@@ -52,11 +54,14 @@ public class Storage {
     private ArrayList<Task> getTasksFromFile(Ui ui) throws FileNotFoundException {
         File file = readFile(filePath, ui);
         Scanner s = new Scanner(file);
+
         ArrayList<Task> tasks = new ArrayList<>();
         int lineNum = 0;
+
         while (s.hasNext()) {
             lineNum++;
             String curr = s.nextLine();
+
             try {
                 Task task = Parser.parseTaskFromTextFile(curr);
                 tasks.add(task);
@@ -64,6 +69,7 @@ public class Storage {
                 System.out.println("Line Number " + lineNum + " has error: " + e.getMessage());
             }
         }
+
         return tasks;
     }
 
@@ -75,12 +81,14 @@ public class Storage {
      */
     public TaskList initializeTaskList(Ui ui) {
         ArrayList<Task> tasks = new ArrayList<>();
+
         try {
             File textFile = this.readFile(filePath, ui);
             tasks = this.getTasksFromFile(ui);
         } catch (FileNotFoundException e) {
             ui.displayExceptionMessage(e.getMessage());
         }
+
         return new TaskList(tasks);
     }
 
@@ -92,6 +100,7 @@ public class Storage {
      */
     public void writeTaskListToFile(TaskList taskList) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath, false);
+
         for (int i = 0; i < taskList.getSize(); i++) {
             try {
                 Task task = taskList.getTask(i);
@@ -101,6 +110,7 @@ public class Storage {
                 continue;
             }
         }
+
         fileWriter.close();
     }
 }

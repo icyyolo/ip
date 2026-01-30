@@ -12,7 +12,7 @@ import java.io.IOException;
  * Represents a mark Task as done command.
  * If the index of the task is valid and has been successfully updated in the text file,
  * the ui will display a success message.
- * Else the ui will display an error message
+ * Else the ui will display an error message.
  *
  */
 public class MarkCommand extends Command{

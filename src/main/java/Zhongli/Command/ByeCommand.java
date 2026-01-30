@@ -5,8 +5,8 @@ import Zhongli.TaskList.TaskList;
 import Zhongli.Ui.Ui;
 
 /**
- * Represents a command to end interaction with the chatbot
- * It will set a boolean variable in Command class to false
+ * Represents a command to end interaction with the chatbot.
+ * It will set the boolean variable, setIsExit, in Command class to false.
  *
  */
 public class ByeCommand extends Command{

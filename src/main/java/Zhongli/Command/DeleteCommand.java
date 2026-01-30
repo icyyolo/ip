@@ -12,7 +12,7 @@ import java.io.IOException;
  * Represents a Delete Task to tasklist command.
  * If the index of the task is valid and has been successfully deleted from the text file,
  * the ui will display a success message.
- * Else the ui will display an error message
+ * Else the ui will display an error message.
  *
  */
 public class DeleteCommand extends Command {

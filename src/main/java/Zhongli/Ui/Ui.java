@@ -69,4 +69,13 @@ public class Ui {
     public void listTasksArray(TaskList tasks) {
         System.out.println(tasks.toString());
     }
+
+    public void displayFindMessage(String matchedTask, String regex) {
+        if (matchedTask.isEmpty()) {
+            System.out.println("Phrase: '" + regex + "' has no matches in task list.");
+        } else {
+            System.out.println("Here are the matching tasks in your lists:");
+            System.out.println(matchedTask);
+        }
+    }
 }

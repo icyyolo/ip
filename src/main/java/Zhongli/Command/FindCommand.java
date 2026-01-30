@@ -21,7 +21,7 @@ public class FindCommand extends Command{
 
         try {
             keywordArr = Parser.splitStringIntoTwo(command, "find ",
-                    "Find item should not be empty");
+                    "Find phrase should not be empty");
 
             keyword = keywordArr[1];
 
@@ -33,7 +33,9 @@ public class FindCommand extends Command{
             return;
         }
 
-        System.out.println(taskList.getMatchingTask(keyword));
+        String matchedTask = taskList.getMatchingTask(keyword);
+
+        ui.displayFindMessage(matchedTask, keyword);
     }
 
 }

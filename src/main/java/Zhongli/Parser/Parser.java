@@ -21,7 +21,7 @@ public class Parser {
         }
     }
 
-    private static String[] splitStringIntoTwo(String input, String regex, String errorMsg) throws ZhongliException {
+    public static String[] splitStringIntoTwo(String input, String regex, String errorMsg) throws ZhongliException {
         String[] res = input.split(regex, 2);
         if (res.length < 2) {
             throw new ZhongliException(errorMsg);
@@ -132,6 +132,7 @@ public class Parser {
             case "unmark" -> new UnmarkCommand(command);
             case "delete" -> new DeleteCommand(command);
             case "bye" -> new ByeCommand();
+            case "find" -> new FindCommand(command);
             default -> new WrongCommand();
         };
     }

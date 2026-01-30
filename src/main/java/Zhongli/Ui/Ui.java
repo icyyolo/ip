@@ -1,4 +1,5 @@
 package Zhongli.Ui;
+
 import Zhongli.Task.Task;
 import Zhongli.TaskList.TaskList;
 import Zhongli.ZhongliException.ZhongliException;
@@ -35,7 +36,7 @@ public class Ui {
         printHorizontalLine();
 
         System.out.println("Bye. Hope to see you again soon!");
-        
+
         printHorizontalLine();
     }
 

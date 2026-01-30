@@ -19,12 +19,12 @@ public class Storage {
     }
 
     /**
-     * Read the file from the filePath
-     * If the file does not exists, it will create a new file
+     * Read the file from the filePath.
+     * If the file does not exists, it will create a new file.
      *
-     * @param filePath - the path to the file
-     * @param ui - UI object to display error messages to the user
-     * @return File specified by the filePath String
+     * @param filePath - the path to the file.
+     * @param ui - UI object to display error messages to the user.
+     * @return File specified by the filePath String.
      */
     private File readFile(String filePath, Ui ui) {
         File file = new File(filePath);
@@ -42,12 +42,12 @@ public class Storage {
 
     /**
      * Read the file given by filePath and transform each line in the file into a valid task object.
-     * The task objects will be stored in an array list
-     * If the line is not valid, it will display the line number that has an error, along with the error message
+     * The task objects will be stored in an array list.
+     * If the line is not valid, it will display the line number that has an error, along with the error message.
      *
-     * @param ui - UI object to display error messages / invalid lines in the text file to the user
-     * @return ArrayList of Task read from the file
-     * @throws FileNotFoundException - If the file do not exists.
+     * @param ui - UI object to display error messages / invalid lines in the text file to the user.
+     * @return ArrayList of Task read from the file.
+     * @throws FileNotFoundException - If the file does not exist.
      */
     private ArrayList<Task> getTasksFromFile(Ui ui) throws FileNotFoundException {
         File file = readFile(filePath, ui);
@@ -68,10 +68,10 @@ public class Storage {
     }
 
     /**
-     * Formats the file from the given filePath and transform it into a TaskList object
+     * Formats the file from the given filePath and transform it into a TaskList object.
      *
-     * @param ui - UI to display any error message if any
-     * @return TaskList object filled with tasks read from the file
+     * @param ui - UI to display any error message if any.
+     * @return TaskList object filled with tasks read from the file.
      */
     public TaskList initializeTaskList(Ui ui) {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -85,10 +85,10 @@ public class Storage {
     }
 
     /**
-     * Write the tasks in taskList to the file
+     * Write the tasks in taskList to the file.
      *
-     * @param taskList - TaskList object with all the tasks objects
-     * @throws IOException - If there is error with IO operation, like writing to the file
+     * @param taskList - TaskList object with all the tasks objects.
+     * @throws IOException - If there is error with IO operation, like writing to the file.
      */
     public void writeTaskListToFile(TaskList taskList) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath, false);

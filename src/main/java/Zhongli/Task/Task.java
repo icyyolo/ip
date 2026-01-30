@@ -41,6 +41,13 @@ public abstract class Task {
         return this.description;
     }
 
+    /**
+     * Checks if the string regex is in description.
+     *
+     */
+    public boolean doesRegexMatchDescription(String regex) {
+        return this.description.contains(regex);
+    }
 
     @Override
     public String toString() {

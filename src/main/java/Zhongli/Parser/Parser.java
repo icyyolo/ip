@@ -8,9 +8,9 @@ import java.time.*;
 public class Parser {
 
     /**
-     * Returns a LocalDate object given the String dateText
-     * Some special keywords include
-     * "now" -> returns the current Date
+     * Returns a LocalDate object given the String dateText.
+     * Some special keywords include,
+     * "now" -> returns the current Date.
      *
      * @param dateText - A string formatted in LocalDate format (YYYY-MM-DD) / special keywords
      * @return A LocalDate object formatted from the string given
@@ -52,8 +52,8 @@ public class Parser {
      * Checks if the string is empty.
      *
      * @param input - String to be checked.
-     * @param errorMsg - Message to display if input is empty
-     * @throws ZhongliException - If input is empty
+     * @param errorMsg - Message to display if input is empty.
+     * @throws ZhongliException - If input is empty.
      */
     private static void checkStringIsEmpty(String input, String errorMsg) throws ZhongliException {
         if (input.isEmpty()) {
@@ -62,14 +62,14 @@ public class Parser {
     }
 
     /**
-     * Process the string read from the text file into a Task object
+     * Process the string read from the text file into a Task object.
      * Check if the task should be mark or not.
      * If there is no indication of the task being mark, it is an invalid string.
      * The text will be parsed to the correct parse function to transform it into a task.
      *
-     * @param line - String read from the text file
-     * @return task - after parsing from the correct parse function
-     * @throws ZhongliException - If String is invalid after it parse
+     * @param line - String read from the text file.
+     * @return task - after parsing from the correct parse function.
+     * @throws ZhongliException - If String is invalid after it parse.
      */
     public static Task parseTaskFromTextFile(String line) throws ZhongliException {
         String typeOfTask = line.split(" ")[0].toLowerCase();
@@ -88,13 +88,13 @@ public class Parser {
 
     /**
      * Process the string given by the user into a Task object.
-     * Checks which type of task is the input
-     * If the first word does not identify which task it is, it will throw an exception
+     * Checks which type of task is the input.
+     * If the first word does not identify which task it is, it will throw an exception.
      * The text will be parses into the correct parse function.
      *
-     * @param line - String entered by user
-     * @return task - after parsing from the correct parse function
-     * @throws ZhongliException - If String does not identify the task, or error in the respective parse function
+     * @param line - String entered by user.
+     * @return task - after parsing from the correct parse function.
+     * @throws ZhongliException - If String does not identify the task, or error in the respective parse function.
      */
     public static Task parseTaskFromInput(String line) throws ZhongliException {
         String typeOfTask = line.split(" ")[0].toLowerCase();
@@ -107,7 +107,7 @@ public class Parser {
     }
 
     /**
-     * Formate the string to exclude "/mark" or "/unmark" at the end
+     * Formate the string to exclude "/mark" or "/unmark" at the end.
      *
      * @param input - String that you want to exclude /mark or /unmark
      * @param isDone - Boolean to check for mark or unmark
@@ -120,12 +120,10 @@ public class Parser {
     }
 
     /**
-     * Transform the string input from user input into a valid ToDo Object
-     * It will checks that the string contains a non-empty description
+     * Transform the string input from user input into a valid ToDo Object.
+     * It will checks that the string contains a non-empty description.
      *
-     * @param input - String to transform into a ToDo object
-     * @return ToDo object
-     * @throws ZhongliException if the description of todo is empty
+     * @throws ZhongliException if the description of todo is empty.
      */
     public static ToDo parseToDo(String input) throws ZhongliException {
         String[] toDoArr = splitStringIntoTwo(input, "todo", "Missing Description of ToDo");
@@ -135,13 +133,11 @@ public class Parser {
     }
 
     /**
-     * Transform the string input from text file into a valid ToDo Object
-     * It will checks that the string contains a non-empty description
-     * It will also mark or unmark the ToDo object respectively
+     * Transform the string input from text file into a valid ToDo Object.
+     * It will checks that the string contains a non-empty description.
+     * It will also mark or unmark the ToDo object respectively.
      *
-     * @param input - String to transform into a ToDo object
-     * @return ToDo object
-     * @throws ZhongliException if the description of todo is empty
+     * @throws ZhongliException if the description of todo is empty.
      */
     private static ToDo parseToDo(String input, Boolean isDone) throws ZhongliException {
         ToDo toDo = parseToDo(formatTextToExcludeIsMark(input, isDone));
@@ -152,14 +148,12 @@ public class Parser {
     }
 
     /**
-     * Transform the string input from user input into a valid deadline object
-     * It will check the format of the string is correct (Inclusive of a "/by" phrase)
-     * It will check that both the description and endTime are not empty
-     * It will check that endTime can be converted into a LocalDate Object
+     * Transform the string input from user input into a valid deadline object.
+     * It will check the format of the string is correct (Inclusive of a "/by" phrase).
+     * It will check that both the description and endTime are not empty.
+     * It will check that endTime can be converted into a LocalDate Object.
      *
-     * @param input - String to transform into a Deadline Object
-     * @return Deadline Object
-     * @throws ZhongliException if the input does not follow the format
+     * @throws ZhongliException if the input does not follow the format.
      */
     public static Deadline parseDeadline(String input) throws ZhongliException {
         String[] descriptionArr = splitStringIntoTwo(input, "deadline", "Missing Description of Deadline");
@@ -173,15 +167,13 @@ public class Parser {
     }
 
     /**
-     * Transform the string input from text file into a valid deadline object
-     * It will check the format of the string is correct (Inclusive of a "/by" phrase)
-     * It will check that both the description and endTime are not empty
-     * It will check that endTime can be converted into a LocalDate Object
-     * It will then mark/unmark the deadline object respectively
+     * Transform the string input from text file into a valid deadline object.
+     * It will check the format of the string is correct (Inclusive of a "/by" phrase).
+     * It will check that both the description and endTime are not empty.
+     * It will check that endTime can be converted into a LocalDate Object.
+     * It will then mark/unmark the deadline object respectively.
      *
-     * @param input - String to transform into a Deadline Object
-     * @return Deadline Object
-     * @throws ZhongliException if the input does not follow the format
+     * @throws ZhongliException if the input does not follow the format.
      */
     private static Deadline parseDeadline(String input, boolean isDone) throws ZhongliException {
         Deadline deadline = parseDeadline(formatTextToExcludeIsMark(input, isDone));
@@ -192,14 +184,12 @@ public class Parser {
     }
 
     /**
-     * Transform the string input from user input into a valid event object
-     * It will check the format of the string is correct (Inclusive of a "/from" and "/to" phrase)
-     * It will check that the description, startTime and endTime are not empty
-     * It will check that both startTime and endTime can be converted into a LocalDate Object
+     * Transform the string input from user input into a valid event object.
+     * It will check the format of the string is correct (Inclusive of a "/from" and "/to" phrase).
+     * It will check that the description, startTime and endTime are not empty.
+     * It will check that both startTime and endTime can be converted into a LocalDate Object.
      *
-     * @param input - String to transform into a Event Object
-     * @return Event Object
-     * @throws ZhongliException if the input does not follow the format
+     * @throws ZhongliException if the input does not follow the format.
      */
     public static Event parseEvent(String input) throws ZhongliException {
         String[] eventArr = splitStringIntoTwo(input, "event", "Missing Description of Event");
@@ -217,15 +207,13 @@ public class Parser {
     }
 
     /**
-     * Transform the string input from the text file into a valid event object
-     * It will check the format of the string is correct (Inclusive of a "/from" and "/to" phrase)
-     * It will check that the description, startTime and endTime are not empty
-     * It will check that both startTime and endTime can be converted into a LocalDate Object
-     * It will then mark/unmark the event object respectively
+     * Transform the string input from the text file into a valid event object.
+     * It will check the format of the string is correct (Inclusive of a "/from" and "/to" phrase).
+     * It will check that the description, startTime and endTime are not empty.
+     * It will check that both startTime and endTime can be converted into a LocalDate Object.
+     * It will then mark/unmark the event object respectively.
      *
-     * @param input - String to transform into a Event Object
-     * @return Event Object
-     * @throws ZhongliException if the input does not follow the format
+     * @throws ZhongliException if the input does not follow the format.
      */
     private static Event parseEvent(String input, boolean isDone) throws ZhongliException {
         Event event = parseEvent(formatTextToExcludeIsMark(input, isDone));
@@ -236,10 +224,10 @@ public class Parser {
     }
 
     /**
-     * Transform the String command into its respective Command class
+     * Transform the String command into its respective Command class.
      *
-     * @param command - String of command entered by the user
-     * @return An implementation of the abstract command class with a method run(TaskList, Ui , Storage)
+     * @param command - String of command entered by the user.
+     * @return An implementation of the abstract command class with a method run(TaskList, Ui , Storage).
      */
     public static Command parseCommand(String command) {
         String firstWord = command.split(" ")[0];

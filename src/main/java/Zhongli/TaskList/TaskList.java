@@ -45,6 +45,30 @@ public class TaskList {
         this.tasks.remove(index);
     }
 
+    /**
+     * Returns all tasks whose description contains the String regex
+     *
+     */
+    public String getMatchingTask(String regex) {
+        StringBuilder res = new StringBuilder();
+
+        int i = 1;
+        for (int a = 0; a < tasks.size(); a++) {
+            boolean matchRegex = tasks.get(a).doesRegexMatchDescription(regex);
+
+            if (matchRegex) {
+                res.append(i)
+                        .append(". ")
+                        .append(tasks.get(a).toString())
+                        .append("\n");
+                i++;
+            }
+
+        }
+
+        return res.toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();

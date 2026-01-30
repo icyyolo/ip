@@ -24,7 +24,7 @@ public class FindCommand extends Command{
                     "Find item should not be empty");
 
             keyword = keywordArr[1];
-            
+
             if (keyword.isEmpty()) {
                 throw new ZhongliException("Find phrase should not be empty");
             }
@@ -33,7 +33,7 @@ public class FindCommand extends Command{
             return;
         }
 
-        System.out.println(keyword);
+        System.out.println(taskList.getMatchingTask(keyword));
     }
 
 }

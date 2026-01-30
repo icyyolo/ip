@@ -5,7 +5,7 @@ import Zhongli.Task.Task;
 import Zhongli.ZhongliException.ZhongliException;
 
 /**
- * Represents an ArrayList of tasks
+ * Represents an ArrayList of tasks.
  *
  */
 public class TaskList {
@@ -20,28 +20,26 @@ public class TaskList {
     }
 
     /**
-     * Returns the size of the task list
+     * Returns the size of the task list.
      *
-     * @return size - size of the task list
      */
     public int getSize() {
         return this.tasks.size();
     }
 
     /**
-     * Checks if the task list is empty
+     * Checks if the task list is empty.
      *
-     * @return boolean - depending on task list is empty or not
      */
     public boolean isEmpty() {
         return this.tasks.isEmpty();
     }
 
     /**
-     * Checks if the index given is within the array size
+     * Checks if the index given is within the array size.
      *
-     * @param index - the index the user want to access
-     * @throws ZhongliException - if the index is not within the range, or there is no items in the array
+     * @param index - the index the user want to access.
+     * @throws ZhongliException - if the index is not within the range, or there is no items in the array.
      */
     public void checkValidRange(int index) throws ZhongliException  {
         if (isEmpty()) {
@@ -52,20 +50,19 @@ public class TaskList {
     }
 
     /**
-     * Add the task into the task list
+     * Add the task into the task list.
      *
-     * @param task - to be added into task list
      */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
 
     /**
-     * Get the task at the index in the array
+     * Get the task at the index in the array.
      *
-     * @param index - to retrieve the task from the array
-     * @return task object at the index in the array
-     * @throws ZhongliException - if the index is invalid
+     * @param index - to retrieve the task from the array.
+     * @return task object at the index in the array.
+     * @throws ZhongliException - if the index is invalid.
      */
     public Task getTask(int index) throws ZhongliException {
         checkValidRange(index);
@@ -73,10 +70,10 @@ public class TaskList {
     }
 
     /**
-     * Delete the task at the index in the array
+     * Delete the task at the index in the array.
      *
-     * @param index - to delete the task from the array
-     * @throws ZhongliException - if the index is invalid
+     * @param index - to delete the task from the array.
+     * @throws ZhongliException - if the index is invalid.
      */
     public void deleteTask(int index) throws ZhongliException {
         checkValidRange(index);

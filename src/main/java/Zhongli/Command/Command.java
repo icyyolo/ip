@@ -15,7 +15,9 @@ public abstract class Command {
         return isExit;
     }
 
-    protected void setIsExit(boolean isExit) { this.isExit = isExit;}
+    protected void setIsExit(boolean isExit) {
+        this.isExit = isExit;
+    }
 
     public abstract void run(TaskList taskList, Ui ui, Storage storage);
 }

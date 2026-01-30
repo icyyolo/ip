@@ -23,9 +23,12 @@ public class UnmarkCommand extends Command{
         String[] userInputArray = command.split(" ");
         try {
             int index = Integer.parseInt(userInputArray[1]) - 1;
+
             Task curr = taskList.getTask(index);
             curr.markUndone();
+
             ui.displayMarkTask(index, successMessage, taskList);
+
             storage.writeTaskListToFile(taskList);
         } catch (IndexOutOfBoundsException e) {
             ui.displayExceptionMessage("Please input a number after delete");

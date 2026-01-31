@@ -1,7 +1,7 @@
 package zhongli.task;
 
 /**
- * Represents a ToDo task which is inherited from Task object
+ * Represents a ToDo task which is inherited from Task object.
  *
  */
 public class ToDo extends Task {

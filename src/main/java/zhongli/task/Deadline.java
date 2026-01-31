@@ -2,7 +2,7 @@ package zhongli.task;
 import java.time.LocalDate;
 
 /**
- * Represents a deadline task which is inherited from Task object
+ * Represents a deadline task which is inherited from Task object.
  *
  */
 public class Deadline extends Task {

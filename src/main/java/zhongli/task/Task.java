@@ -3,6 +3,11 @@ package zhongli.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a generic task class that contains a description and a boolean
+ * to check if the task is done or not.
+ *
+ */
 public abstract class Task {
     private boolean isDone;
     private String description;
@@ -59,7 +64,7 @@ public abstract class Task {
      * Returns the text to be inserted into the text file.
      *
      */
-    abstract public String convertToText();
+    public abstract String convertToText();
 
     /**
      * Returns /mark if isDone variable is true, else it will return /unmark.

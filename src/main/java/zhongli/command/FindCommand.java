@@ -6,9 +6,20 @@ import zhongli.tasklist.TaskList;
 import zhongli.ui.Ui;
 import zhongli.zhongliexception.ZhongliException;
 
-public class FindCommand extends Command{
+/**
+ * Represents a find all the task that match a phrase command
+ * If there is no task matching the phrase,
+ * it will display a message that no task match the phrase.
+ *
+ */
+public class FindCommand extends Command {
     private final String command;
 
+    /**
+     * Represents a Find Task command
+     *
+     * @param command - command entered by user
+     */
     public FindCommand(String command) {
         super();
         this.command = command;

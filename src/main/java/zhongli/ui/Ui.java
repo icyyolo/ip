@@ -1,28 +1,49 @@
 package zhongli.ui;
 
+import java.util.Scanner;
+
 import zhongli.task.Task;
 import zhongli.tasklist.TaskList;
 import zhongli.zhongliexception.ZhongliException;
 
-import java.util.Scanner;
-
+/**
+ * Represents the User Interface class.
+ * It handles both the input and output via the command line for the user.
+ *
+ */
 public class Ui {
     private static final String horizontalLine =
             "_____________________________________________________________________________________";
     private Scanner scanner;
 
-    public Ui(){
+    /**
+     * Initializes the scanner to read user input.
+     *
+     */
+    public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Reads and returns the user input from the command line.
+     *
+     */
     public String readCommand() {
         return scanner.nextLine();
     }
 
+    /**
+     * Prints a horizontal line.
+     *
+     */
     public void printHorizontalLine() {
         System.out.println(Ui.horizontalLine);
     }
 
+    /**
+     * Displays a welcome message.
+     *
+     */
     public void displayWelcomeMessage() {
         printHorizontalLine();
 
@@ -32,6 +53,10 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Displays a farewell message, after you entered the bye command.
+     *
+     */
     public void displayGoodbyeMessage() {
         printHorizontalLine();
 
@@ -40,18 +65,34 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Displays a successful addition of task to the task list
+     *
+     * @param task - task that is added to the task list
+     * @param tasks - the task list
+     */
     public void displaySuccessfulAddedTask(Task task, TaskList tasks) {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task.toString());
         System.out.println("Now you have " + tasks.getSize() + " in the lists");
     }
 
+    /**
+     * Displays a successful deletion of task from the task list
+     *
+     * @param task - task that is added to the task list
+     * @param tasks - the task list
+     */
     public void displaySuccessfulDeleteTask(Task task, TaskList tasks) {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task.toString());
         System.out.println("Now you have " + tasks.getSize() + " in the lists");
     }
 
+    /**
+     * Displays the output from marking/unmarking a task
+     *
+     */
     public void displayMarkTask(int index, String successMessage, TaskList tasks) {
         try {
             Task task = tasks.getTask(index);
@@ -64,7 +105,7 @@ public class Ui {
     }
 
     public void displayWrongCommandErrorMessage(String input) {
-        System.out.println("The previous command [" +input + "] is not a correct input.");
+        System.out.println("The previous command [" + input + "] is not a correct input.");
     }
 
     public void displayExceptionMessage(String exceptionMessage) {
@@ -75,6 +116,12 @@ public class Ui {
         System.out.println(tasks.toString());
     }
 
+    /**
+     * Diplays the matched task from the task list
+     *
+     * @param matchedTask - Formatted matched task string
+     * @param regex - Original phrase the user is searching for
+     */
     public void displayFindMessage(String matchedTask, String regex) {
         if (matchedTask.isEmpty()) {
             System.out.println("Phrase: '" + regex + "' has no matches in task list.");

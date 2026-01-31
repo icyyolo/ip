@@ -1,15 +1,23 @@
 package zhongli.storage;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import zhongli.ui.Ui;
-import zhongli.tasklist.TaskList;
-import zhongli.task.Task;
-import zhongli.zhongliexception.ZhongliException;
 import zhongli.parser.Parser;
+import zhongli.task.Task;
+import zhongli.tasklist.TaskList;
+import zhongli.ui.Ui;
+import zhongli.zhongliexception.ZhongliException;
 
+/**
+ * Represents a storage class to handle input from terminal
+ * and writing to text file operations
+ *
+ */
 public class Storage {
 
     private final String filePath;
@@ -20,7 +28,7 @@ public class Storage {
 
     /**
      * Read the file from the filePath.
-     * If the file does not exists, it will create a new file.
+     * If the file does not exist, it will create a new file.
      *
      * @param filePath - the path to the file.
      * @param ui - UI object to display error messages to the user.

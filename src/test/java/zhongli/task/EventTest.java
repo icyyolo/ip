@@ -1,14 +1,14 @@
 package zhongli.task;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class EventTest {
-    LocalDate startTime = LocalDate.parse("2022-10-15");
-    LocalDate endTime = LocalDate.parse("2022-11-15");
+    private LocalDate startTime = LocalDate.parse("2022-10-15");
+    private LocalDate endTime = LocalDate.parse("2022-11-15");
 
     @Test
     public void toString_success() {

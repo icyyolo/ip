@@ -1,12 +1,12 @@
 package zhongli.command;
 
+import java.io.IOException;
+
 import zhongli.storage.Storage;
 import zhongli.task.Task;
 import zhongli.tasklist.TaskList;
 import zhongli.ui.Ui;
 import zhongli.zhongliexception.ZhongliException;
-
-import java.io.IOException;
 
 /**
  * Represents a mark Task as not done command.
@@ -15,11 +15,17 @@ import java.io.IOException;
  * Else the ui will display an error message.
  *
  */
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
+
+    private static final String successMessage = "OK, I've marked this task as not done yet";
 
     private final String command;
-    private final static String successMessage = "OK, I've marked this task as not done yet";
 
+    /**
+     * Represents a Mark Task as not complete command
+     *
+     * @param command
+     */
     public UnmarkCommand(String command) {
         super();
         this.command = command;

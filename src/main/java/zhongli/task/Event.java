@@ -1,7 +1,12 @@
 package zhongli.task;
+
 import java.time.LocalDate;
 
-public class Event extends Task{
+/**
+ * Represents an event task which is inherited from Task object.
+ *
+ */
+public class Event extends Task {
     private LocalDate startTime;
     private LocalDate endTime;
 
@@ -22,7 +27,7 @@ public class Event extends Task{
     public String toString() {
         return "[E]" + super.toString()
                 + " (from: " + super.formatDate(startTime)
-                + " to: " + super.formatDate(endTime) +")";
+                + " to: " + super.formatDate(endTime) + ")";
     }
 
     @Override

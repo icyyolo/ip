@@ -1,18 +1,28 @@
 package zhongli;
 
 import zhongli.command.Command;
-import zhongli.storage.Storage;
-import zhongli.ui.Ui;
-import zhongli.tasklist.TaskList;
 import zhongli.parser.Parser;
+import zhongli.storage.Storage;
+import zhongli.tasklist.TaskList;
+import zhongli.ui.Ui;
 
+/**
+ * Represents a Zhongli class, which is the main class
+ * to run the command line application
+ *
+ */
 public class Zhongli {
 
-    private final static String filePath = ".taskstxt";
+    private static final String filePath = ".taskstxt";
     private final Storage storage;
     private final Ui ui;
     private final TaskList taskList;
 
+    /**
+     * Initialize the Ui, Storage and Tasklist object first.
+     * Then, enter the main loop
+     *
+     */
     public Zhongli() {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,6 +35,10 @@ public class Zhongli {
         ui.displayGoodbyeMessage();
     }
 
+    /**
+     * Represents the main loop, where the chatbot interaction happens
+     *
+     */
     public void runLoop() {
         boolean isExitCommand = false;
 
@@ -32,15 +46,13 @@ public class Zhongli {
             String input = this.ui.readCommand();
 
             ui.printHorizontalLine();
-
             Command command = Parser.parseCommand(input);
             command.run(taskList, ui, storage);
 
             isExitCommand = command.getIsExit();
-            if (isExitCommand) {    //To avoid printing one more horizontal line
+            if (isExitCommand) { //To avoid printing one more horizontal line
                 break;
             }
-            
             ui.printHorizontalLine();
         }
     }

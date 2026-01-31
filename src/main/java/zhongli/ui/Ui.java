@@ -1,7 +1,7 @@
 package zhongli.ui;
 
 import zhongli.task.Task;
-import zhongli.taskList.TaskList;
+import zhongli.tasklist.TaskList;
 import zhongli.zhongliexception.ZhongliException;
 
 import java.util.Scanner;

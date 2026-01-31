@@ -1,7 +1,7 @@
 package zhongli.command;
 
 import zhongli.storage.Storage;
-import zhongli.taskList.TaskList;
+import zhongli.tasklist.TaskList;
 import zhongli.ui.Ui;
 
 /**

@@ -3,7 +3,7 @@ package zhongli;
 import zhongli.command.Command;
 import zhongli.storage.Storage;
 import zhongli.ui.Ui;
-import zhongli.taskList.TaskList;
+import zhongli.tasklist.TaskList;
 import zhongli.parser.Parser;
 
 public class Zhongli {

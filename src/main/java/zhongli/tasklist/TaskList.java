@@ -1,6 +1,7 @@
-package zhongli.taskList;
+package zhongli.tasklist;
 
 import java.util.ArrayList;
+
 import zhongli.task.Task;
 import zhongli.zhongliexception.ZhongliException;
 
@@ -40,8 +41,9 @@ public class TaskList {
      *
      * @param index - the index the user want to access.
      * @throws ZhongliException - if the index is not within the range, or there is no items in the array.
+     *
      */
-    public void checkValidRange(int index) throws ZhongliException  {
+    public void checkValidRange(int index) throws ZhongliException {
         if (isEmpty()) {
             throw new ZhongliException("The list is empty, please add some tasks before deleting");
         } else if (index < 0 || index >= tasks.size()) {

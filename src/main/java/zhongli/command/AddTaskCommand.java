@@ -1,13 +1,13 @@
 package zhongli.command;
 
+import java.io.IOException;
+
 import zhongli.parser.Parser;
 import zhongli.storage.Storage;
 import zhongli.task.Task;
 import zhongli.taskList.TaskList;
 import zhongli.ui.Ui;
 import zhongli.zhongliexception.ZhongliException;
-
-import java.io.IOException;
 
 /**
  * Represents an Add Task to tasklist command.
@@ -19,6 +19,11 @@ import java.io.IOException;
 public class AddTaskCommand extends Command {
     private String userInput;
 
+    /**
+     * Represents a Add Task command
+     *
+     * @param userInput - command entered by user
+     */
     public AddTaskCommand(String userInput) {
         super();
         this.userInput = userInput;

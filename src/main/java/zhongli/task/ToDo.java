@@ -1,5 +1,9 @@
 package zhongli.task;
 
+/**
+ * Represents a ToDo task which is inherited from Task object
+ *
+ */
 public class ToDo extends Task {
 
     /**
@@ -7,7 +11,7 @@ public class ToDo extends Task {
      *
      * @param description - Description of the task.
      */
-    public ToDo (String description) {
+    public ToDo(String description) {
         super(description);
     }
 

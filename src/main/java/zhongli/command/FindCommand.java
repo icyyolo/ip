@@ -4,7 +4,7 @@ import zhongli.parser.Parser;
 import zhongli.storage.Storage;
 import zhongli.taskList.TaskList;
 import zhongli.ui.Ui;
-import zhongli.zhongliException.ZhongliException;
+import zhongli.zhongliexception.ZhongliException;
 
 public class FindCommand extends Command{
     private final String command;

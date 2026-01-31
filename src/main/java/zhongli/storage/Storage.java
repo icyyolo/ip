@@ -7,7 +7,7 @@ import java.util.Scanner;
 import zhongli.ui.Ui;
 import zhongli.taskList.TaskList;
 import zhongli.task.Task;
-import zhongli.zhongliException.ZhongliException;
+import zhongli.zhongliexception.ZhongliException;
 import zhongli.parser.Parser;
 
 public class Storage {

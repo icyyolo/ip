@@ -1,7 +1,7 @@
 package zhongli.parser;
 
 import zhongli.task.Task;
-import zhongli.zhongliException.ZhongliException;
+import zhongli.zhongliexception.ZhongliException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

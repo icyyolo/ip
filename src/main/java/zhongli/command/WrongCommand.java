@@ -9,7 +9,7 @@ import zhongli.ui.Ui;
  * The ui will display an error message.
  *
  */
-public class WrongCommand extends Command{
+public class WrongCommand extends Command {
 
     public WrongCommand() {
         super();

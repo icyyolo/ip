@@ -2,7 +2,7 @@ package zhongli.taskList;
 
 import java.util.ArrayList;
 import zhongli.task.Task;
-import zhongli.zhongliException.ZhongliException;
+import zhongli.zhongliexception.ZhongliException;
 
 /**
  * Represents an ArrayList of tasks.

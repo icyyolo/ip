@@ -5,7 +5,7 @@ import zhongli.storage.Storage;
 import zhongli.task.Task;
 import zhongli.taskList.TaskList;
 import zhongli.ui.Ui;
-import zhongli.zhongliException.ZhongliException;
+import zhongli.zhongliexception.ZhongliException;
 
 import java.io.IOException;
 

@@ -2,7 +2,7 @@ package zhongli.parser;
 
 import zhongli.task.*;
 import zhongli.command.*;
-import zhongli.zhongliException.ZhongliException;
+import zhongli.zhongliexception.ZhongliException;
 
 import java.time.*;
 

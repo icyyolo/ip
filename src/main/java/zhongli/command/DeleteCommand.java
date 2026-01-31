@@ -1,12 +1,12 @@
 package zhongli.command;
 
+import java.io.IOException;
+
 import zhongli.storage.Storage;
 import zhongli.task.Task;
 import zhongli.taskList.TaskList;
 import zhongli.ui.Ui;
 import zhongli.zhongliexception.ZhongliException;
-
-import java.io.IOException;
 
 /**
  * Represents a Delete Task to tasklist command.
@@ -19,6 +19,11 @@ public class DeleteCommand extends Command {
 
     private final String command;
 
+    /**
+     * Represents a Delete Task command
+     *
+     * @param command - command entered by user
+     */
     public DeleteCommand(String command) {
         super();
         this.command = command;

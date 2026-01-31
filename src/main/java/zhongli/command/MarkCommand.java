@@ -1,12 +1,12 @@
 package zhongli.command;
 
+import java.io.IOException;
+
 import zhongli.storage.Storage;
 import zhongli.task.Task;
 import zhongli.tasklist.TaskList;
 import zhongli.ui.Ui;
 import zhongli.zhongliexception.ZhongliException;
-
-import java.io.IOException;
 
 /**
  * Represents a mark Task as done command.
@@ -15,10 +15,16 @@ import java.io.IOException;
  * Else the ui will display an error message.
  *
  */
-public class MarkCommand extends Command{
-    private final String command;
-    private final static String successMessage = "Nice! I've marked this task as done";
+public class MarkCommand extends Command {
+    private static final String successMessage = "Nice! I've marked this task as done";
 
+    private final String command;
+
+    /**
+     * Represents a Mark Task as not complete command
+     *
+     * @param command - command entered by user
+     */
     public MarkCommand(String command) {
         super();
         this.command = command;

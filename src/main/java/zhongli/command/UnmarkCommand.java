@@ -24,7 +24,7 @@ public class UnmarkCommand extends Command {
     /**
      * Represents a Mark Task as not complete command
      *
-     * @param command
+     * @param command - command entered by user
      */
     public UnmarkCommand(String command) {
         super();

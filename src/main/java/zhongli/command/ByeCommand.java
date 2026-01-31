@@ -9,9 +9,9 @@ import zhongli.ui.Ui;
  * It will set the boolean variable, setIsExit, in Command class to false.
  *
  */
-public class ByeCommand extends Command{
+public class ByeCommand extends Command {
 
-    public ByeCommand () {
+    public ByeCommand() {
         super();
     }
 

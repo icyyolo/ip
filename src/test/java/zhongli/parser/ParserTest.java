@@ -1,18 +1,19 @@
 package zhongli.parser;
 
-import zhongli.task.Task;
-import zhongli.zhongliexception.ZhongliException;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
+
+import zhongli.task.Task;
+import zhongli.zhongliexception.ZhongliException;
+
 public class ParserTest {
-    String description = "test";
-    String startTime = "2025-10-20";
-    String endTime = "2026-11-20";
+    private String description = "test";
+    private String startTime = "2025-10-20";
+    private String endTime = "2026-11-20";
 
     @Test
     public void parseDate_success() {
@@ -30,8 +31,8 @@ public class ParserTest {
         try {
             Parser.parseDate("2020/06/20");
         } catch (ZhongliException e) {
-            assertEquals("Text '2020/06/20' could not be parsed at index 4\n" +
-                    "Date Should be in this format YYYY-MM-DD", e.getMessage());
+            assertEquals("Text '2020/06/20' could not be parsed at index 4\n"
+                    + "Date Should be in this format YYYY-MM-DD", e.getMessage());
         } catch (Exception e) {
             fail();
         }
@@ -39,8 +40,8 @@ public class ParserTest {
         try {
             Parser.parseDate("2020-06/20");
         } catch (ZhongliException e) {
-            assertEquals("Text '2020-06/20' could not be parsed at index 7\n" +
-                    "Date Should be in this format YYYY-MM-DD", e.getMessage());
+            assertEquals("Text '2020-06/20' could not be parsed at index 7\n"
+                    + "Date Should be in this format YYYY-MM-DD", e.getMessage());
         } catch (Exception e) {
             fail();
         }
@@ -48,8 +49,8 @@ public class ParserTest {
         try {
             Parser.parseDate("2020 06-20");
         } catch (ZhongliException e) {
-            assertEquals("Text '2020 06-20' could not be parsed at index 4\n" +
-                    "Date Should be in this format YYYY-MM-DD", e.getMessage());
+            assertEquals("Text '2020 06-20' could not be parsed at index 4\n"
+                    + "Date Should be in this format YYYY-MM-DD", e.getMessage());
         } catch (Exception e) {
             fail();
         }
@@ -60,8 +61,8 @@ public class ParserTest {
         try {
             Parser.parseDate("2020/00/20");
         } catch (ZhongliException e) {
-            assertEquals("Text '2020/00/20' could not be parsed at index 4\n" +
-                    "Date Should be in this format YYYY-MM-DD", e.getMessage());
+            assertEquals("Text '2020/00/20' could not be parsed at index 4\n"
+                    + "Date Should be in this format YYYY-MM-DD", e.getMessage());
         } catch (Exception e) {
             fail();
         }
@@ -69,8 +70,8 @@ public class ParserTest {
         try {
             Parser.parseDate("2020/01/32");
         } catch (ZhongliException e) {
-            assertEquals("Text '2020/01/32' could not be parsed at index 4\n" +
-                    "Date Should be in this format YYYY-MM-DD", e.getMessage());
+            assertEquals("Text '2020/01/32' could not be parsed at index 4\n"
+                    + "Date Should be in this format YYYY-MM-DD", e.getMessage());
         } catch (Exception e) {
             fail();
         }
@@ -78,8 +79,8 @@ public class ParserTest {
         try {
             Parser.parseDate("0000/01/32");
         } catch (ZhongliException e) {
-            assertEquals("Text '0000/01/32' could not be parsed at index 4\n" +
-                    "Date Should be in this format YYYY-MM-DD", e.getMessage());
+            assertEquals("Text '0000/01/32' could not be parsed at index 4\n"
+                    + "Date Should be in this format YYYY-MM-DD", e.getMessage());
         } catch (Exception e) {
             fail();
         }
@@ -88,11 +89,11 @@ public class ParserTest {
     @Test
     public void parseTaskFromInput_success() {
         try {
-            Task todo =  Parser.parseTaskFromInput("todo " + description);
-            Task deadline = Parser.parseTaskFromInput("deadline " +
-                    description + " /by" + startTime);
-            Task event = Parser.parseTaskFromInput("event " +
-                    description + " /from" + startTime + " /to" + endTime);
+            Task todo = Parser.parseTaskFromInput("todo " + description);
+            Task deadline = Parser.parseTaskFromInput("deadline "
+                    + description + " /by" + startTime);
+            Task event = Parser.parseTaskFromInput("event "
+                    + description + " /from" + startTime + " /to" + endTime);
             assertEquals("[T][ ] test", todo.toString());
             assertEquals("[D][ ] test (by: Oct 20 2025)", deadline.toString());
             assertEquals("[E][ ] test (from: Oct 20 2025 to: Nov 20 2026)",
@@ -151,8 +152,8 @@ public class ParserTest {
             Parser.parseTaskFromInput("deadline 1234 /by abcd");
             fail();
         } catch (ZhongliException e) {
-            assertEquals("Text 'abcd' could not be parsed at index 0\n" +
-                    "Date Should be in this format YYYY-MM-DD", e.getMessage());
+            assertEquals("Text 'abcd' could not be parsed at index 0\n"
+                    + "Date Should be in this format YYYY-MM-DD", e.getMessage());
         } catch (Exception e) {
             fail();
         }

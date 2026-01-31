@@ -1,11 +1,29 @@
 package zhongli.parser;
 
-import zhongli.task.*;
-import zhongli.command.*;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+
+import zhongli.command.AddTaskCommand;
+import zhongli.command.ByeCommand;
+import zhongli.command.Command;
+import zhongli.command.DeleteCommand;
+import zhongli.command.FindCommand;
+import zhongli.command.ListTaskCommand;
+import zhongli.command.MarkCommand;
+import zhongli.command.UnmarkCommand;
+import zhongli.command.WrongCommand;
+import zhongli.task.Deadline;
+import zhongli.task.Event;
+import zhongli.task.Task;
+import zhongli.task.ToDo;
 import zhongli.zhongliexception.ZhongliException;
 
-import java.time.*;
-
+/**
+ * Represents a parser class
+ * It transforms a string to its respective objects.
+ * If there is any error, it will return a ZhongliException
+ *
+ */
 public class Parser {
 
     /**
@@ -26,8 +44,8 @@ public class Parser {
         try {
             return LocalDate.parse(dateText);
         } catch (DateTimeException e) {
-            throw new ZhongliException(e.getMessage() +
-                    "\nDate Should be in this format YYYY-MM-DD");
+            throw new ZhongliException(e.getMessage()
+                    + "\nDate Should be in this format YYYY-MM-DD");
         }
     }
 
@@ -85,10 +103,10 @@ public class Parser {
         }
 
         return switch (typeOfTask) {
-            case ("todo") -> Parser.parseToDo(line, isMark);
-            case ("deadline") -> Parser.parseDeadline(line, isMark);
-            case ("event") -> Parser.parseEvent(line, isMark);
-            default -> throw new ZhongliException("task type not found");
+        case ("todo") -> Parser.parseToDo(line, isMark);
+        case ("deadline") -> Parser.parseDeadline(line, isMark);
+        case ("event") -> Parser.parseEvent(line, isMark);
+        default -> throw new ZhongliException("task type not found");
         };
     }
 
@@ -106,10 +124,10 @@ public class Parser {
         String typeOfTask = line.split(" ")[0].toLowerCase();
 
         return switch (typeOfTask) {
-            case ("todo") -> Parser.parseToDo(line);
-            case ("deadline") -> Parser.parseDeadline(line);
-            case ("event") -> Parser.parseEvent(line);
-            default -> throw new ZhongliException("task type not found");
+        case ("todo") -> Parser.parseToDo(line);
+        case ("deadline") -> Parser.parseDeadline(line);
+        case ("event") -> Parser.parseEvent(line);
+        default -> throw new ZhongliException("task type not found");
         };
     }
 
@@ -258,14 +276,14 @@ public class Parser {
         String firstWord = command.split(" ")[0];
 
         return switch (firstWord) {
-            case "list" -> new ListTaskCommand();
-            case "todo", "event", "deadline" -> new AddTaskCommand(command);
-            case "mark" -> new MarkCommand(command);
-            case "unmark" -> new UnmarkCommand(command);
-            case "delete" -> new DeleteCommand(command);
-            case "bye" -> new ByeCommand();
-            case "find" -> new FindCommand(command);
-            default -> new WrongCommand();
+        case "list" -> new ListTaskCommand();
+        case "todo", "event", "deadline" -> new AddTaskCommand(command);
+        case "mark" -> new MarkCommand(command);
+        case "unmark" -> new UnmarkCommand(command);
+        case "delete" -> new DeleteCommand(command);
+        case "bye" -> new ByeCommand();
+        case "find" -> new FindCommand(command);
+        default -> new WrongCommand();
         };
     }
 }

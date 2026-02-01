@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import zhongli.ui.Ui;
+import zhongli.Zhongli;
 
 /**
  * Controller for the main GUI.
@@ -27,6 +28,12 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    private Zhongli zhongli;
+
+    public void setZhongli(Zhongli zhongli) {
+        this.zhongli = zhongli;
+    }
+
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -43,7 +50,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = "Zhongli heard: " + input;
+//        String response = "Zhongli heard: " + input;
+        String response = zhongli.getGUI(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)

@@ -1,5 +1,6 @@
 package zhongli.command;
 
+import zhongli.gui.Gui;
 import zhongli.storage.Storage;
 import zhongli.tasklist.TaskList;
 import zhongli.ui.Ui;
@@ -28,4 +29,8 @@ public abstract class Command {
      *
      */
     public abstract void run(TaskList taskList, Ui ui, Storage storage);
+
+    public String runGUI(TaskList taskList, Gui gui, Storage storage) {
+        return "Printing GUI";
+    }
 }

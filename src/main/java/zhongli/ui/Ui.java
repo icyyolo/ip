@@ -122,7 +122,16 @@ public class Ui {
         } catch (ZhongliException e) {
             System.out.println(e.getMessage());
         }
+    }
 
+    public static String getMarkTaskMessage(int index, String successMessage, TaskList tasks) {
+        try {
+            Task task = tasks.getTask(index);
+            return successMessage + "\n"
+                    + "  " + task.toString();
+        } catch (ZhongliException e) {
+            return e.getMessage();
+        }
     }
 
     public void displayWrongCommandErrorMessage(String input) {

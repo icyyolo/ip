@@ -31,7 +31,7 @@ public class AddTaskCommand extends Command {
         this.userInput = userInput;
     }
 
-    public String executeTask(TaskList taskList, Storage storage) {
+    public String executeCommand(TaskList taskList, Storage storage) {
         try {
             Task task = Parser.parseTaskFromInput(userInput);
 
@@ -63,6 +63,6 @@ public class AddTaskCommand extends Command {
 
     @Override
     public String runGui(TaskList taskList, Gui gui, Storage storage) {
-        return executeTask(taskList, storage);
+        return executeCommand(taskList, storage);
     }
 }

@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
         this.command = command;
     }
 
-    public String executeTask(TaskList taskList, Storage storage) {
+    public String executeCommand(TaskList taskList, Storage storage) {
         try {
             String number = this.command.split(" ")[1];
             int index = Integer.parseInt(number) - 1;
@@ -73,6 +73,6 @@ public class DeleteCommand extends Command {
 
     @Override
     public String runGui(TaskList taskList, Gui gui, Storage storage) {
-        return executeTask(taskList, storage);
+        return executeCommand(taskList, storage);
     }
 }

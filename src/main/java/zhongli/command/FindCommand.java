@@ -1,5 +1,6 @@
 package zhongli.command;
 
+import zhongli.gui.Gui;
 import zhongli.parser.Parser;
 import zhongli.storage.Storage;
 import zhongli.tasklist.TaskList;
@@ -49,4 +50,8 @@ public class FindCommand extends Command {
         ui.displayFindMessage(matchedTask, keyword);
     }
 
+    @Override
+    public String runGui(TaskList taskList, Gui gui, Storage storage) {
+        return "Finding Task";
+    }
 }

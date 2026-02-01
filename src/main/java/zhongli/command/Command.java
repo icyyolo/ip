@@ -30,7 +30,5 @@ public abstract class Command {
      */
     public abstract void run(TaskList taskList, Ui ui, Storage storage);
 
-    public String runGUI(TaskList taskList, Gui gui, Storage storage) {
-        return "Printing GUI";
-    }
+    public abstract String runGui(TaskList taskList, Gui gui, Storage storage);
 }

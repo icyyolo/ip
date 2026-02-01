@@ -60,7 +60,7 @@ public class Zhongli {
 
     public String getGUI(String input) {
         Command command = Parser.parseCommand(input);
-        return command.runGUI(taskList, new Gui(), storage);
+        return command.runGui(taskList, new Gui(), storage);
     }
 
     public static void main(String[] args) {

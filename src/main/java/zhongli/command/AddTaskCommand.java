@@ -2,6 +2,7 @@ package zhongli.command;
 
 import java.io.IOException;
 
+import zhongli.gui.Gui;
 import zhongli.parser.Parser;
 import zhongli.storage.Storage;
 import zhongli.task.Task;
@@ -42,5 +43,10 @@ public class AddTaskCommand extends Command {
         } catch (IOException | ZhongliException e) {
             ui.displayExceptionMessage(e.getMessage());
         }
+    }
+
+    @Override
+    public String runGui(TaskList taskList, Gui gui, Storage storage) {
+        return "Adding Task";
     }
 }

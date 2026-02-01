@@ -2,6 +2,7 @@ package zhongli.command;
 
 import java.io.IOException;
 
+import zhongli.gui.Gui;
 import zhongli.storage.Storage;
 import zhongli.task.Task;
 import zhongli.tasklist.TaskList;
@@ -48,5 +49,10 @@ public class DeleteCommand extends Command {
         } catch (ZhongliException | IOException e) {
             ui.displayExceptionMessage(e.getMessage());
         }
+    }
+
+    @Override
+    public String runGui(TaskList taskList, Gui gui, Storage storage) {
+        return "Deleting Task";
     }
 }

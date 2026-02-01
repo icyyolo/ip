@@ -9,6 +9,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+import zhongli.ui.Ui;
+
 /**
  * Controller for the main GUI.
  */
@@ -28,6 +30,14 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        this.displayWelcomeMessage();
+    }
+
+    @FXML
+    private void displayWelcomeMessage() {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(Ui.getWelcomeMessage(), dukeImage)
+        );
     }
 
     @FXML

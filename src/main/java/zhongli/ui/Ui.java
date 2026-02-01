@@ -53,6 +53,13 @@ public class Ui {
         printHorizontalLine();
     }
 
+    public static String getWelcomeMessage() {
+        StringBuilder welcomeMessage = new StringBuilder();
+        welcomeMessage.append("Hello! I'm Zhongli\n")
+                .append("What can I do for you?\n");
+        return welcomeMessage.toString();
+    }
+
     /**
      * Displays a farewell message, after you entered the bye command.
      *

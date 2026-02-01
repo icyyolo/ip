@@ -1,5 +1,6 @@
 package zhongli.command;
 
+import java.awt.*;
 import java.io.IOException;
 
 import zhongli.gui.Gui;
@@ -30,6 +31,21 @@ public class AddTaskCommand extends Command {
         this.userInput = userInput;
     }
 
+    public String executeTask(TaskList taskList, Storage storage) {
+        try {
+            Task task = Parser.parseTaskFromInput(userInput);
+
+            taskList.addTask(task);
+
+            storage.writeTaskListToFile(taskList);
+
+            return Ui.getSuccesfulAddedTask(task, taskList);
+
+        } catch (IOException | ZhongliException e) {
+            return e.getMessage();
+        }
+    }
+
     @Override
     public void run(TaskList taskList, Ui ui, Storage storage) {
         try {
@@ -47,6 +63,6 @@ public class AddTaskCommand extends Command {
 
     @Override
     public String runGui(TaskList taskList, Gui gui, Storage storage) {
-        return "Adding Task";
+        return executeTask(taskList, storage);
     }
 }

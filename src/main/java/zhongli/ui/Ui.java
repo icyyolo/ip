@@ -84,6 +84,14 @@ public class Ui {
         System.out.println("Now you have " + tasks.getSize() + " in the lists");
     }
 
+    public static String getSuccesfulAddedTask(Task task, TaskList tasks) {
+        String res = "";
+        res = res + "Got it. I've added this task:\n"
+                + "  " + task.toString() + "\n"
+                + "Now you have " + tasks.getSize() + " in the list";
+        return res;
+    }
+
     /**
      * Displays a successful deletion of task from the task list
      *

@@ -151,4 +151,13 @@ public class Ui {
             System.out.println(matchedTask);
         }
     }
+
+    public static String getFindMessage(String matchedTask, String regex) {
+        if (matchedTask.isEmpty()) {
+            return "Phrase: '" + regex + "' has no matches in task list.";
+        } else {
+            return "Here are the matching tasks in your lists:\n"
+                    + matchedTask;
+        }
+    }
 }

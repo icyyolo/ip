@@ -26,6 +26,27 @@ public class FindCommand extends Command {
         this.command = command;
     }
 
+    public String executeCommand(TaskList taskList, Storage storage) {
+        String[] keywordArr;
+        String keyword;
+
+        try {
+            keywordArr = Parser.splitStringIntoTwo(command, "find ",
+                    "Find phrase should not be empty");
+
+            keyword = keywordArr[1];
+
+            if (keyword.isEmpty()) {
+                throw new ZhongliException("Find phrase should not be empty");
+            }
+        } catch (ZhongliException e) {
+            return e.getMessage();
+        }
+
+        String matchedTask = taskList.getMatchingTask(keyword);
+        return Ui.getFindMessage(matchedTask, keyword);
+    }
+
     @Override
     public void run(TaskList taskList, Ui ui, Storage storage) {
         String[] keywordArr;
@@ -52,6 +73,6 @@ public class FindCommand extends Command {
 
     @Override
     public String runGui(TaskList taskList, Gui gui, Storage storage) {
-        return "Finding Task";
+        return executeCommand(taskList, storage);
     }
 }

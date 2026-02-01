@@ -104,6 +104,12 @@ public class Ui {
         System.out.println("Now you have " + tasks.getSize() + " in the lists");
     }
 
+    public static String getSuccessfulDeleteTask(Task task, TaskList tasks) {
+        return "Noted. I've removed this task:" + "\n"
+                + "  " + task.toString() + "\n"
+                + "Now you have " + tasks.getSize() + " in the list";
+    }
+
     /**
      * Displays the output from marking/unmarking a task
      *

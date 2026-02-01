@@ -22,6 +22,6 @@ public class ListTaskCommand extends Command {
 
     @Override
     public String runGui(TaskList taskList, Gui gui, Storage storage) {
-        return "Listing Task";
+        return taskList.toString();
     }
 }

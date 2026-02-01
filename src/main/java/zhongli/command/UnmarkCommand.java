@@ -32,6 +32,25 @@ public class UnmarkCommand extends Command {
         this.command = command;
     }
 
+    public String executeCommand(TaskList taskList, Storage storage) {
+        String[] userInputArray = command.split(" ");
+        try {
+            int index = Integer.parseInt(userInputArray[1]) - 1;
+
+            Task curr = taskList.getTask(index);
+            curr.markUndone();
+
+            storage.writeTaskListToFile(taskList);
+            return Ui.getMarkTaskMessage(index, successMessage, taskList);
+        } catch (IndexOutOfBoundsException e) {
+            return "Please input a number after delete";
+        } catch (NumberFormatException e) {
+            return "Please input a valid number";
+        } catch (ZhongliException | IOException e) {
+            return e.getMessage();
+        }
+    }
+
     @Override
     public void run(TaskList taskList, Ui ui, Storage storage) {
         String[] userInputArray = command.split(" ");
@@ -55,6 +74,6 @@ public class UnmarkCommand extends Command {
 
     @Override
     public String runGui(TaskList taskList, Gui gui, Storage storage) {
-        return "Unmarking Task";
+        return executeCommand(taskList, storage);
     }
 }

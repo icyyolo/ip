@@ -5,7 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -45,7 +44,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void displayWelcomeMessage() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(Ui.getWelcomeMessage(), dukeImage)
+                DialogBox.getZhongliDialog(Ui.getWelcomeMessage(), dukeImage)
         );
     }
 
@@ -55,7 +54,7 @@ public class MainWindow extends AnchorPane {
         gui.addUserMessage(input);
         String response = zhongli.getGui(input, gui);
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getZhongliDialog(response, dukeImage)
         );
         userInput.clear();
     }

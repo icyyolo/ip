@@ -29,6 +29,7 @@ public class MainWindow extends AnchorPane {
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     private Zhongli zhongli;
+    private Gui gui;
 
     public void setZhongli(Zhongli zhongli) {
         this.zhongli = zhongli;
@@ -38,6 +39,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         this.displayWelcomeMessage();
+        this.gui = new Gui(dialogContainer);
     }
 
     @FXML
@@ -50,10 +52,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-//        String response = "Zhongli heard: " + input;
-        String response = zhongli.getGUI(input);
+        gui.addUserMessage(input);
+        String response = zhongli.getGui(input, gui);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();

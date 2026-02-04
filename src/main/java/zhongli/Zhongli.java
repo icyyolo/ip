@@ -58,9 +58,13 @@ public class Zhongli {
         }
     }
 
-    public String getGUI(String input) {
+    public String getGui(String input, Gui gui) {
+        if (input.equals("clear")) {
+            gui.clearChatbox();
+            return "Cleared Screen";
+        }
         Command command = Parser.parseCommand(input);
-        return command.runGui(taskList, new Gui(), storage);
+        return command.runGui(taskList, gui, storage);
     }
 
     public static void main(String[] args) {

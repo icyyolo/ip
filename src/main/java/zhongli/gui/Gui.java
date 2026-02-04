@@ -1,5 +1,8 @@
 package zhongli.gui;
 
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+
 import zhongli.task.Task;
 import zhongli.tasklist.TaskList;
 import zhongli.zhongliexception.ZhongliException;
@@ -10,6 +13,25 @@ import zhongli.zhongliexception.ZhongliException;
  *
  */
 public class Gui {
+
+    private final VBox dialogContainer;
+
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+
+    public Gui(VBox dialog) {
+        this.dialogContainer = dialog;
+    }
+
+    public void addUserMessage(String input) {
+        this.dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage)
+        );
+    }
+
+    public void clearChatbox() {
+        this.dialogContainer.getChildren().clear();
+    }
 
     public static String getWelcomeMessage() {
         StringBuilder welcomeMessage = new StringBuilder();

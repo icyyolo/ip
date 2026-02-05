@@ -26,7 +26,7 @@ public class FindCommand extends Command {
         this.command = command;
     }
 
-    public String executeCommand(TaskList taskList, Storage storage) {
+    public String executeCommand(TaskList taskList, Gui gui, Storage storage) {
         String[] keywordArr;
         String keyword;
 
@@ -40,11 +40,17 @@ public class FindCommand extends Command {
                 throw new ZhongliException("Find phrase should not be empty");
             }
         } catch (ZhongliException e) {
-            return e.getMessage();
+            gui.displayError(e.getMessage());
+            return "";
         }
 
-        String matchedTask = taskList.getMatchingTask(keyword);
-        return Ui.getFindMessage(matchedTask, keyword);
+        TaskList matchedTask = taskList.getMatchingTask(keyword);
+        if (matchedTask.getSize() == 0) {
+            gui.displayMessage("There is no task that match your keyword: " + keyword);
+            return "";
+        }
+        gui.addTaskList(matchedTask);
+        return "";
     }
 
     @Override
@@ -66,13 +72,13 @@ public class FindCommand extends Command {
             return;
         }
 
-        String matchedTask = taskList.getMatchingTask(keyword);
+        TaskList matchedTask = taskList.getMatchingTask(keyword);
 
-        ui.displayFindMessage(matchedTask, keyword);
+        ui.displayFindMessage(matchedTask.toString(), keyword);
     }
 
     @Override
     public String runGui(TaskList taskList, Gui gui, Storage storage) {
-        return executeCommand(taskList, storage);
+        return executeCommand(taskList, gui, storage);
     }
 }

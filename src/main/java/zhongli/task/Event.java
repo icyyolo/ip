@@ -1,5 +1,10 @@
 package zhongli.task;
 
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+
 import java.time.LocalDate;
 
 /**
@@ -36,5 +41,15 @@ public class Event extends Task {
                 + "/from " + startTime.toString()
                 + "/to " + endTime.toString()
                 + super.getStringIsDone() + "\n";
+    }
+
+    @Override
+    public HBox createTaskRow(int taskNumber) {
+        return createTaskRowTemplate(
+                "E",
+                "badge-event",
+                taskNumber,
+                "From: " + startTime.toString() + " To: " + endTime.toString()
+        );
     }
 }

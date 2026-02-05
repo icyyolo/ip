@@ -1,4 +1,9 @@
 package zhongli.task;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+
 import java.time.LocalDate;
 
 /**
@@ -36,4 +41,13 @@ public class Deadline extends Task {
         System.out.println("The correct call to description is : ");
     }
 
+    @Override
+    public HBox createTaskRow(int taskNumber) {
+        return createTaskRowTemplate(
+                "D",
+                "badge-deadline",
+                taskNumber,
+                "By: " + endTime.toString()
+        );
+    }
 }

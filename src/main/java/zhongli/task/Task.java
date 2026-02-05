@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -89,11 +90,52 @@ public abstract class Task {
         return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
-    public HBox createTaskRow(int taskNumber) {
+    public abstract HBox createTaskRow(int taskNumber);
+
+    public HBox createTaskRowTemplate(
+            String taskTypeLabel,
+            String taskTypeStyle,
+            int taskNumber,
+            String dateInfo) {
         HBox taskRow = createTaskRowCheckBoxTemplate(this.getIsDone());
-        Label taskLabel = createTaskRowLabel(taskNumber, this.getIsDone());
-        taskRow.getChildren().addAll(taskLabel);
+        VBox taskContent = createTaskContent(taskTypeLabel, taskTypeStyle, taskNumber, dateInfo);
+        taskRow.getChildren().add(taskContent);
         return taskRow;
+    }
+
+    public VBox createTaskContent(
+            String taskTypeLabel,
+            String taskTypeStyle,
+            int taskNumber,
+            String dateInfo) {
+        VBox content = new VBox(4);
+        content.setMaxWidth(Double.MAX_VALUE);
+
+        // Create main description line with type badge
+        HBox descriptionLine = new HBox(12);
+        descriptionLine.setAlignment(Pos.CENTER_LEFT);
+
+        // Task type badge
+        Label typeBadge = new Label(taskTypeLabel);
+        typeBadge.getStyleClass().addAll("task-type-badge", taskTypeStyle);
+
+        // Task description
+        Label description = createTaskRowLabel(taskNumber, this.getIsDone());
+
+        descriptionLine.getChildren().addAll(typeBadge, description);
+        content.getChildren().add(descriptionLine);
+
+        // Add date information if present
+        if (!dateInfo.isEmpty()) {
+            Label dateLabel = new Label(dateInfo);
+            dateLabel.getStyleClass().add("task-date");
+            if (this.getIsDone()) {
+                dateLabel.getStyleClass().add("task-completed");
+            }
+            content.getChildren().add(dateLabel);
+        }
+
+        return content;
     }
 
     public Label createTaskRowLabel(int taskNumber, boolean isDone) {

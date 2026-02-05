@@ -31,22 +31,23 @@ public class MarkCommand extends Command {
         this.command = command;
     }
 
-    public String executeCommand(TaskList taskList, Storage storage) {
+    public String executeCommand(TaskList taskList, Gui gui, Storage storage) {
         String[] userInputArray = command.split(" ");
         try {
             int index = Integer.parseInt(userInputArray[1]) - 1;
             Task curr = taskList.getTask(index);
             curr.markDone();
             storage.writeTaskListToFile(taskList);
-
-            return Ui.getMarkTaskMessage(index, successMessage, taskList);
+            gui.displayTask(curr, successMessage);
+            // return Ui.getMarkTaskMessage(index, successMessage, taskList);
         } catch (IndexOutOfBoundsException e) {
-            return "Please input a number after delete";
+            gui.displayError("Please input a number after delete");
         } catch (NumberFormatException e) {
-            return "Please input a valid number";
+            gui.displayError("Please input a valid number");
         } catch (ZhongliException | IOException e) {
-            return e.getMessage();
+            gui.displayError(e.getMessage());
         }
+        return "";
     }
 
     @Override
@@ -69,6 +70,6 @@ public class MarkCommand extends Command {
 
     @Override
     public String runGui(TaskList taskList, Gui gui, Storage storage) {
-        return executeCommand(taskList, storage);
+        return executeCommand(taskList, gui, storage);
     }
 }

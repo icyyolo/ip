@@ -11,9 +11,11 @@ import zhongli.ui.Ui;
  *
  */
 public class WrongCommand extends Command {
+    private String userInput;
 
-    public WrongCommand() {
+    public WrongCommand(String userInput) {
         super();
+        this.userInput = userInput;
     }
 
     @Override
@@ -23,6 +25,7 @@ public class WrongCommand extends Command {
 
     @Override
     public String runGui(TaskList taskList, Gui gui, Storage storage) {
-        return "This is a wrong command";
+        gui.displayError("The previous command [" + userInput + "] is not a correct input.");
+        return "";
     }
 }

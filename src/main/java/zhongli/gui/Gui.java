@@ -61,6 +61,15 @@ public class Gui {
         );
     }
 
+    public void displayMessage(String message) {
+        this.dialogContainer.getChildren().add(
+                DialogBox.getZhongliDialog(
+                        message,
+                        dukeImage
+                )
+        );
+    }
+
     public static String getWelcomeMessage() {
         StringBuilder welcomeMessage = new StringBuilder();
         welcomeMessage.append("Hello! I'm Zhongli\n")

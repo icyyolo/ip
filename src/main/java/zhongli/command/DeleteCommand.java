@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
         this.command = command;
     }
 
-    public String executeCommand(TaskList taskList, Gui gui, Storage storage) {
+    public void executeCommand(TaskList taskList, Gui gui, Storage storage) {
         try {
             String number = this.command.split(" ")[1];
             int index = Integer.parseInt(number) - 1;
@@ -44,16 +44,12 @@ public class DeleteCommand extends Command {
                     "Noted. I've removed this task:\n"
                     + "Now you have " + taskList.getSize() + " in the lists"
             );
-            return "";
         } catch (IndexOutOfBoundsException e) {
             gui.displayError("Please input a number after delete");
-            return "";
         } catch (NumberFormatException e) {
             gui.displayError("Please input a valid number");
-            return "";
         } catch (ZhongliException | IOException e) {
             gui.displayError(e.getMessage());
-            return "";
         }
     }
 
@@ -79,7 +75,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String runGui(TaskList taskList, Gui gui, Storage storage) {
-        return executeCommand(taskList, gui, storage);
+    public void runGui(TaskList taskList, Gui gui, Storage storage) {
+        executeCommand(taskList, gui, storage);
     }
 }

@@ -31,7 +31,7 @@ public class MarkCommand extends Command {
         this.command = command;
     }
 
-    public String executeCommand(TaskList taskList, Gui gui, Storage storage) {
+    public void executeCommand(TaskList taskList, Gui gui, Storage storage) {
         String[] userInputArray = command.split(" ");
         try {
             int index = Integer.parseInt(userInputArray[1]) - 1;
@@ -39,7 +39,6 @@ public class MarkCommand extends Command {
             curr.markDone();
             storage.writeTaskListToFile(taskList);
             gui.displayTask(curr, successMessage);
-            // return Ui.getMarkTaskMessage(index, successMessage, taskList);
         } catch (IndexOutOfBoundsException e) {
             gui.displayError("Please input a number after delete");
         } catch (NumberFormatException e) {
@@ -47,7 +46,6 @@ public class MarkCommand extends Command {
         } catch (ZhongliException | IOException e) {
             gui.displayError(e.getMessage());
         }
-        return "";
     }
 
     @Override
@@ -69,7 +67,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public String runGui(TaskList taskList, Gui gui, Storage storage) {
-        return executeCommand(taskList, gui, storage);
+    public void runGui(TaskList taskList, Gui gui, Storage storage) {
+        executeCommand(taskList, gui, storage);
     }
 }

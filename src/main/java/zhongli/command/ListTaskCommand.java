@@ -21,8 +21,7 @@ public class ListTaskCommand extends Command {
     }
 
     @Override
-    public String runGui(TaskList taskList, Gui gui, Storage storage) {
+    public void runGui(TaskList taskList, Gui gui, Storage storage) {
         gui.addTaskList(taskList);
-        return "";
     }
 }

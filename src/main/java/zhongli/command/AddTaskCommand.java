@@ -31,7 +31,7 @@ public class AddTaskCommand extends Command {
         this.userInput = userInput;
     }
 
-    public String executeCommand(TaskList taskList, Gui gui, Storage storage) {
+    public void executeCommand(TaskList taskList, Gui gui, Storage storage) {
         try {
             Task task = Parser.parseTaskFromInput(userInput);
 
@@ -40,11 +40,9 @@ public class AddTaskCommand extends Command {
             storage.writeTaskListToFile(taskList);
 
             gui.displayTask(task, "Got it. I've added this task:\n" + "Now you have " + taskList.getSize() + " in the list");
-            return "";
 
         } catch (IOException | ZhongliException e) {
             gui.displayError(e.getMessage());
-            return "";
         }
     }
 
@@ -64,7 +62,7 @@ public class AddTaskCommand extends Command {
     }
 
     @Override
-    public String runGui(TaskList taskList, Gui gui, Storage storage) {
-        return executeCommand(taskList, gui, storage);
+    public void runGui(TaskList taskList, Gui gui, Storage storage) {
+        executeCommand(taskList, gui, storage);
     }
 }

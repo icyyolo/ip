@@ -22,8 +22,7 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public String runGui(TaskList taskList, Gui gui, Storage storage) {
+    public void runGui(TaskList taskList, Gui gui, Storage storage) {
         gui.displayMessage("Bye lol");
-        return "";
     }
 }

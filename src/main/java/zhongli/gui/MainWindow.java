@@ -52,14 +52,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         gui.addUserMessage(input);
-        String response = zhongli.getGui(input, gui);
+        zhongli.getGui(input, gui);
         userInput.clear();
-        if (response.isEmpty()) {
-            return;
-        }
-        dialogContainer.getChildren().addAll(
-                DialogBox.getZhongliDialog(response, dukeImage)
-        );
-
     }
 }

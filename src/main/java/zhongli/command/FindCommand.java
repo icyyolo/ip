@@ -26,7 +26,7 @@ public class FindCommand extends Command {
         this.command = command;
     }
 
-    public String executeCommand(TaskList taskList, Gui gui, Storage storage) {
+    public void executeCommand(TaskList taskList, Gui gui, Storage storage) {
         String[] keywordArr;
         String keyword;
 
@@ -41,16 +41,15 @@ public class FindCommand extends Command {
             }
         } catch (ZhongliException e) {
             gui.displayError(e.getMessage());
-            return "";
+            return;
         }
 
         TaskList matchedTask = taskList.getMatchingTask(keyword);
         if (matchedTask.getSize() == 0) {
             gui.displayMessage("There is no task that match your keyword: " + keyword);
-            return "";
+            return;
         }
         gui.addTaskList(matchedTask);
-        return "";
     }
 
     @Override
@@ -78,7 +77,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String runGui(TaskList taskList, Gui gui, Storage storage) {
-        return executeCommand(taskList, gui, storage);
+    public void runGui(TaskList taskList, Gui gui, Storage storage) {
+        executeCommand(taskList, gui, storage);
     }
 }

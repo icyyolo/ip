@@ -1,9 +1,7 @@
 package zhongli.task;
 
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import zhongli.gui.ListItem;
 
 /**
  * Represents a ToDo task which is inherited from Task object.
@@ -32,11 +30,14 @@ public class ToDo extends Task {
     }
     @Override
     public HBox createTaskRow(int taskNumber) {
-        return createTaskRowTemplate(
+        ListItem listItem = new ListItem();
+        return listItem.createTaskRowTemplate(
                 "T",
                 "badge-todo",
                 taskNumber,
-                ""
+                "",
+                this.getIsDone(),
+                this.getDescription()
         );
     }
 }

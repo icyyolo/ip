@@ -1,6 +1,7 @@
 package zhongli;
 
 import zhongli.command.Command;
+import zhongli.gui.Gui;
 import zhongli.parser.Parser;
 import zhongli.storage.Storage;
 import zhongli.tasklist.TaskList;
@@ -27,11 +28,11 @@ public class Zhongli {
         ui = new Ui();
         storage = new Storage(filePath);
         taskList = this.storage.initializeTaskList(ui);
+    }
 
+    public void commandLineApplication() {
         ui.displayWelcomeMessage();
-
         runLoop();
-
         ui.displayGoodbyeMessage();
     }
 
@@ -55,6 +56,14 @@ public class Zhongli {
             }
             ui.printHorizontalLine();
         }
+    }
+
+    public void getGui(String input, Gui gui) {
+        if (input.equals("clear")) {
+            gui.clearChatbox();
+        }
+        Command command = Parser.parseCommand(input);
+        command.runGui(taskList, gui, storage);
     }
 
     public static void main(String[] args) {

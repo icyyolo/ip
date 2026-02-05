@@ -283,7 +283,7 @@ public class Parser {
         case "delete" -> new DeleteCommand(command);
         case "bye" -> new ByeCommand();
         case "find" -> new FindCommand(command);
-        default -> new WrongCommand();
+        default -> new WrongCommand(command);
         };
     }
 }

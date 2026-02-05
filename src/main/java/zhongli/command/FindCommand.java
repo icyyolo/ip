@@ -1,5 +1,6 @@
 package zhongli.command;
 
+import zhongli.gui.Gui;
 import zhongli.parser.Parser;
 import zhongli.storage.Storage;
 import zhongli.tasklist.TaskList;
@@ -25,6 +26,32 @@ public class FindCommand extends Command {
         this.command = command;
     }
 
+    public void executeCommand(TaskList taskList, Gui gui, Storage storage) {
+        String[] keywordArr;
+        String keyword;
+
+        try {
+            keywordArr = Parser.splitStringIntoTwo(command, "find ",
+                    "Find phrase should not be empty");
+
+            keyword = keywordArr[1];
+
+            if (keyword.isEmpty()) {
+                throw new ZhongliException("Find phrase should not be empty");
+            }
+        } catch (ZhongliException e) {
+            gui.displayError(e.getMessage());
+            return;
+        }
+
+        TaskList matchedTask = taskList.getMatchingTask(keyword);
+        if (matchedTask.getSize() == 0) {
+            gui.displayMessage("There is no task that match your keyword: " + keyword);
+            return;
+        }
+        gui.addTaskList(matchedTask);
+    }
+
     @Override
     public void run(TaskList taskList, Ui ui, Storage storage) {
         String[] keywordArr;
@@ -44,9 +71,13 @@ public class FindCommand extends Command {
             return;
         }
 
-        String matchedTask = taskList.getMatchingTask(keyword);
+        TaskList matchedTask = taskList.getMatchingTask(keyword);
 
-        ui.displayFindMessage(matchedTask, keyword);
+        ui.displayFindMessage(matchedTask.toString(), keyword);
     }
 
+    @Override
+    public void runGui(TaskList taskList, Gui gui, Storage storage) {
+        executeCommand(taskList, gui, storage);
+    }
 }

@@ -2,6 +2,7 @@ package zhongli.command;
 
 import java.io.IOException;
 
+import zhongli.gui.Gui;
 import zhongli.storage.Storage;
 import zhongli.task.Task;
 import zhongli.tasklist.TaskList;
@@ -29,6 +30,29 @@ public class DeleteCommand extends Command {
         this.command = command;
     }
 
+    public void executeCommand(TaskList taskList, Gui gui, Storage storage) {
+        try {
+            String number = this.command.split(" ")[1];
+            int index = Integer.parseInt(number) - 1;
+
+            Task deletedTask = taskList.getTask(index);
+            taskList.deleteTask(index);
+
+            storage.writeTaskListToFile(taskList);
+            gui.displayTask(
+                    deletedTask,
+                    "Noted. I've removed this task:\n"
+                    + "Now you have " + taskList.getSize() + " in the lists"
+            );
+        } catch (IndexOutOfBoundsException e) {
+            gui.displayError("Please input a number after delete");
+        } catch (NumberFormatException e) {
+            gui.displayError("Please input a valid number");
+        } catch (ZhongliException | IOException e) {
+            gui.displayError(e.getMessage());
+        }
+    }
+
     @Override
     public void run(TaskList taskList, Ui ui, Storage storage) {
         try {
@@ -48,5 +72,10 @@ public class DeleteCommand extends Command {
         } catch (ZhongliException | IOException e) {
             ui.displayExceptionMessage(e.getMessage());
         }
+    }
+
+    @Override
+    public void runGui(TaskList taskList, Gui gui, Storage storage) {
+        executeCommand(taskList, gui, storage);
     }
 }

@@ -1,5 +1,9 @@
 package zhongli.task;
+
 import java.time.LocalDate;
+
+import javafx.scene.layout.HBox;
+import zhongli.gui.ListItem;
 
 /**
  * Represents a deadline task which is inherited from Task object.
@@ -36,4 +40,16 @@ public class Deadline extends Task {
         System.out.println("The correct call to description is : ");
     }
 
+    @Override
+    public HBox createTaskRow(int taskNumber) {
+        ListItem listItem = new ListItem();
+        return listItem.createTaskRowTemplate(
+                "D",
+                "badge-deadline",
+                taskNumber,
+                "By: " + endTime.toString(),
+                this.getIsDone(),
+                this.getDescription()
+        );
+    }
 }

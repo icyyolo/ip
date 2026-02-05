@@ -53,6 +53,13 @@ public class Ui {
         printHorizontalLine();
     }
 
+    public static String getWelcomeMessage() {
+        StringBuilder welcomeMessage = new StringBuilder();
+        welcomeMessage.append("Hello! I'm Zhongli\n")
+                .append("What can I do for you?\n");
+        return welcomeMessage.toString();
+    }
+
     /**
      * Displays a farewell message, after you entered the bye command.
      *
@@ -77,6 +84,14 @@ public class Ui {
         System.out.println("Now you have " + tasks.getSize() + " in the lists");
     }
 
+    public static String getSuccesfulAddedTask(Task task, TaskList tasks) {
+        String res = "";
+        res = res + "Got it. I've added this task:\n"
+                + "  " + task.toString() + "\n"
+                + "Now you have " + tasks.getSize() + " in the list";
+        return res;
+    }
+
     /**
      * Displays a successful deletion of task from the task list
      *
@@ -87,6 +102,12 @@ public class Ui {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task.toString());
         System.out.println("Now you have " + tasks.getSize() + " in the lists");
+    }
+
+    public static String getSuccessfulDeleteTask(Task task, TaskList tasks) {
+        return "Noted. I've removed this task:" + "\n"
+                + "  " + task.toString() + "\n"
+                + "Now you have " + tasks.getSize() + " in the list";
     }
 
     /**
@@ -101,7 +122,16 @@ public class Ui {
         } catch (ZhongliException e) {
             System.out.println(e.getMessage());
         }
+    }
 
+    public static String getMarkTaskMessage(int index, String successMessage, TaskList tasks) {
+        try {
+            Task task = tasks.getTask(index);
+            return successMessage + "\n"
+                    + "  " + task.toString();
+        } catch (ZhongliException e) {
+            return e.getMessage();
+        }
     }
 
     public void displayWrongCommandErrorMessage(String input) {
@@ -128,6 +158,15 @@ public class Ui {
         } else {
             System.out.println("Here are the matching tasks in your lists:");
             System.out.println(matchedTask);
+        }
+    }
+
+    public static String getFindMessage(String matchedTask, String regex) {
+        if (matchedTask.isEmpty()) {
+            return "Phrase: '" + regex + "' has no matches in task list.";
+        } else {
+            return "Here are the matching tasks in your lists:\n"
+                    + matchedTask;
         }
     }
 }

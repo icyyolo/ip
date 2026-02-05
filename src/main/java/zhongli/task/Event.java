@@ -2,6 +2,9 @@ package zhongli.task;
 
 import java.time.LocalDate;
 
+import javafx.scene.layout.HBox;
+import zhongli.gui.ListItem;
+
 /**
  * Represents an event task which is inherited from Task object.
  *
@@ -36,5 +39,18 @@ public class Event extends Task {
                 + "/from " + startTime.toString()
                 + "/to " + endTime.toString()
                 + super.getStringIsDone() + "\n";
+    }
+
+    @Override
+    public HBox createTaskRow(int taskNumber) {
+        ListItem listItem = new ListItem();
+        return listItem.createTaskRowTemplate(
+                "E",
+                "badge-event",
+                taskNumber,
+                "From: " + startTime.toString() + " To: " + endTime.toString(),
+                this.getIsDone(),
+                this.getDescription()
+        );
     }
 }

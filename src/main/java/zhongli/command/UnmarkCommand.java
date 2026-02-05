@@ -2,6 +2,7 @@ package zhongli.command;
 
 import java.io.IOException;
 
+import zhongli.gui.Gui;
 import zhongli.storage.Storage;
 import zhongli.task.Task;
 import zhongli.tasklist.TaskList;
@@ -31,6 +32,25 @@ public class UnmarkCommand extends Command {
         this.command = command;
     }
 
+    public void executeCommand(TaskList taskList, Gui gui, Storage storage) {
+        String[] userInputArray = command.split(" ");
+        try {
+            int index = Integer.parseInt(userInputArray[1]) - 1;
+
+            Task curr = taskList.getTask(index);
+            curr.markUndone();
+
+            storage.writeTaskListToFile(taskList);
+            gui.displayTask(curr, successMessage);
+        } catch (IndexOutOfBoundsException e) {
+            gui.displayError("Please input a number after delete");
+        } catch (NumberFormatException e) {
+            gui.displayError("Please input a valid number");
+        } catch (ZhongliException | IOException e) {
+            gui.displayError(e.getMessage());
+        }
+    }
+
     @Override
     public void run(TaskList taskList, Ui ui, Storage storage) {
         String[] userInputArray = command.split(" ");
@@ -50,5 +70,10 @@ public class UnmarkCommand extends Command {
         } catch (ZhongliException | IOException e) {
             ui.displayExceptionMessage(e.getMessage());
         }
+    }
+
+    @Override
+    public void runGui(TaskList taskList, Gui gui, Storage storage) {
+        executeCommand(taskList, gui, storage);
     }
 }

@@ -1,5 +1,11 @@
 package zhongli.task;
 
+import javafx.geometry.Pos;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -82,5 +88,15 @@ public abstract class Task {
      */
     public String formatDate(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+    }
+
+    public abstract HBox createTaskRow(int taskNumber);
+
+    private void updateTaskLabelStyle(Label label, boolean isCompleted) {
+        if (isCompleted) {
+            label.getStyleClass().add("task-completed");
+        } else {
+            label.getStyleClass().remove("task-completed");
+        }
     }
 }

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import zhongli.task.Task;
 import zhongli.zhongliexception.ZhongliException;
 
+import javax.management.openmbean.TabularData;
+
 /**
  * Represents an ArrayList of tasks.
  *
@@ -86,24 +88,20 @@ public class TaskList {
      * Returns all tasks whose description contains the String regex
      *
      */
-    public String getMatchingTask(String regex) {
-        StringBuilder res = new StringBuilder();
+    public TaskList getMatchingTask(String regex) {
+        TaskList res = new TaskList();
 
         int i = 1;
         for (int a = 0; a < tasks.size(); a++) {
             boolean matchRegex = tasks.get(a).doesRegexMatchDescription(regex);
 
             if (matchRegex) {
-                res.append(i)
-                        .append(". ")
-                        .append(tasks.get(a).toString())
-                        .append("\n");
-                i++;
+                res.addTask(tasks.get(a));
             }
 
         }
 
-        return res.toString();
+        return res;
     }
 
     @Override
@@ -117,4 +115,5 @@ public class TaskList {
         }
         return res.toString();
     }
+
 }

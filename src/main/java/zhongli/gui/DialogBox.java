@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import zhongli.task.Task;
 import zhongli.tasklist.TaskList;
 
 /**
@@ -74,6 +75,27 @@ public class DialogBox extends HBox {
         DialogBox db = new DialogBox(text, img);
         db.contentBox.getStyleClass().add("zhongli-message-bubble");
         db.addListBox(tasks, listTitle);
+        db.flip();
+        return db;
+    }
+
+    public void addTask(Task task) {
+        HBox taskGui = task.createTaskRow(0);
+        contentBox.getChildren().add(taskGui);
+    }
+
+    public static DialogBox getZhongliDialogWithTask(String text, Image img, Task task) {
+        DialogBox db = new DialogBox(text, img);
+        db.contentBox.getStyleClass().add("zhongli-message-bubble");
+        db.addTask(task);
+        db.flip();
+        return db;
+    }
+
+    public static DialogBox getErrorDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.contentBox.getStyleClass().add("error-message-bubble");
+        db.dialog.getStyleClass().add("error-message-text");
         db.flip();
         return db;
     }

@@ -1,13 +1,9 @@
 package zhongli.gui;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-
 import zhongli.task.Task;
 import zhongli.tasklist.TaskList;
-import zhongli.zhongliexception.ZhongliException;
 
 /**
  * Represents a Mimic of User Interface class
@@ -46,15 +42,30 @@ public class Gui {
         );
     }
 
+    public void displayTask(Task task, String message) {
+        this.dialogContainer.getChildren().add(
+                DialogBox.getZhongliDialogWithTask(
+                        message,
+                        dukeImage,
+                        task
+                )
+        );
+    }
+
+    public void displayError(String message) {
+        this.dialogContainer.getChildren().add(
+                DialogBox.getErrorDialog(
+                        message,
+                        dukeImage
+                )
+        );
+    }
+
     public static String getWelcomeMessage() {
         StringBuilder welcomeMessage = new StringBuilder();
         welcomeMessage.append("Hello! I'm Zhongli\n")
                 .append("What can I do for you?\n");
         return welcomeMessage.toString();
-    }
-
-    public static String getTasksArrayString(TaskList tasks) {
-        return tasks.toString();
     }
 
 }

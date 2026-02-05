@@ -65,7 +65,12 @@ public class ListItem {
     }
 
     public Label createTaskRowLabel(int taskNumber, boolean isDone, String labelDescription) {
-        Label description = new Label(taskNumber + ") " + labelDescription);
+        Label description;
+        if (taskNumber > 0) {
+            description = new Label(taskNumber + ") " + labelDescription);
+        } else {
+            description = new Label(labelDescription);
+        }
         description.setWrapText(true);
         description.setMaxWidth(Double.MAX_VALUE);
         description.getStyleClass().add("task-description");

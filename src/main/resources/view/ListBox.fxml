@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root type="javafx.scene.layout.VBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1"
+         spacing="5"
+         styleClass="list-box">
+    <children>
+        <Label fx:id="listTitle" text="Your Tasks:" styleClass="list-title" />
+        <VBox fx:id="taskContainer"
+              spacing="3"
+              styleClass="task-container" />
+    </children>
+    <padding>
+        <Insets top="10.0" right="10.0" bottom="10.0" left="10.0" />
+    </padding>
+</fx:root>
+

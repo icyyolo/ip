@@ -117,4 +117,12 @@ public class TaskList {
         }
         return res.toString();
     }
+
+    public ArrayList<String> getTaskStrings() {
+        ArrayList<String> taskStrings = new ArrayList<>();
+        for (Task task : tasks) {
+            taskStrings.add(task.toString());
+        }
+        return taskStrings;
+    }
 }

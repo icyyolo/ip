@@ -53,9 +53,13 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         gui.addUserMessage(input);
         String response = zhongli.getGui(input, gui);
+        userInput.clear();
+        if (response.isEmpty()) {
+            return;
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getZhongliDialog(response, dukeImage)
         );
-        userInput.clear();
+
     }
 }

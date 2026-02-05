@@ -1,5 +1,7 @@
 package zhongli.gui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
@@ -31,6 +33,18 @@ public class Gui {
 
     public void clearChatbox() {
         this.dialogContainer.getChildren().clear();
+    }
+
+    public void addTaskList(TaskList taskList) {
+        ObservableList<String> taskStrings = FXCollections.observableArrayList(taskList.getTaskStrings());
+        this.dialogContainer.getChildren().add(
+                DialogBox.getZhongliDialogWithList(
+                        "something",
+                        dukeImage,
+                        "list",
+                        taskStrings
+                )
+        );
     }
 
     public static String getWelcomeMessage() {

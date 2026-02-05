@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -23,6 +24,8 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+    @FXML
+    private VBox contentBox;
 
     private DialogBox(String text, Image img) {
         try {
@@ -57,4 +60,17 @@ public class DialogBox extends HBox {
         db.flip();
         return db;
     }
+
+    public void addListBox(ObservableList<String> tasks) {
+        ListBox listBox = new ListBox("Tasks", tasks);
+        contentBox.getChildren().add(listBox);
+    }
+
+    public static DialogBox getZhongliDialogWithList(String text, Image img, String listTitle, ObservableList<String> items) {
+        var db = new DialogBox(text, img);
+        db.addListBox(items);
+        db.flip();
+        return db;
+    }
 }
+

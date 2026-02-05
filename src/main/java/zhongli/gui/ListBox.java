@@ -46,7 +46,7 @@ public class ListBox extends VBox {
         for (int i = 0; i < tasks.getSize(); i++) {
             try {
                 Task currTask = tasks.getTask(i);
-                HBox taskRow = createTaskRow(currTask);
+                HBox taskRow = currTask.createTaskRow(i + 1);
                 taskContainer.getChildren().add(taskRow);
             } catch (ZhongliException e) {
                 System.out.println(e.getMessage());
@@ -55,40 +55,6 @@ public class ListBox extends VBox {
         }
     }
 
-    private HBox createTaskRow(Task task) {
-        HBox taskRow = new HBox();
-
-        taskRow.setAlignment(Pos.CENTER_LEFT);
-        taskRow.getStyleClass().add("task-row");
-
-        boolean isCompleted = task.getIsDone();
-
-        CheckBox checkBox = new CheckBox();
-        checkBox.setSelected(isCompleted);
-        checkBox.getStyleClass().add("task-checkbox");
-
-        checkBox.setMouseTransparent(true);
-        checkBox.setFocusTraversable(false);
-
-        Label taskLabel = new Label(task.getDescription());
-        taskLabel.setWrapText(true);
-        taskLabel.setMaxWidth(Double.MAX_VALUE);
-        taskLabel.getStyleClass().add("task-label");
-
-        updateTaskLabelStyle(taskLabel, isCompleted);
-
-        taskRow.getChildren().addAll(checkBox, taskLabel);
-
-        return taskRow;
-    }
-
-    private void updateTaskLabelStyle(Label label, boolean isCompleted) {
-        if (isCompleted) {
-            label.getStyleClass().add("task-completed");
-        } else {
-            label.getStyleClass().remove("task-completed");
-        }
-    }
 
     /**
      * Sets the title of the list.

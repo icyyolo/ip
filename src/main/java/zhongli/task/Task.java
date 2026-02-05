@@ -1,5 +1,10 @@
 package zhongli.task;
 
+import javafx.geometry.Pos;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -82,5 +87,49 @@ public abstract class Task {
      */
     public String formatDate(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+    }
+
+    public HBox createTaskRow(int taskNumber) {
+        HBox taskRow = createTaskRowCheckBoxTemplate(this.getIsDone());
+        Label taskLabel = createTaskRowLabel(taskNumber, this.getIsDone());
+        taskRow.getChildren().addAll(taskLabel);
+        return taskRow;
+    }
+
+    public Label createTaskRowLabel(int taskNumber, boolean isDone) {
+        Label description = new Label(taskNumber + ") " + this.getDescription());
+        description.setWrapText(true);
+        description.setMaxWidth(Double.MAX_VALUE);
+        description.getStyleClass().add("task-description");
+        if (isDone) {
+            description.getStyleClass().add("task-completed");
+        }
+        return description;
+    }
+
+    public HBox createTaskRowCheckBoxTemplate(boolean isDone) {
+        HBox taskRow = new HBox();
+
+        taskRow.setAlignment(Pos.CENTER_LEFT);
+        taskRow.getStyleClass().add("task-row");
+
+        CheckBox checkBox = new CheckBox();
+        checkBox.setSelected(isDone);
+        checkBox.getStyleClass().add("task-checkbox");
+
+        checkBox.setMouseTransparent(true);
+        checkBox.setFocusTraversable(false);
+
+        taskRow.getChildren().addAll(checkBox);
+
+        return taskRow;
+    }
+
+    private void updateTaskLabelStyle(Label label, boolean isCompleted) {
+        if (isCompleted) {
+            label.getStyleClass().add("task-completed");
+        } else {
+            label.getStyleClass().remove("task-completed");
+        }
     }
 }

@@ -148,10 +148,6 @@
     -fx-border-width: 0 0 1px 0;
 }
 
-.task-row:last-child {
-    -fx-border-width: 0;
-}
-
 .task-row:hover {
     -fx-background-color: rgba(255, 255, 255, 0.08);
 }
@@ -243,4 +239,24 @@
 .task-date.task-completed {
     -fx-text-fill: rgba(255, 255, 255, 0.35);
     -fx-strikethrough: true;
+}
+
+/* User Message Bubble (if you want to differentiate) */
+.user-message-bubble {
+    -fx-background-color: rgba(100, 150, 255, 0.15);
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-border-color: rgba(100, 150, 255, 0.25);
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.0, 0, 2);
+}
+
+/* Zhongli Message Bubble */
+.zhongli-message-bubble {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-border-color: rgba(255, 255, 255, 0.12);
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.0, 0, 2);
 }

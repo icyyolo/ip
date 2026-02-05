@@ -14,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import zhongli.task.Task;
 import zhongli.tasklist.TaskList;
 
 /**
@@ -54,11 +53,14 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.contentBox.getStyleClass().add("user-message-bubble");
+        return db;
     }
 
     public static DialogBox getZhongliDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.contentBox.getStyleClass().add("zhongli-message-bubble");
         db.flip();
         return db;
     }
@@ -69,7 +71,8 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getZhongliDialogWithList(String text, Image img, String listTitle, TaskList tasks) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.contentBox.getStyleClass().add("zhongli-message-bubble");
         db.addListBox(tasks, listTitle);
         db.flip();
         return db;

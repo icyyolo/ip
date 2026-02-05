@@ -139,16 +139,47 @@
     -fx-background-color: transparent;
 }
 
-.task-item {
-    -fx-text-fill: #ffffff;
-    -fx-padding: 8px 5px;
-    -fx-border-color: rgba(255, 255, 255, 0.1);
-    -fx-border-width: 0 0 1px 0;
-    -fx-font-size: 12px;
+.task-row {
+    -fx-padding: 5px;
     -fx-background-color: transparent;
+    -fx-background-radius: 4px;
 }
 
-.task-item:hover {
+.task-row:hover {
     -fx-background-color: rgba(255, 255, 255, 0.05);
-    -fx-background-radius: 4px;
+}
+
+.task-checkbox {
+    -fx-text-fill: #ffffff;
+}
+
+.task-checkbox .box {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+}
+
+.task-checkbox:selected .box {
+    -fx-background-color: rgba(100, 200, 255, 0.3);
+    -fx-border-color: rgba(100, 200, 255, 0.8);
+}
+
+.task-checkbox:selected .mark {
+    -fx-background-color: #64c8ff;
+}
+
+.task-checkbox:hover .box {
+    -fx-border-color: rgba(255, 255, 255, 0.5);
+}
+
+.task-label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-padding: 2px 0;
+}
+
+.task-label.task-completed {
+    -fx-text-fill: rgba(255, 255, 255, 0.5);
+    -fx-strikethrough: true;
 }

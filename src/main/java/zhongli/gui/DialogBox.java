@@ -14,6 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import zhongli.task.Task;
+import zhongli.tasklist.TaskList;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -61,14 +63,14 @@ public class DialogBox extends HBox {
         return db;
     }
 
-    public void addListBox(ObservableList<String> tasks) {
-        ListBox listBox = new ListBox("Tasks", tasks);
+    public void addListBox(TaskList tasks, String listTitle) {
+        ListBox listBox = new ListBox(listTitle, tasks);
         contentBox.getChildren().add(listBox);
     }
 
-    public static DialogBox getZhongliDialogWithList(String text, Image img, String listTitle, ObservableList<String> items) {
+    public static DialogBox getZhongliDialogWithList(String text, Image img, String listTitle, TaskList tasks) {
         var db = new DialogBox(text, img);
-        db.addListBox(items);
+        db.addListBox(tasks, listTitle);
         db.flip();
         return db;
     }

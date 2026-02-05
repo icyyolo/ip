@@ -36,13 +36,12 @@ public class Gui {
     }
 
     public void addTaskList(TaskList taskList) {
-        ObservableList<String> taskStrings = FXCollections.observableArrayList(taskList.getTaskStrings());
         this.dialogContainer.getChildren().add(
                 DialogBox.getZhongliDialogWithList(
-                        "something",
+                        "The following are your tasks:",
                         dukeImage,
-                        "list",
-                        taskStrings
+                        "Tasks: ",
+                        taskList
                 )
         );
     }

@@ -117,6 +117,7 @@ public class Ui {
     public void displayMarkTask(int index, String successMessage, TaskList tasks) {
         try {
             Task task = tasks.getTask(index);
+            assert task != null : "Task is null in displayMarkTask";
             System.out.println(successMessage);
             System.out.println("  " + task.toString());
         } catch (ZhongliException e) {
@@ -127,6 +128,7 @@ public class Ui {
     public static String getMarkTaskMessage(int index, String successMessage, TaskList tasks) {
         try {
             Task task = tasks.getTask(index);
+            assert task != null : "Task is null in getMarkTaskMessage";
             return successMessage + "\n"
                     + "  " + task.toString();
         } catch (ZhongliException e) {

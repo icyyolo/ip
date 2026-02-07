@@ -34,7 +34,8 @@ public class AddTaskCommand extends Command {
     public void executeCommand(TaskList taskList, Gui gui, Storage storage) {
         try {
             Task task = Parser.parseTaskFromInput(userInput);
-
+            assert task != null : "task is null";
+            
             taskList.addTask(task);
 
             storage.writeTaskListToFile(taskList);
@@ -63,6 +64,9 @@ public class AddTaskCommand extends Command {
 
     @Override
     public void runGui(TaskList taskList, Gui gui, Storage storage) {
+        assert taskList != null : "taskList is null";
+        assert storage != null : "storage is null";
+        assert gui != null : "gui is null";
         executeCommand(taskList, gui, storage);
     }
 }

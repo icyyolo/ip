@@ -4,7 +4,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import zhongli.task.Task;
 import zhongli.tasklist.TaskList;
-import zhongli.ui.Ui;
 
 /**
  * Represents a Mimic of User Interface class
@@ -102,5 +101,4 @@ public class Dialogue {
                 )
         );
     }
-    
 }

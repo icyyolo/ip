@@ -2,11 +2,8 @@ package zhongli.gui;
 
 import java.io.IOException;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -23,6 +20,11 @@ public class ListBox extends VBox {
     @FXML
     private VBox taskContainer;
 
+    /**
+     * Represents a list box for displaying tasks
+     * THe title will be the title of this list
+     *
+     */
     public ListBox(String title, TaskList tasks) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/ListBox.fxml"));
@@ -32,8 +34,10 @@ public class ListBox extends VBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         assert title != null : "title is null";
         assert tasks != null : "tasks is null";
+
         listTitle.setText(title);
         populateItems(tasks);
     }
@@ -43,6 +47,7 @@ public class ListBox extends VBox {
      */
     private void populateItems(TaskList tasks) {
         taskContainer.getChildren().clear();
+
         assert tasks != null : "tasks is null";
         for (int i = 0; i < tasks.getSize(); i++) {
             try {
@@ -56,9 +61,9 @@ public class ListBox extends VBox {
         }
     }
 
-
     /**
      * Sets the title of the list.
+     *
      */
     public void setTitle(String title) {
         assert title != null : "title is null";

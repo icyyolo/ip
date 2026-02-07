@@ -4,7 +4,6 @@ import zhongli.gui.Gui;
 import zhongli.parser.Parser;
 import zhongli.storage.Storage;
 import zhongli.tasklist.TaskList;
-import zhongli.ui.Ui;
 import zhongli.zhongliexception.ZhongliException;
 
 /**

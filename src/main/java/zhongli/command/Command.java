@@ -3,7 +3,6 @@ package zhongli.command;
 import zhongli.gui.Gui;
 import zhongli.storage.Storage;
 import zhongli.tasklist.TaskList;
-import zhongli.ui.Ui;
 
 /**
  * Represents a command class.

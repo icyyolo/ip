@@ -36,8 +36,11 @@ public class UnmarkCommand extends Command {
         String[] userInputArray = command.split(" ");
         try {
             int index = Integer.parseInt(userInputArray[1]) - 1;
+            assert index >= 0 : "Index should not be less than 0";
 
             Task curr = taskList.getTask(index);
+            assert curr != null : "curr is null";
+
             curr.markUndone();
 
             storage.writeTaskListToFile(taskList);
@@ -74,6 +77,9 @@ public class UnmarkCommand extends Command {
 
     @Override
     public void runGui(TaskList taskList, Gui gui, Storage storage) {
+        assert taskList != null : "taskList is null";
+        assert storage != null : "storage is null";
+        assert gui != null : "gui is null";
         executeCommand(taskList, gui, storage);
     }
 }

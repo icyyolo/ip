@@ -23,6 +23,7 @@ public class Storage {
     private final String filePath;
 
     public Storage(String filePath) {
+        assert filePath != null : "filePath is null";
         this.filePath = filePath;
     }
 
@@ -36,7 +37,7 @@ public class Storage {
      */
     private File readFile(String filePath, Ui ui) {
         File file = new File(filePath);
-
+        assert ui != null : "ui is null";
         if (!file.exists()) {
             try {
                 boolean isSuccessful = file.createNewFile();
@@ -46,7 +47,6 @@ public class Storage {
                 ui.displayExceptionMessage(e.getMessage());
             }
         }
-
         return file;
     }
 
@@ -60,6 +60,7 @@ public class Storage {
      * @throws FileNotFoundException - If the file does not exist.
      */
     private ArrayList<Task> getTasksFromFile(Ui ui) throws FileNotFoundException {
+        assert ui != null : "ui is null";
         File file = readFile(filePath, ui);
         Scanner s = new Scanner(file);
 
@@ -72,6 +73,7 @@ public class Storage {
 
             try {
                 Task task = Parser.parseTaskFromTextFile(curr);
+                assert task != null : "Task parsed from text file is null";
                 tasks.add(task);
             } catch (ZhongliException e) {
                 System.out.println("Line Number " + lineNum + " has error: " + e.getMessage());
@@ -91,7 +93,6 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
 
         try {
-            File textFile = this.readFile(filePath, ui);
             tasks = this.getTasksFromFile(ui);
         } catch (FileNotFoundException e) {
             ui.displayExceptionMessage(e.getMessage());
@@ -112,6 +113,7 @@ public class Storage {
         for (int i = 0; i < taskList.getSize(); i++) {
             try {
                 Task task = taskList.getTask(i);
+                assert task != null : "Task when writing to file is null";
                 fileWriter.write(task.convertToText());
             } catch (ZhongliException e) {
                 System.out.println(e.getMessage());

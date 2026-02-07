@@ -28,7 +28,7 @@ public class Zhongli {
         ui = new Ui();
         storage = new Storage(filePath);
         taskList = this.storage.initializeTaskList(ui);
-        assert taskList == null : "Tasklist should be not be null";
+        assert taskList != null : "Tasklist should be not be null";
     }
 
     public void commandLineApplication() {

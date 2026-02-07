@@ -35,7 +35,7 @@ public class AddTaskCommand extends Command {
         try {
             Task task = Parser.parseTaskFromInput(userInput);
             assert task != null : "task is null";
-            
+
             taskList.addTask(task);
 
             storage.writeTaskListToFile(taskList);

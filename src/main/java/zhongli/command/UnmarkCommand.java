@@ -16,7 +16,6 @@ import zhongli.zhongliexception.ZhongliException;
  *
  */
 public class UnmarkCommand extends Command {
-
     private static final String successMessage = "OK, I've marked this task as not done yet";
 
     private final String command;
@@ -31,11 +30,27 @@ public class UnmarkCommand extends Command {
         this.command = command;
     }
 
-    public void executeCommand(TaskList taskList, Gui gui, Storage storage) {
+    /**
+     * Gets the index of the unmark task
+     *
+     */
+    public int parseIndexForUnmarkTask() throws NumberFormatException {
         String[] userInputArray = command.split(" ");
+        int index = Integer.parseInt(userInputArray[1]) - 1;
+        assert index >= 0 : "Index should not be less than 0";
+        return index;
+    }
+
+    /**
+     * Marks the task as not complete.
+     * Then writes the updated task list to a file
+     * Display the successful message
+     * If there is any error, the respective error message will be displayed
+     *
+     */
+    public void executeCommand(TaskList taskList, Gui gui, Storage storage) {
         try {
-            int index = Integer.parseInt(userInputArray[1]) - 1;
-            assert index >= 0 : "Index should not be less than 0";
+            int index = parseIndexForUnmarkTask();
 
             Task curr = taskList.getTask(index);
             assert curr != null : "curr is null";
@@ -43,6 +58,7 @@ public class UnmarkCommand extends Command {
             curr.markUndone();
 
             storage.writeTaskListToFile(taskList);
+
             gui.displayTask(curr, successMessage);
         } catch (IndexOutOfBoundsException e) {
             gui.displayError("Please input a number after delete");

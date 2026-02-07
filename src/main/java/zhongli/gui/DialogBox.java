@@ -38,6 +38,8 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        assert img != null : "img is null";
+        assert text != null : "text is null";
 
         dialog.setText(text);
         displayPicture.setImage(img);
@@ -60,6 +62,8 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getZhongliDialog(String text, Image img) {
+        assert img != null : "img is null";
+        assert text != null : "text is null";
         DialogBox db = new DialogBox(text, img);
         db.contentBox.getStyleClass().add("zhongli-message-bubble");
         db.flip();
@@ -67,11 +71,18 @@ public class DialogBox extends HBox {
     }
 
     public void addListBox(TaskList tasks, String listTitle) {
+        assert tasks != null : "img is null";
+        assert listTitle != null : "text is null";
         ListBox listBox = new ListBox(listTitle, tasks);
         contentBox.getChildren().add(listBox);
     }
 
     public static DialogBox getZhongliDialogWithList(String text, Image img, String listTitle, TaskList tasks) {
+        assert text != null : "img is null";
+        assert img != null : "text is null";
+        assert tasks != null : "img is null";
+        assert listTitle != null : "text is null";
+
         DialogBox db = new DialogBox(text, img);
         db.contentBox.getStyleClass().add("zhongli-message-bubble");
         db.addListBox(tasks, listTitle);
@@ -80,11 +91,15 @@ public class DialogBox extends HBox {
     }
 
     public void addTask(Task task) {
+        assert task != null : "task is null";
         HBox taskGui = task.createTaskRow(0);
         contentBox.getChildren().add(taskGui);
     }
 
     public static DialogBox getZhongliDialogWithTask(String text, Image img, Task task) {
+        assert text != null : "img is null";
+        assert img != null : "text is null";
+        assert task != null : "task is null";
         DialogBox db = new DialogBox(text, img);
         db.contentBox.getStyleClass().add("zhongli-message-bubble");
         db.addTask(task);
@@ -93,6 +108,8 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getErrorDialog(String text, Image img) {
+        assert text != null : "img is null";
+        assert img != null : "text is null";
         var db = new DialogBox(text, img);
         db.contentBox.getStyleClass().add("error-message-bubble");
         db.dialog.getStyleClass().add("error-message-text");

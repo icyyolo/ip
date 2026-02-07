@@ -32,7 +32,8 @@ public class ListBox extends VBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        assert title != null : "title is null";
+        assert tasks != null : "tasks is null";
         listTitle.setText(title);
         populateItems(tasks);
     }
@@ -42,7 +43,7 @@ public class ListBox extends VBox {
      */
     private void populateItems(TaskList tasks) {
         taskContainer.getChildren().clear();
-
+        assert tasks != null : "tasks is null";
         for (int i = 0; i < tasks.getSize(); i++) {
             try {
                 Task currTask = tasks.getTask(i);
@@ -60,6 +61,7 @@ public class ListBox extends VBox {
      * Sets the title of the list.
      */
     public void setTitle(String title) {
+        assert title != null : "title is null";
         listTitle.setText(title);
     }
 }

@@ -28,6 +28,7 @@ public class Zhongli {
         ui = new Ui();
         storage = new Storage(filePath);
         taskList = this.storage.initializeTaskList(ui);
+        assert taskList != null : "Tasklist should be not be null";
     }
 
     public void commandLineApplication() {
@@ -45,7 +46,6 @@ public class Zhongli {
 
         while (!isExitCommand) {
             String input = this.ui.readCommand();
-
             ui.printHorizontalLine();
             Command command = Parser.parseCommand(input);
             command.run(taskList, ui, storage);

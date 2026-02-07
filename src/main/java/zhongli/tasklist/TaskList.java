@@ -1,11 +1,10 @@
 package zhongli.tasklist;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import zhongli.task.Task;
 import zhongli.zhongliexception.ZhongliException;
-
-import javax.management.openmbean.TabularData;
 
 /**
  * Represents an ArrayList of tasks.
@@ -19,7 +18,7 @@ public class TaskList {
     }
 
     public TaskList(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+        this.tasks = Objects.requireNonNullElseGet(tasks, ArrayList::new);
     }
 
     /**
@@ -58,6 +57,7 @@ public class TaskList {
      *
      */
     public void addTask(Task task) {
+        assert task != null : "Task in addTask is null";
         this.tasks.add(task);
     }
 
@@ -70,6 +70,7 @@ public class TaskList {
      */
     public Task getTask(int index) throws ZhongliException {
         checkValidRange(index);
+        assert index >= 0 : "Index should not be less than 0";
         return this.tasks.get(index);
     }
 
@@ -81,6 +82,7 @@ public class TaskList {
      */
     public void deleteTask(int index) throws ZhongliException {
         checkValidRange(index);
+        assert index >= 0 : "Index should not be less than 0";
         this.tasks.remove(index);
     }
 
@@ -100,7 +102,6 @@ public class TaskList {
             }
 
         }
-
         return res;
     }
 

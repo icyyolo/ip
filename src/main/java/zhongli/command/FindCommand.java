@@ -45,6 +45,7 @@ public class FindCommand extends Command {
         }
 
         TaskList matchedTask = taskList.getMatchingTask(keyword);
+        assert matchedTask != null : "matchedTask is null";
         if (matchedTask.getSize() == 0) {
             gui.displayMessage("There is no task that match your keyword: " + keyword);
             return;
@@ -78,6 +79,9 @@ public class FindCommand extends Command {
 
     @Override
     public void runGui(TaskList taskList, Gui gui, Storage storage) {
+        assert taskList != null : "taskList is null";
+        assert storage != null : "storage is null";
+        assert gui != null : "gui is null";
         executeCommand(taskList, gui, storage);
     }
 }

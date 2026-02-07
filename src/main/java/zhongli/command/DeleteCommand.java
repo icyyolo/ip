@@ -34,8 +34,9 @@ public class DeleteCommand extends Command {
         try {
             String number = this.command.split(" ")[1];
             int index = Integer.parseInt(number) - 1;
-
+            assert index >= 0 : "Index should not be less than 0";
             Task deletedTask = taskList.getTask(index);
+            assert deletedTask != null : "deletedTask is null";
             taskList.deleteTask(index);
 
             storage.writeTaskListToFile(taskList);
@@ -76,6 +77,9 @@ public class DeleteCommand extends Command {
 
     @Override
     public void runGui(TaskList taskList, Gui gui, Storage storage) {
+        assert taskList != null : "taskList is null";
+        assert storage != null : "storage is null";
+        assert gui != null : "gui is null";
         executeCommand(taskList, gui, storage);
     }
 }

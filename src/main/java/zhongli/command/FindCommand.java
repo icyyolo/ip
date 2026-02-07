@@ -25,38 +25,46 @@ public class FindCommand extends Command {
         this.command = command;
     }
 
-    public void executeCommand(TaskList taskList, Gui gui, Storage storage) {
-        String[] keywordArr;
-        String keyword;
+    public String getKeywordFromCommand() throws ZhongliException {
+        String[] keywordArr = Parser.splitStringIntoTwo(command, "find ",
+                "Find phrase should not be empty");
 
+        String keyword = keywordArr[1];
+
+        if (keyword.isEmpty()) {
+            throw new ZhongliException("Find phrase should not be empty");
+        }
+
+        return keyword;
+    }
+
+    /**
+     * Find and display tasks that have the matching keyword from the task list
+     *
+     */
+    public void executeCommand(TaskList taskList, Gui gui) {
         try {
-            keywordArr = Parser.splitStringIntoTwo(command, "find ",
-                    "Find phrase should not be empty");
+            String keyword = getKeywordFromCommand();
+            assert keyword != null : "keyword is null";
 
-            keyword = keywordArr[1];
+            TaskList matchedTask = taskList.getMatchingTask(keyword);
+            assert matchedTask != null : "matchedTask is null";
 
-            if (keyword.isEmpty()) {
-                throw new ZhongliException("Find phrase should not be empty");
+            if (matchedTask.getSize() == 0) {
+                gui.displayMessage("There is no task that match your keyword: " + keyword);
+            } else {
+                gui.addTaskList(matchedTask);
             }
+
         } catch (ZhongliException e) {
             gui.displayError(e.getMessage());
-            return;
         }
-
-        TaskList matchedTask = taskList.getMatchingTask(keyword);
-        assert matchedTask != null : "matchedTask is null";
-        if (matchedTask.getSize() == 0) {
-            gui.displayMessage("There is no task that match your keyword: " + keyword);
-            return;
-        }
-        gui.addTaskList(matchedTask);
     }
 
     @Override
     public void runGui(TaskList taskList, Gui gui, Storage storage) {
         assert taskList != null : "taskList is null";
-        assert storage != null : "storage is null";
         assert gui != null : "gui is null";
-        executeCommand(taskList, gui, storage);
+        executeCommand(taskList, gui);
     }
 }

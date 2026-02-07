@@ -20,6 +20,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDate endTime) {
         super(description);
+        assert endTime != null : "End time is null";
         this.endTime = endTime;
     }
 

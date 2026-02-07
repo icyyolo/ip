@@ -22,6 +22,8 @@ public class Event extends Task {
      */
     public Event(String description, LocalDate startTime, LocalDate endTime) {
         super(description);
+        assert startTime != null : "Start time is null";
+        assert endTime != null : "End time is null";
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -44,6 +46,7 @@ public class Event extends Task {
     @Override
     public HBox createTaskRow(int taskNumber) {
         ListItem listItem = new ListItem();
+        assert taskNumber < 0 : "Task number should not be less than 0";
         return listItem.createTaskRowTemplate(
                 "E",
                 "badge-event",

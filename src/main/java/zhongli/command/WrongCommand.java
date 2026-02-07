@@ -3,6 +3,7 @@ package zhongli.command;
 import zhongli.gui.Dialogue;
 import zhongli.storage.Storage;
 import zhongli.tasklist.TaskList;
+import zhongli.ui.Ui;
 
 /**
  * Represents a wrong command is entered.
@@ -25,6 +26,6 @@ public class WrongCommand extends Command {
     @Override
     public void runGui(TaskList taskList, Dialogue dialogue, Storage storage) {
         assert dialogue != null : "gui is null";
-        dialogue.displayError("The previous command [" + userInput + "] is not a correct input.");
+        dialogue.displayError(Ui.displayWrongCommandErrorMessage(this.userInput));
     }
 }

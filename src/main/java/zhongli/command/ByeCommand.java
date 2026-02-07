@@ -3,6 +3,7 @@ package zhongli.command;
 import zhongli.gui.Dialogue;
 import zhongli.storage.Storage;
 import zhongli.tasklist.TaskList;
+import zhongli.ui.Ui;
 
 /**
  * Represents a command to end interaction with the chatbot.
@@ -18,6 +19,6 @@ public class ByeCommand extends Command {
     @Override
     public void runGui(TaskList taskList, Dialogue dialogue, Storage storage) {
         assert dialogue != null : "gui is null";
-        dialogue.displayMessage("Bye lol");
+        dialogue.displayMessage(Ui.displayGoodbyeMessage());
     }
 }

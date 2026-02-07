@@ -7,6 +7,7 @@ import zhongli.parser.Parser;
 import zhongli.storage.Storage;
 import zhongli.task.Task;
 import zhongli.tasklist.TaskList;
+import zhongli.ui.Ui;
 import zhongli.zhongliexception.ZhongliException;
 
 /**
@@ -44,11 +45,7 @@ public class AddTaskCommand extends Command {
 
             storage.writeTaskListToFile(taskList);
 
-            dialogue.displayTask(task,
-                    "Got it. I've added this task:\n"
-                            + "Now you have "
-                            + taskList.getSize()
-                            + " in the list");
+            dialogue.displayTask(task, Ui.getSuccesfulAddedTask(taskList));
 
         } catch (IOException | ZhongliException e) {
             dialogue.displayError(e.getMessage());

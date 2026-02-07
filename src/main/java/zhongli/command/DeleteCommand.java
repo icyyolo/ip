@@ -6,6 +6,7 @@ import zhongli.gui.Dialogue;
 import zhongli.storage.Storage;
 import zhongli.task.Task;
 import zhongli.tasklist.TaskList;
+import zhongli.ui.Ui;
 import zhongli.zhongliexception.ZhongliException;
 
 /**
@@ -57,13 +58,8 @@ public class DeleteCommand extends Command {
             taskList.deleteTask(index);
 
             storage.writeTaskListToFile(taskList);
-            dialogue.displayTask(
-                    deletedTask,
-                    "Noted. I've removed this task:\n"
-                            + "Now you have "
-                            + taskList.getSize()
-                            + " in the lists"
-            );
+
+            dialogue.displayTask(deletedTask, Ui.getSuccessfulDeleteTask(taskList));
         } catch (IndexOutOfBoundsException e) {
             dialogue.displayError("Please input a number after delete");
         } catch (NumberFormatException e) {

@@ -6,8 +6,17 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * Represents a tasks objects
+ * This will be inside the ListBox object
+ *
+ */
 public class ListItem {
 
+    /**
+     * Creates a complete task row template with all components.
+     * The row includes a checkbox, task type badge, description, and optional date information.
+     */
     public HBox createTaskRowTemplate(
             String taskTypeLabel,
             String taskTypeStyle,
@@ -16,11 +25,13 @@ public class ListItem {
             boolean isDone,
             String labelDescription) {
         HBox taskRow = createTaskRowCheckBoxTemplate(isDone);
+
         assert taskTypeLabel != null : "taskTypeLabel is null";
         assert taskTypeStyle != null : "taskTypeStyle is null";
         assert taskNumber >= 0 : "taskNumber should not be less than 0";
         assert dateInfo != null : "dateInfo is null";
         assert labelDescription != null : "labelDescription is null";
+
         VBox taskContent = createTaskContent(
                 taskTypeLabel,
                 taskTypeStyle,
@@ -32,6 +43,12 @@ public class ListItem {
         return taskRow;
     }
 
+    /**
+     * Creates the task content section containing the type badge, description, and date.
+     * The content is organized vertically with the description line (badge + text) on top
+     * and optional date information below.
+     *
+     */
     public VBox createTaskContent(
             String taskTypeLabel,
             String taskTypeStyle,
@@ -69,22 +86,35 @@ public class ListItem {
         return content;
     }
 
+    /**
+     * Creates a label for the task description with optional task numbering.
+     * The label supports text wrapping and applies completion styling if the task is done.
+     *
+     */
     public Label createTaskRowLabel(int taskNumber, boolean isDone, String labelDescription) {
         Label description;
+
         if (taskNumber > 0) {
             description = new Label(taskNumber + ") " + labelDescription);
         } else {
             description = new Label(labelDescription);
         }
+
         description.setWrapText(true);
         description.setMaxWidth(Double.MAX_VALUE);
         description.getStyleClass().add("task-description");
+
         if (isDone) {
             description.getStyleClass().add("task-completed");
         }
         return description;
     }
 
+    /**
+     * Creates the base task row container with a checkbox.
+     * The checkbox reflects the completion state but is non-interactive.
+     *
+     */
     public HBox createTaskRowCheckBoxTemplate(boolean isDone) {
         HBox taskRow = new HBox();
 

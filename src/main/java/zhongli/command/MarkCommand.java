@@ -2,11 +2,10 @@ package zhongli.command;
 
 import java.io.IOException;
 
-import zhongli.gui.Gui;
+import zhongli.gui.Dialogue;
 import zhongli.storage.Storage;
 import zhongli.task.Task;
 import zhongli.tasklist.TaskList;
-import zhongli.ui.Ui;
 import zhongli.zhongliexception.ZhongliException;
 
 /**
@@ -31,50 +30,50 @@ public class MarkCommand extends Command {
         this.command = command;
     }
 
-    public void executeCommand(TaskList taskList, Gui gui, Storage storage) {
+    /**
+     * Gets the index of the mark task
+     *
+     */
+    public int parseIndexForMarkTask() throws NumberFormatException {
         String[] userInputArray = command.split(" ");
+        int index = Integer.parseInt(userInputArray[1]) - 1;
+        assert index >= 0 : "Index should not be less than 0";
+        return index;
+    }
+
+    /**
+     * Marks the task as complete.
+     * Then writes the updated task list to a file
+     * Display the successful message
+     * If there is any error, the respective error message will be displayed
+     *
+     */
+    public void executeCommand(TaskList taskList, Dialogue dialogue, Storage storage) {
         try {
-            int index = Integer.parseInt(userInputArray[1]) - 1;
-            assert index >= 0 : "Index should not be less than 0";
+            int index = parseIndexForMarkTask();
 
             Task curr = taskList.getTask(index);
-            assert curr != null : "curr is null";
+            assert curr != null : "selected task is null";
 
             curr.markDone();
+
             storage.writeTaskListToFile(taskList);
-            gui.displayTask(curr, successMessage);
+
+            dialogue.displayTask(curr, successMessage);
         } catch (IndexOutOfBoundsException e) {
-            gui.displayError("Please input a number after delete");
+            dialogue.displayError("Please input a number after delete");
         } catch (NumberFormatException e) {
-            gui.displayError("Please input a valid number");
+            dialogue.displayError("Please input a valid number");
         } catch (ZhongliException | IOException e) {
-            gui.displayError(e.getMessage());
+            dialogue.displayError(e.getMessage());
         }
     }
 
     @Override
-    public void run(TaskList taskList, Ui ui, Storage storage) {
-        String[] userInputArray = command.split(" ");
-        try {
-            int index = Integer.parseInt(userInputArray[1]) - 1;
-            Task curr = taskList.getTask(index);
-            curr.markDone();
-            storage.writeTaskListToFile(taskList);
-            ui.displayMarkTask(index, successMessage, taskList);
-        } catch (IndexOutOfBoundsException e) {
-            ui.displayExceptionMessage("Please input a number after delete");
-        } catch (NumberFormatException e) {
-            ui.displayExceptionMessage("Please input a valid number");
-        } catch (ZhongliException | IOException e) {
-            ui.displayExceptionMessage(e.getMessage());
-        }
-    }
-
-    @Override
-    public void runGui(TaskList taskList, Gui gui, Storage storage) {
+    public void runGui(TaskList taskList, Dialogue dialogue, Storage storage) {
         assert taskList != null : "taskList is null";
         assert storage != null : "storage is null";
-        assert gui != null : "gui is null";
-        executeCommand(taskList, gui, storage);
+        assert dialogue != null : "gui is null";
+        executeCommand(taskList, dialogue, storage);
     }
 }

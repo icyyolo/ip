@@ -22,6 +22,10 @@ public class Storage {
 
     private final String filePath;
 
+    /**
+     * Represents a storage class to read / write file based on the file path
+     *
+     */
     public Storage(String filePath) {
         assert filePath != null : "filePath is null";
         this.filePath = filePath;

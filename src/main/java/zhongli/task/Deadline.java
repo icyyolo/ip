@@ -12,6 +12,9 @@ import zhongli.gui.ListItem;
 public class Deadline extends Task {
     private LocalDate endTime;
 
+    private final String taskTypeLabel = "D";
+    private final String taskTypeStyle = "badge-deadline";
+
     /**
      * Represents a deadline task. The task must have a description and an end time.
      *
@@ -46,8 +49,8 @@ public class Deadline extends Task {
         ListItem listItem = new ListItem();
         assert taskNumber >= 0 : "Task number should not be less than 0";
         return listItem.createTaskRowTemplate(
-                "D",
-                "badge-deadline",
+                this.taskTypeLabel,
+                this.taskTypeStyle,
                 taskNumber,
                 "By: " + endTime.toString(),
                 this.getIsDone(),

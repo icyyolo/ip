@@ -8,6 +8,8 @@ import zhongli.gui.ListItem;
  *
  */
 public class ToDo extends Task {
+    private final String taskTypeLabel = "T";
+    private final String taskTypeStyle = "badge-todo";
 
     /**
      * Represents a ToDo task. The task must have a description.

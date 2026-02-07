@@ -1,9 +1,8 @@
 package zhongli.command;
 
-import java.awt.*;
 import java.io.IOException;
 
-import zhongli.gui.Gui;
+import zhongli.gui.Dialogue;
 import zhongli.parser.Parser;
 import zhongli.storage.Storage;
 import zhongli.task.Task;
@@ -19,10 +18,10 @@ import zhongli.zhongliexception.ZhongliException;
  *
  */
 public class AddTaskCommand extends Command {
-    private String userInput;
+    private final String userInput;
 
     /**
-     * Represents a Add Task command
+     * Represents an Add Task command
      *
      * @param userInput - command entered by user
      */
@@ -31,7 +30,13 @@ public class AddTaskCommand extends Command {
         this.userInput = userInput;
     }
 
-    public void executeCommand(TaskList taskList, Gui gui, Storage storage) {
+    /**
+     * Adds the task to the task list
+     * Then writes the task list to a file
+     * If there is any error, the respective error message will be displayed
+     *
+     */
+    public void executeCommand(TaskList taskList, Dialogue dialogue, Storage storage) {
         try {
             Task task = Parser.parseTaskFromInput(userInput);
             assert task != null : "task is null";
@@ -40,33 +45,18 @@ public class AddTaskCommand extends Command {
 
             storage.writeTaskListToFile(taskList);
 
-            gui.displayTask(task, "Got it. I've added this task:\n" + "Now you have " + taskList.getSize() + " in the list");
+            dialogue.displayTask(task, Ui.getSuccesfulAddedTask(taskList));
 
         } catch (IOException | ZhongliException e) {
-            gui.displayError(e.getMessage());
+            dialogue.displayError(e.getMessage());
         }
     }
 
     @Override
-    public void run(TaskList taskList, Ui ui, Storage storage) {
-        try {
-            Task task = Parser.parseTaskFromInput(userInput);
-
-            taskList.addTask(task);
-
-            storage.writeTaskListToFile(taskList);
-
-            ui.displaySuccessfulAddedTask(task, taskList);
-        } catch (IOException | ZhongliException e) {
-            ui.displayExceptionMessage(e.getMessage());
-        }
-    }
-
-    @Override
-    public void runGui(TaskList taskList, Gui gui, Storage storage) {
+    public void runGui(TaskList taskList, Dialogue dialogue, Storage storage) {
         assert taskList != null : "taskList is null";
         assert storage != null : "storage is null";
-        assert gui != null : "gui is null";
-        executeCommand(taskList, gui, storage);
+        assert dialogue != null : "gui is null";
+        executeCommand(taskList, dialogue, storage);
     }
 }

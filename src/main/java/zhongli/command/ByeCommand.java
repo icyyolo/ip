@@ -1,6 +1,6 @@
 package zhongli.command;
 
-import zhongli.gui.Gui;
+import zhongli.gui.Dialogue;
 import zhongli.storage.Storage;
 import zhongli.tasklist.TaskList;
 import zhongli.ui.Ui;
@@ -17,13 +17,8 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, Ui ui, Storage storage) {
-        super.setIsExit(true);
-    }
-
-    @Override
-    public void runGui(TaskList taskList, Gui gui, Storage storage) {
-        assert gui != null : "gui is null";
-        gui.displayMessage("Bye lol");
+    public void runGui(TaskList taskList, Dialogue dialogue, Storage storage) {
+        assert dialogue != null : "gui is null";
+        dialogue.displayMessage(Ui.displayGoodbyeMessage());
     }
 }

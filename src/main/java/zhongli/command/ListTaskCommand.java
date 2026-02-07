@@ -1,9 +1,8 @@
 package zhongli.command;
 
-import zhongli.gui.Gui;
+import zhongli.gui.Dialogue;
 import zhongli.storage.Storage;
 import zhongli.tasklist.TaskList;
-import zhongli.ui.Ui;
 
 /**
  * Represents a list task list command.
@@ -16,13 +15,8 @@ public class ListTaskCommand extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, Ui ui, Storage storage) {
-        ui.listTasksArray(taskList);
-    }
-
-    @Override
-    public void runGui(TaskList taskList, Gui gui, Storage storage) {
-        assert gui != null : "gui is null";
-        gui.addTaskList(taskList);
+    public void runGui(TaskList taskList, Dialogue dialogue, Storage storage) {
+        assert dialogue != null : "gui is null";
+        dialogue.addTaskList(taskList);
     }
 }

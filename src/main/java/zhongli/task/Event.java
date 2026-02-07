@@ -13,6 +13,9 @@ public class Event extends Task {
     private LocalDate startTime;
     private LocalDate endTime;
 
+    private final String taskTypeLabel = "E";
+    private final String taskTypeStyle = "badge-event";
+
     /**
      * Represents an event task. The task must have a start time, a description and an end time.
      *

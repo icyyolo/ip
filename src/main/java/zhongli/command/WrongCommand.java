@@ -1,6 +1,6 @@
 package zhongli.command;
 
-import zhongli.gui.Gui;
+import zhongli.gui.Dialogue;
 import zhongli.storage.Storage;
 import zhongli.tasklist.TaskList;
 import zhongli.ui.Ui;
@@ -13,19 +13,19 @@ import zhongli.ui.Ui;
 public class WrongCommand extends Command {
     private String userInput;
 
+    /**
+     * Represents a command that does not match the other commands.
+     * When you call runGui(), it will display an error message.
+     *
+     */
     public WrongCommand(String userInput) {
         super();
         this.userInput = userInput;
     }
 
     @Override
-    public void run(TaskList taskList, Ui ui, Storage storage) {
-        ui.displayExceptionMessage("This is a wrong command");
-    }
-
-    @Override
-    public void runGui(TaskList taskList, Gui gui, Storage storage) {
-        assert gui != null : "gui is null";
-        gui.displayError("The previous command [" + userInput + "] is not a correct input.");
+    public void runGui(TaskList taskList, Dialogue dialogue, Storage storage) {
+        assert dialogue != null : "gui is null";
+        dialogue.displayError(Ui.displayWrongCommandErrorMessage(this.userInput));
     }
 }

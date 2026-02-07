@@ -60,8 +60,9 @@ public class Parser {
      * @throws ZhongliException - If regex is not found in the string.
      */
     public static String[] splitStringIntoTwo(String input, String regex, String errorMsg) throws ZhongliException {
+        assert regex != null : "regex is null";
         String[] res = input.split(regex, 2);
-
+        assert errorMsg != null : "errorMsg is null";
         if (res.length < 2) {
             throw new ZhongliException(errorMsg);
         }
@@ -77,6 +78,7 @@ public class Parser {
      * @throws ZhongliException - If input is empty.
      */
     private static void checkStringIsEmpty(String input, String errorMsg) throws ZhongliException {
+        assert errorMsg != null : "errorMsg is null";
         if (input.isEmpty()) {
             throw new ZhongliException(errorMsg);
         }

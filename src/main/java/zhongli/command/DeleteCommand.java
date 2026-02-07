@@ -29,20 +29,40 @@ public class DeleteCommand extends Command {
         this.command = command;
     }
 
+    /**
+     * Gets the index of the deleted task
+     *
+     */
+    public int parseIndexForDeletedTask() throws NumberFormatException {
+        String number = this.command.split(" ")[1];
+        int index = Integer.parseInt(number) - 1;
+        assert index >= 0 : "Index should not be less than 0";
+        return index;
+    }
+
+    /**
+     * Deletes the task from the task list
+     * Then writes the updated task list to a file
+     * Display the successful message
+     * If there is any error, the respective error message will be displayed
+     *
+     */
     public void executeCommand(TaskList taskList, Gui gui, Storage storage) {
         try {
-            String number = this.command.split(" ")[1];
-            int index = Integer.parseInt(number) - 1;
-            assert index >= 0 : "Index should not be less than 0";
+            int index = parseIndexForDeletedTask();
+
             Task deletedTask = taskList.getTask(index);
             assert deletedTask != null : "deletedTask is null";
+
             taskList.deleteTask(index);
 
             storage.writeTaskListToFile(taskList);
             gui.displayTask(
                     deletedTask,
                     "Noted. I've removed this task:\n"
-                    + "Now you have " + taskList.getSize() + " in the lists"
+                            + "Now you have "
+                            + taskList.getSize()
+                            + " in the lists"
             );
         } catch (IndexOutOfBoundsException e) {
             gui.displayError("Please input a number after delete");

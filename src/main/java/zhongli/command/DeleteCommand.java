@@ -55,27 +55,6 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, Ui ui, Storage storage) {
-        try {
-            String number = this.command.split(" ")[1];
-            int index = Integer.parseInt(number) - 1;
-
-            Task deletedTask = taskList.getTask(index);
-            taskList.deleteTask(index);
-
-            ui.displaySuccessfulDeleteTask(deletedTask, taskList);
-
-            storage.writeTaskListToFile(taskList);
-        } catch (IndexOutOfBoundsException e) {
-            ui.displayExceptionMessage("Please input a number after delete");
-        } catch (NumberFormatException e) {
-            ui.displayExceptionMessage("Please input a valid number");
-        } catch (ZhongliException | IOException e) {
-            ui.displayExceptionMessage(e.getMessage());
-        }
-    }
-
-    @Override
     public void runGui(TaskList taskList, Gui gui, Storage storage) {
         assert taskList != null : "taskList is null";
         assert storage != null : "storage is null";

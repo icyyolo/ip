@@ -31,33 +31,6 @@ public class Zhongli {
         assert taskList != null : "Tasklist should be not be null";
     }
 
-    public void commandLineApplication() {
-        ui.displayWelcomeMessage();
-        runLoop();
-        ui.displayGoodbyeMessage();
-    }
-
-    /**
-     * Represents the main loop, where the chatbot interaction happens
-     *
-     */
-    public void runLoop() {
-        boolean isExitCommand = false;
-
-        while (!isExitCommand) {
-            String input = this.ui.readCommand();
-            ui.printHorizontalLine();
-            Command command = Parser.parseCommand(input);
-            command.run(taskList, ui, storage);
-
-            isExitCommand = command.getIsExit();
-            if (isExitCommand) { //To avoid printing one more horizontal line
-                break;
-            }
-            ui.printHorizontalLine();
-        }
-    }
-
     public void getGui(String input, Gui gui) {
         if (input.equals("clear")) {
             gui.clearChatbox();

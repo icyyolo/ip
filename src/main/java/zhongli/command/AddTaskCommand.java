@@ -48,21 +48,6 @@ public class AddTaskCommand extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, Ui ui, Storage storage) {
-        try {
-            Task task = Parser.parseTaskFromInput(userInput);
-
-            taskList.addTask(task);
-
-            storage.writeTaskListToFile(taskList);
-
-            ui.displaySuccessfulAddedTask(task, taskList);
-        } catch (IOException | ZhongliException e) {
-            ui.displayExceptionMessage(e.getMessage());
-        }
-    }
-
-    @Override
     public void runGui(TaskList taskList, Gui gui, Storage storage) {
         assert taskList != null : "taskList is null";
         assert storage != null : "storage is null";

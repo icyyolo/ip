@@ -16,11 +16,6 @@ public class ListTaskCommand extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, Ui ui, Storage storage) {
-        ui.listTasksArray(taskList);
-    }
-
-    @Override
     public void runGui(TaskList taskList, Gui gui, Storage storage) {
         assert gui != null : "gui is null";
         gui.addTaskList(taskList);

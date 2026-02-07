@@ -55,27 +55,6 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, Ui ui, Storage storage) {
-        String[] userInputArray = command.split(" ");
-        try {
-            int index = Integer.parseInt(userInputArray[1]) - 1;
-
-            Task curr = taskList.getTask(index);
-            curr.markUndone();
-
-            ui.displayMarkTask(index, successMessage, taskList);
-
-            storage.writeTaskListToFile(taskList);
-        } catch (IndexOutOfBoundsException e) {
-            ui.displayExceptionMessage("Please input a number after delete");
-        } catch (NumberFormatException e) {
-            ui.displayExceptionMessage("Please input a valid number");
-        } catch (ZhongliException | IOException e) {
-            ui.displayExceptionMessage(e.getMessage());
-        }
-    }
-
-    @Override
     public void runGui(TaskList taskList, Gui gui, Storage storage) {
         assert taskList != null : "taskList is null";
         assert storage != null : "storage is null";

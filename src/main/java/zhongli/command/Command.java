@@ -28,7 +28,5 @@ public abstract class Command {
      * Runs the current command with the given parameters.
      *
      */
-    public abstract void run(TaskList taskList, Ui ui, Storage storage);
-
     public abstract void runGui(TaskList taskList, Gui gui, Storage storage);
 }

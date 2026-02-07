@@ -54,30 +54,6 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, Ui ui, Storage storage) {
-        String[] keywordArr;
-        String keyword;
-
-        try {
-            keywordArr = Parser.splitStringIntoTwo(command, "find ",
-                    "Find phrase should not be empty");
-
-            keyword = keywordArr[1];
-
-            if (keyword.isEmpty()) {
-                throw new ZhongliException("Find phrase should not be empty");
-            }
-        } catch (ZhongliException e) {
-            ui.displayExceptionMessage(e.getMessage());
-            return;
-        }
-
-        TaskList matchedTask = taskList.getMatchingTask(keyword);
-
-        ui.displayFindMessage(matchedTask.toString(), keyword);
-    }
-
-    @Override
     public void runGui(TaskList taskList, Gui gui, Storage storage) {
         assert taskList != null : "taskList is null";
         assert storage != null : "storage is null";

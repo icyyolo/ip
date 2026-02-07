@@ -17,11 +17,6 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, Ui ui, Storage storage) {
-        super.setIsExit(true);
-    }
-
-    @Override
     public void runGui(TaskList taskList, Gui gui, Storage storage) {
         assert gui != null : "gui is null";
         gui.displayMessage("Bye lol");

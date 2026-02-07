@@ -19,11 +19,6 @@ public class WrongCommand extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, Ui ui, Storage storage) {
-        ui.displayExceptionMessage("This is a wrong command");
-    }
-
-    @Override
     public void runGui(TaskList taskList, Gui gui, Storage storage) {
         assert gui != null : "gui is null";
         gui.displayError("The previous command [" + userInput + "] is not a correct input.");

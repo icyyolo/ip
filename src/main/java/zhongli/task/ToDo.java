@@ -30,6 +30,7 @@ public class ToDo extends Task {
     }
     @Override
     public HBox createTaskRow(int taskNumber) {
+        assert taskNumber < 0 : "Task number should not be less than 0";
         ListItem listItem = new ListItem();
         return listItem.createTaskRowTemplate(
                 "T",

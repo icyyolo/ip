@@ -57,6 +57,7 @@ public class TaskList {
      *
      */
     public void addTask(Task task) {
+        assert task != null : "Task in addTask is null";
         this.tasks.add(task);
     }
 
@@ -69,6 +70,7 @@ public class TaskList {
      */
     public Task getTask(int index) throws ZhongliException {
         checkValidRange(index);
+        assert index < 0 : "Index should not be less than 0";
         return this.tasks.get(index);
     }
 
@@ -80,6 +82,7 @@ public class TaskList {
      */
     public void deleteTask(int index) throws ZhongliException {
         checkValidRange(index);
+        assert index < 0 : "Index should not be less than 0";
         this.tasks.remove(index);
     }
 
@@ -99,7 +102,6 @@ public class TaskList {
             }
 
         }
-
         return res;
     }
 

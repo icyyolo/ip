@@ -1,13 +1,10 @@
 package zhongli.task;
 
-import javafx.geometry.Pos;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 
 /**
  * Represents a generic task class that contains a description and a boolean

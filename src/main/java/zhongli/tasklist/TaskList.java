@@ -70,7 +70,7 @@ public class TaskList {
      */
     public Task getTask(int index) throws ZhongliException {
         checkValidRange(index);
-        assert index < 0 : "Index should not be less than 0";
+        assert index >= 0 : "Index should not be less than 0";
         return this.tasks.get(index);
     }
 
@@ -82,7 +82,7 @@ public class TaskList {
      */
     public void deleteTask(int index) throws ZhongliException {
         checkValidRange(index);
-        assert index < 0 : "Index should not be less than 0";
+        assert index >= 0 : "Index should not be less than 0";
         this.tasks.remove(index);
     }
 

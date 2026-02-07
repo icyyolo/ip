@@ -18,7 +18,7 @@ public class ListItem {
         HBox taskRow = createTaskRowCheckBoxTemplate(isDone);
         assert taskTypeLabel != null : "taskTypeLabel is null";
         assert taskTypeStyle != null : "taskTypeStyle is null";
-        assert taskNumber > 0 : "taskNumber should not be less than 0";
+        assert taskNumber >= 0 : "taskNumber should not be less than 0";
         assert dateInfo != null : "dateInfo is null";
         assert labelDescription != null : "labelDescription is null";
         VBox taskContent = createTaskContent(

@@ -44,7 +44,7 @@ public class Deadline extends Task {
     @Override
     public HBox createTaskRow(int taskNumber) {
         ListItem listItem = new ListItem();
-        assert taskNumber < 0 : "Task number should not be less than 0";
+        assert taskNumber >= 0 : "Task number should not be less than 0";
         return listItem.createTaskRowTemplate(
                 "D",
                 "badge-deadline",

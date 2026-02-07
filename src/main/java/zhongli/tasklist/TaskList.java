@@ -1,11 +1,10 @@
 package zhongli.tasklist;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import zhongli.task.Task;
 import zhongli.zhongliexception.ZhongliException;
-
-import javax.management.openmbean.TabularData;
 
 /**
  * Represents an ArrayList of tasks.
@@ -19,7 +18,7 @@ public class TaskList {
     }
 
     public TaskList(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+        this.tasks = Objects.requireNonNullElseGet(tasks, ArrayList::new);
     }
 
     /**

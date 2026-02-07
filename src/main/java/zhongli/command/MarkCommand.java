@@ -30,17 +30,35 @@ public class MarkCommand extends Command {
         this.command = command;
     }
 
-    public void executeCommand(TaskList taskList, Gui gui, Storage storage) {
+    /**
+     * Gets the index of the mark task
+     *
+     */
+    public int parseIndexForMarkTask() throws NumberFormatException {
         String[] userInputArray = command.split(" ");
+        int index = Integer.parseInt(userInputArray[1]) - 1;
+        assert index >= 0 : "Index should not be less than 0";
+        return index;
+    }
+
+    /**
+     * Marks the task as complete.
+     * Then writes the updated task list to a file
+     * Display the successful message
+     * If there is any error, the respective error message will be displayed
+     *
+     */
+    public void executeCommand(TaskList taskList, Gui gui, Storage storage) {
         try {
-            int index = Integer.parseInt(userInputArray[1]) - 1;
-            assert index >= 0 : "Index should not be less than 0";
+            int index = parseIndexForMarkTask();
 
             Task curr = taskList.getTask(index);
-            assert curr != null : "curr is null";
+            assert curr != null : "selected task is null";
 
             curr.markDone();
+
             storage.writeTaskListToFile(taskList);
+
             gui.displayTask(curr, successMessage);
         } catch (IndexOutOfBoundsException e) {
             gui.displayError("Please input a number after delete");

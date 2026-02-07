@@ -2,7 +2,7 @@ package zhongli.command;
 
 import java.io.IOException;
 
-import zhongli.gui.Gui;
+import zhongli.gui.Dialogue;
 import zhongli.storage.Storage;
 import zhongli.task.Task;
 import zhongli.tasklist.TaskList;
@@ -48,7 +48,7 @@ public class UnmarkCommand extends Command {
      * If there is any error, the respective error message will be displayed
      *
      */
-    public void executeCommand(TaskList taskList, Gui gui, Storage storage) {
+    public void executeCommand(TaskList taskList, Dialogue dialogue, Storage storage) {
         try {
             int index = parseIndexForUnmarkTask();
 
@@ -59,21 +59,21 @@ public class UnmarkCommand extends Command {
 
             storage.writeTaskListToFile(taskList);
 
-            gui.displayTask(curr, successMessage);
+            dialogue.displayTask(curr, successMessage);
         } catch (IndexOutOfBoundsException e) {
-            gui.displayError("Please input a number after delete");
+            dialogue.displayError("Please input a number after delete");
         } catch (NumberFormatException e) {
-            gui.displayError("Please input a valid number");
+            dialogue.displayError("Please input a valid number");
         } catch (ZhongliException | IOException e) {
-            gui.displayError(e.getMessage());
+            dialogue.displayError(e.getMessage());
         }
     }
 
     @Override
-    public void runGui(TaskList taskList, Gui gui, Storage storage) {
+    public void runGui(TaskList taskList, Dialogue dialogue, Storage storage) {
         assert taskList != null : "taskList is null";
         assert storage != null : "storage is null";
-        assert gui != null : "gui is null";
-        executeCommand(taskList, gui, storage);
+        assert dialogue != null : "gui is null";
+        executeCommand(taskList, dialogue, storage);
     }
 }

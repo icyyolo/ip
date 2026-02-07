@@ -28,7 +28,7 @@ public class MainWindow extends AnchorPane {
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     private Zhongli zhongli;
-    private Gui gui;
+    private Dialogue dialogue;
 
     public void setZhongli(Zhongli zhongli) {
         this.zhongli = zhongli;
@@ -38,7 +38,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         this.displayWelcomeMessage();
-        this.gui = new Gui(dialogContainer);
+        this.dialogue = new Dialogue(dialogContainer);
     }
 
     @FXML
@@ -51,8 +51,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        gui.addUserMessage(input);
-        zhongli.getGui(input, gui);
+        dialogue.addUserMessage(input);
+        zhongli.getGui(input, dialogue);
         userInput.clear();
     }
 }

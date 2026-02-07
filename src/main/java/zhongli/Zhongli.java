@@ -1,7 +1,7 @@
 package zhongli;
 
 import zhongli.command.Command;
-import zhongli.gui.Gui;
+import zhongli.gui.Dialogue;
 import zhongli.parser.Parser;
 import zhongli.storage.Storage;
 import zhongli.tasklist.TaskList;
@@ -31,12 +31,12 @@ public class Zhongli {
         assert taskList != null : "Tasklist should be not be null";
     }
 
-    public void getGui(String input, Gui gui) {
+    public void getGui(String input, Dialogue dialogue) {
         if (input.equals("clear")) {
-            gui.clearChatbox();
+            dialogue.clearChatbox();
         }
         Command command = Parser.parseCommand(input);
-        command.runGui(taskList, gui, storage);
+        command.runGui(taskList, dialogue, storage);
     }
 
     public static void main(String[] args) {

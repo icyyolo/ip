@@ -1,6 +1,6 @@
 package zhongli.command;
 
-import zhongli.gui.Gui;
+import zhongli.gui.Dialogue;
 import zhongli.parser.Parser;
 import zhongli.storage.Storage;
 import zhongli.tasklist.TaskList;
@@ -42,7 +42,7 @@ public class FindCommand extends Command {
      * Find and display tasks that have the matching keyword from the task list
      *
      */
-    public void executeCommand(TaskList taskList, Gui gui) {
+    public void executeCommand(TaskList taskList, Dialogue dialogue) {
         try {
             String keyword = getKeywordFromCommand();
             assert keyword != null : "keyword is null";
@@ -51,20 +51,20 @@ public class FindCommand extends Command {
             assert matchedTask != null : "matchedTask is null";
 
             if (matchedTask.getSize() == 0) {
-                gui.displayMessage("There is no task that match your keyword: " + keyword);
+                dialogue.displayMessage("There is no task that match your keyword: " + keyword);
             } else {
-                gui.addTaskList(matchedTask);
+                dialogue.addTaskList(matchedTask);
             }
 
         } catch (ZhongliException e) {
-            gui.displayError(e.getMessage());
+            dialogue.displayError(e.getMessage());
         }
     }
 
     @Override
-    public void runGui(TaskList taskList, Gui gui, Storage storage) {
+    public void runGui(TaskList taskList, Dialogue dialogue, Storage storage) {
         assert taskList != null : "taskList is null";
-        assert gui != null : "gui is null";
-        executeCommand(taskList, gui);
+        assert dialogue != null : "gui is null";
+        executeCommand(taskList, dialogue);
     }
 }

@@ -2,7 +2,7 @@ package zhongli.command;
 
 import java.io.IOException;
 
-import zhongli.gui.Gui;
+import zhongli.gui.Dialogue;
 import zhongli.parser.Parser;
 import zhongli.storage.Storage;
 import zhongli.task.Task;
@@ -35,7 +35,7 @@ public class AddTaskCommand extends Command {
      * If there is any error, the respective error message will be displayed
      *
      */
-    public void executeCommand(TaskList taskList, Gui gui, Storage storage) {
+    public void executeCommand(TaskList taskList, Dialogue dialogue, Storage storage) {
         try {
             Task task = Parser.parseTaskFromInput(userInput);
             assert task != null : "task is null";
@@ -44,22 +44,22 @@ public class AddTaskCommand extends Command {
 
             storage.writeTaskListToFile(taskList);
 
-            gui.displayTask(task,
+            dialogue.displayTask(task,
                     "Got it. I've added this task:\n"
                             + "Now you have "
                             + taskList.getSize()
                             + " in the list");
 
         } catch (IOException | ZhongliException e) {
-            gui.displayError(e.getMessage());
+            dialogue.displayError(e.getMessage());
         }
     }
 
     @Override
-    public void runGui(TaskList taskList, Gui gui, Storage storage) {
+    public void runGui(TaskList taskList, Dialogue dialogue, Storage storage) {
         assert taskList != null : "taskList is null";
         assert storage != null : "storage is null";
-        assert gui != null : "gui is null";
-        executeCommand(taskList, gui, storage);
+        assert dialogue != null : "gui is null";
+        executeCommand(taskList, dialogue, storage);
     }
 }

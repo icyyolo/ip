@@ -11,14 +11,14 @@ import zhongli.ui.Ui;
  * This returns a String to output to the GUI
  *
  */
-public class Gui {
+public class Dialogue {
 
     private final VBox dialogContainer;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    public Gui(VBox dialog) {
+    public Dialogue(VBox dialog) {
         assert dialog != null : "dialog is null";
         this.dialogContainer = dialog;
     }

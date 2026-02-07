@@ -56,6 +56,9 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
+        assert img != null : "img is null";
+        assert text != null : "text is null";
+
         DialogBox db = new DialogBox(text, img);
         db.contentBox.getStyleClass().add("user-message-bubble");
         return db;
@@ -64,15 +67,22 @@ public class DialogBox extends HBox {
     public static DialogBox getZhongliDialog(String text, Image img) {
         assert img != null : "img is null";
         assert text != null : "text is null";
+
         DialogBox db = new DialogBox(text, img);
         db.contentBox.getStyleClass().add("zhongli-message-bubble");
         db.flip();
         return db;
     }
 
+    /**
+     * Adds a listBox into the contentBox
+     * The list box will display the tasks list.
+     *
+     */
     public void addListBox(TaskList tasks, String listTitle) {
         assert tasks != null : "img is null";
         assert listTitle != null : "text is null";
+
         ListBox listBox = new ListBox(listTitle, tasks);
         contentBox.getChildren().add(listBox);
     }
@@ -90,8 +100,13 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Adds a task into the contentBox
+     *
+     */
     public void addTask(Task task) {
         assert task != null : "task is null";
+
         HBox taskGui = task.createTaskRow(0);
         contentBox.getChildren().add(taskGui);
     }
@@ -100,6 +115,7 @@ public class DialogBox extends HBox {
         assert text != null : "img is null";
         assert img != null : "text is null";
         assert task != null : "task is null";
+
         DialogBox db = new DialogBox(text, img);
         db.contentBox.getStyleClass().add("zhongli-message-bubble");
         db.addTask(task);
@@ -110,6 +126,7 @@ public class DialogBox extends HBox {
     public static DialogBox getErrorDialog(String text, Image img) {
         assert text != null : "img is null";
         assert img != null : "text is null";
+
         var db = new DialogBox(text, img);
         db.contentBox.getStyleClass().add("error-message-bubble");
         db.dialog.getStyleClass().add("error-message-text");

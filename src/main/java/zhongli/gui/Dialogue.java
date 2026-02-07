@@ -18,11 +18,19 @@ public class Dialogue {
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Represents the dialogue, the messages of the GUI
+     *
+     */
     public Dialogue(VBox dialog) {
         assert dialog != null : "dialog is null";
         this.dialogContainer = dialog;
     }
 
+    /**
+     * Adds user message to the dialog container
+     *
+     */
     public void addUserMessage(String input) {
         assert input != null : "input is null";
         this.dialogContainer.getChildren().addAll(
@@ -34,6 +42,10 @@ public class Dialogue {
         this.dialogContainer.getChildren().clear();
     }
 
+    /**
+     * Adds a taskList to the dialogue with a message
+     *
+     */
     public void addTaskList(TaskList taskList) {
         assert taskList != null : "taskList is null";
         this.dialogContainer.getChildren().add(
@@ -46,6 +58,11 @@ public class Dialogue {
         );
     }
 
+    /**
+     * Display the message
+     * Followed by the task
+     *
+     */
     public void displayTask(Task task, String message) {
         assert task != null : "task is null";
         assert message != null : "message is null";
@@ -58,6 +75,10 @@ public class Dialogue {
         );
     }
 
+    /**
+     * Display an error message with a red border
+     *
+     */
     public void displayError(String message) {
         assert message != null : "message is null";
         this.dialogContainer.getChildren().add(
@@ -68,6 +89,10 @@ public class Dialogue {
         );
     }
 
+    /**
+     * Displays a normal message
+     *
+     */
     public void displayMessage(String message) {
         assert message != null : "message is null";
         this.dialogContainer.getChildren().add(
@@ -77,9 +102,5 @@ public class Dialogue {
                 )
         );
     }
-
-    public static String getWelcomeMessage() {
-        return Ui.getWelcomeMessage();
-    }
-
+    
 }

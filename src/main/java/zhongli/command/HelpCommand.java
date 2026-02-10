@@ -1,7 +1,7 @@
 package zhongli.command;
 
 import zhongli.gui.Dialogue;
-import zhongli.storage.Storage;
+import zhongli.storage.TaskStorage;
 import zhongli.tasklist.TaskList;
 
 /**
@@ -19,7 +19,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public void runGui(TaskList taskList, Dialogue dialogue, Storage storage) {
+    public void runGui(TaskList taskList, Dialogue dialogue, TaskStorage storage) {
         String helpMessage = helpDialogue + CommandType.getAllCommandsHelpMessage();
         dialogue.displayMessage(helpMessage);
     }

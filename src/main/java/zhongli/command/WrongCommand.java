@@ -1,7 +1,7 @@
 package zhongli.command;
 
 import zhongli.gui.Dialogue;
-import zhongli.storage.Storage;
+import zhongli.storage.TaskStorage;
 import zhongli.tasklist.TaskList;
 import zhongli.ui.Ui;
 
@@ -24,7 +24,7 @@ public class WrongCommand extends Command {
     }
 
     @Override
-    public void runGui(TaskList taskList, Dialogue dialogue, Storage storage) {
+    public void runGui(TaskList taskList, Dialogue dialogue, TaskStorage storage) {
         assert dialogue != null : "gui is null";
         dialogue.displayError(Ui.displayWrongCommandErrorMessage(this.userInput));
     }

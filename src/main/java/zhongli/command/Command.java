@@ -1,7 +1,7 @@
 package zhongli.command;
 
 import zhongli.gui.Dialogue;
-import zhongli.storage.Storage;
+import zhongli.storage.TaskStorage;
 import zhongli.tasklist.TaskList;
 
 /**
@@ -27,5 +27,5 @@ public abstract class Command {
      * Runs the current command with the given parameters.
      *
      */
-    public abstract void runGui(TaskList taskList, Dialogue dialogue, Storage storage);
+    public abstract void runGui(TaskList taskList, Dialogue dialogue, TaskStorage storage);
 }

@@ -2,7 +2,7 @@ package zhongli.command;
 
 import zhongli.gui.Dialogue;
 import zhongli.parser.Parser;
-import zhongli.storage.Storage;
+import zhongli.storage.TaskStorage;
 import zhongli.tasklist.TaskList;
 import zhongli.zhongliexception.ZhongliException;
 
@@ -65,7 +65,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void runGui(TaskList taskList, Dialogue dialogue, Storage storage) {
+    public void runGui(TaskList taskList, Dialogue dialogue, TaskStorage storage) {
         assert taskList != null : "taskList is null";
         assert dialogue != null : "gui is null";
         executeCommand(taskList, dialogue);

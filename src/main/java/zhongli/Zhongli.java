@@ -3,7 +3,7 @@ package zhongli;
 import zhongli.command.Command;
 import zhongli.gui.Dialogue;
 import zhongli.parser.Parser;
-import zhongli.storage.Storage;
+import zhongli.storage.TaskStorage;
 import zhongli.tasklist.TaskList;
 import zhongli.ui.Ui;
 
@@ -15,7 +15,7 @@ import zhongli.ui.Ui;
 public class Zhongli {
 
     private static final String filePath = ".taskstxt";
-    private final Storage storage;
+    private final TaskStorage taskStorage;
     private final Ui ui;
     private final TaskList taskList;
 
@@ -26,8 +26,8 @@ public class Zhongli {
      */
     public Zhongli() {
         ui = new Ui();
-        storage = new Storage(filePath);
-        taskList = this.storage.initializeTaskList(ui);
+        taskStorage = new TaskStorage(filePath);
+        taskList = this.taskStorage.initializeTaskList(ui);
         assert taskList != null : "Tasklist should be not be null";
     }
 
@@ -36,7 +36,7 @@ public class Zhongli {
             dialogue.clearChatbox();
         }
         Command command = Parser.parseCommand(input);
-        command.runGui(taskList, dialogue, storage);
+        command.runGui(taskList, dialogue, taskStorage);
     }
 
     public static void main(String[] args) {

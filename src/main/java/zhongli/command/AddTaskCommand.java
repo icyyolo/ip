@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import zhongli.gui.Dialogue;
 import zhongli.parser.Parser;
-import zhongli.storage.Storage;
+import zhongli.storage.TaskStorage;
 import zhongli.task.Deadline;
 import zhongli.task.Event;
 import zhongli.task.Task;
@@ -40,7 +40,7 @@ public class AddTaskCommand extends Command {
      * If there is any error, the respective error message will be displayed
      *
      */
-    public void executeCommand(TaskList taskList, Dialogue dialogue, Storage storage) {
+    public void executeCommand(TaskList taskList, Dialogue dialogue, TaskStorage storage) {
         try {
             Task task = Parser.parseTaskFromInput(userInput);
             assert task != null : "task is null";
@@ -57,7 +57,7 @@ public class AddTaskCommand extends Command {
     }
 
     @Override
-    public void runGui(TaskList taskList, Dialogue dialogue, Storage storage) {
+    public void runGui(TaskList taskList, Dialogue dialogue, TaskStorage storage) {
         assert taskList != null : "taskList is null";
         assert storage != null : "storage is null";
         assert dialogue != null : "gui is null";

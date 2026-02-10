@@ -3,7 +3,7 @@ package zhongli.command;
 import java.io.IOException;
 
 import zhongli.gui.Dialogue;
-import zhongli.storage.Storage;
+import zhongli.storage.TaskStorage;
 import zhongli.task.Task;
 import zhongli.tasklist.TaskList;
 import zhongli.zhongliexception.ZhongliException;
@@ -50,7 +50,7 @@ public class UnmarkCommand extends Command {
      * If there is any error, the respective error message will be displayed
      *
      */
-    public void executeCommand(TaskList taskList, Dialogue dialogue, Storage storage) {
+    public void executeCommand(TaskList taskList, Dialogue dialogue, TaskStorage storage) {
         try {
             int index = parseIndexForUnmarkTask();
 
@@ -72,7 +72,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void runGui(TaskList taskList, Dialogue dialogue, Storage storage) {
+    public void runGui(TaskList taskList, Dialogue dialogue, TaskStorage storage) {
         assert taskList != null : "taskList is null";
         assert storage != null : "storage is null";
         assert dialogue != null : "gui is null";

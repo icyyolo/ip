@@ -1,7 +1,7 @@
 package zhongli.command;
 
 import zhongli.gui.Dialogue;
-import zhongli.storage.Storage;
+import zhongli.storage.TaskStorage;
 import zhongli.tasklist.TaskList;
 
 /**
@@ -17,7 +17,7 @@ public class ListTaskCommand extends Command {
     }
 
     @Override
-    public void runGui(TaskList taskList, Dialogue dialogue, Storage storage) {
+    public void runGui(TaskList taskList, Dialogue dialogue, TaskStorage storage) {
         assert dialogue != null : "gui is null";
         dialogue.addTaskList(taskList);
     }

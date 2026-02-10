@@ -3,15 +3,7 @@ package zhongli.parser;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
-import zhongli.command.AddTaskCommand;
-import zhongli.command.ByeCommand;
-import zhongli.command.Command;
-import zhongli.command.DeleteCommand;
-import zhongli.command.FindCommand;
-import zhongli.command.ListTaskCommand;
-import zhongli.command.MarkCommand;
-import zhongli.command.UnmarkCommand;
-import zhongli.command.WrongCommand;
+import zhongli.command.*;
 import zhongli.task.Deadline;
 import zhongli.task.Event;
 import zhongli.task.Task;
@@ -276,15 +268,17 @@ public class Parser {
      */
     public static Command parseCommand(String command) {
         String firstWord = command.split(" ")[0];
+        CommandType type = CommandType.fromString(firstWord);
 
-        return switch (firstWord) {
-        case "list" -> new ListTaskCommand();
-        case "todo", "event", "deadline" -> new AddTaskCommand(command);
-        case "mark" -> new MarkCommand(command);
-        case "unmark" -> new UnmarkCommand(command);
-        case "delete" -> new DeleteCommand(command);
-        case "bye" -> new ByeCommand();
-        case "find" -> new FindCommand(command);
+        return switch (type) {
+        case LIST -> new ListTaskCommand();
+        case TODO, EVENT, DEADLINE -> new AddTaskCommand(command);
+        case MARK -> new MarkCommand(command);
+        case UNMARK-> new UnmarkCommand(command);
+        case DELETE -> new DeleteCommand(command);
+        case BYE -> new ByeCommand();
+        case FIND -> new FindCommand(command);
+        case UNKNOWN -> new WrongCommand(command);
         default -> new WrongCommand(command);
         };
     }

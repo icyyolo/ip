@@ -17,6 +17,8 @@ import zhongli.zhongliexception.ZhongliException;
  */
 public class MarkCommand extends Command {
     private static final String successMessage = "Nice! I've marked this task as done";
+    private static final String helpDescription =
+            "Mark a task as complete";
 
     private final String command;
 
@@ -75,5 +77,9 @@ public class MarkCommand extends Command {
         assert storage != null : "storage is null";
         assert dialogue != null : "gui is null";
         executeCommand(taskList, dialogue, storage);
+    }
+
+    public static String getHelpDescription() {
+        return helpDescription;
     }
 }

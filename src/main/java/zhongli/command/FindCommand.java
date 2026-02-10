@@ -13,6 +13,9 @@ import zhongli.zhongliexception.ZhongliException;
  *
  */
 public class FindCommand extends Command {
+    private static final String helpDescription =
+            "Find a task based on the phrase";
+
     private final String command;
 
     /**
@@ -66,5 +69,9 @@ public class FindCommand extends Command {
         assert taskList != null : "taskList is null";
         assert dialogue != null : "gui is null";
         executeCommand(taskList, dialogue);
+    }
+
+    public static String getHelpDescription() {
+        return helpDescription;
     }
 }

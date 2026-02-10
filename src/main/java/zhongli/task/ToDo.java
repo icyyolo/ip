@@ -30,6 +30,11 @@ public class ToDo extends Task {
         return "todo " + super.getDescription()
                 + super.getStringIsDone() + "\n";
     }
+
+    public static String getHelpDescription() {
+        return "Adds a todo task to the task list";
+    }
+
     @Override
     public HBox createTaskRow(int taskNumber) {
         assert taskNumber >= 0 : "Task number should not be less than 0";

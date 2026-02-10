@@ -11,6 +11,8 @@ import zhongli.ui.Ui;
  *
  */
 public class ByeCommand extends Command {
+    private static final String helpDescription =
+            "Exits the application";
 
     public ByeCommand() {
         super();
@@ -20,5 +22,9 @@ public class ByeCommand extends Command {
     public void runGui(TaskList taskList, Dialogue dialogue, Storage storage) {
         assert dialogue != null : "gui is null";
         dialogue.displayMessage(Ui.displayGoodbyeMessage());
+    }
+
+    public static String getHelpDescription() {
+        return helpDescription;
     }
 }

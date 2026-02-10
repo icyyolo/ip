@@ -9,6 +9,8 @@ import zhongli.tasklist.TaskList;
  *
  */
 public class ListTaskCommand extends Command {
+    private static final String helpDescription =
+            "Lists all the current tasks so far";
 
     public ListTaskCommand() {
         super();
@@ -18,5 +20,9 @@ public class ListTaskCommand extends Command {
     public void runGui(TaskList taskList, Dialogue dialogue, Storage storage) {
         assert dialogue != null : "gui is null";
         dialogue.addTaskList(taskList);
+    }
+
+    public static String getHelpDescription() {
+        return helpDescription;
     }
 }

@@ -3,7 +3,17 @@ package zhongli.parser;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
-import zhongli.command.*;
+import zhongli.command.AddTaskCommand;
+import zhongli.command.ByeCommand;
+import zhongli.command.Command;
+import zhongli.command.CommandType;
+import zhongli.command.DeleteCommand;
+import zhongli.command.FindCommand;
+import zhongli.command.HelpCommand;
+import zhongli.command.ListTaskCommand;
+import zhongli.command.MarkCommand;
+import zhongli.command.UnmarkCommand;
+import zhongli.command.WrongCommand;
 import zhongli.task.Deadline;
 import zhongli.task.Event;
 import zhongli.task.Task;
@@ -278,6 +288,7 @@ public class Parser {
         case DELETE -> new DeleteCommand(command);
         case BYE -> new ByeCommand();
         case FIND -> new FindCommand(command);
+        case HELP -> new HelpCommand();
         case UNKNOWN -> new WrongCommand(command);
         default -> new WrongCommand(command);
         };

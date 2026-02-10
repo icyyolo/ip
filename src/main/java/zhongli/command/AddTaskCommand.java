@@ -5,7 +5,10 @@ import java.io.IOException;
 import zhongli.gui.Dialogue;
 import zhongli.parser.Parser;
 import zhongli.storage.Storage;
+import zhongli.task.Deadline;
+import zhongli.task.Event;
 import zhongli.task.Task;
+import zhongli.task.ToDo;
 import zhongli.tasklist.TaskList;
 import zhongli.ui.Ui;
 import zhongli.zhongliexception.ZhongliException;
@@ -18,6 +21,7 @@ import zhongli.zhongliexception.ZhongliException;
  *
  */
 public class AddTaskCommand extends Command {
+
     private final String userInput;
 
     /**
@@ -58,5 +62,16 @@ public class AddTaskCommand extends Command {
         assert storage != null : "storage is null";
         assert dialogue != null : "gui is null";
         executeCommand(taskList, dialogue, storage);
+    }
+
+    public static String getHelpDescription(String task) {
+        return switch (task) {
+        case "deadline" -> Deadline.getHelpDescription();
+        case "event" -> Event.getHelpDescription();
+        case "todo" -> ToDo.getHelpDescription();
+        default -> {
+            yield "";
+        }
+        };
     }
 }

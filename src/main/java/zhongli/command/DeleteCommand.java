@@ -17,6 +17,8 @@ import zhongli.zhongliexception.ZhongliException;
  *
  */
 public class DeleteCommand extends Command {
+    private static final String helpDescription =
+            "Deletes a task from the task list";
 
     private final String command;
 
@@ -75,5 +77,9 @@ public class DeleteCommand extends Command {
         assert storage != null : "storage is null";
         assert dialogue != null : "gui is null";
         executeCommand(taskList, dialogue, storage);
+    }
+
+    public static String getHelpDescription() {
+        return helpDescription;
     }
 }

@@ -44,6 +44,10 @@ public class Deadline extends Task {
         System.out.println("The correct call to description is : ");
     }
 
+    public static String getHelpDescription() {
+        return "Adds a deadline task to the task list";
+    }
+
     @Override
     public HBox createTaskRow(int taskNumber) {
         ListItem listItem = new ListItem();

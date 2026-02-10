@@ -46,6 +46,10 @@ public class Event extends Task {
                 + super.getStringIsDone() + "\n";
     }
 
+    public static String getHelpDescription() {
+        return "Adds an event task to the task list";
+    }
+
     @Override
     public HBox createTaskRow(int taskNumber) {
         ListItem listItem = new ListItem();

@@ -36,8 +36,7 @@ public class AliasCommand extends Command {
         try {
             String[] aliasInformation = Parser.splitStringIntoTwo(command, "alias ",
                     "Alias should not empty");
-            System.out.println(aliasInformation[0]);
-            System.out.println(aliasInformation[1]);
+
             String aliasString = aliasInformation[1];
             if (aliasString.isEmpty()) {
                 throw new ZhongliException("Alias should not be empty");

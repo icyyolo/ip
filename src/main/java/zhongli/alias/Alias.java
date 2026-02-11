@@ -37,6 +37,10 @@ public class Alias {
         return this.originalCommand;
     }
 
+    public String refactorCommandToOriginal(String currCommand) {
+        return currCommand.replaceFirst(this.alias, this.originalCommand);
+    }
+
     /**
      * Returns the text to be inserted into the text file
      * alias + "|" + original command

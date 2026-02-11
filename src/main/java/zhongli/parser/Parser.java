@@ -3,6 +3,7 @@ package zhongli.parser;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
+import zhongli.alias.Alias;
 import zhongli.alias.AliasList;
 import zhongli.command.AddTaskCommand;
 import zhongli.command.AliasCommand;
@@ -283,8 +284,14 @@ public class Parser {
         CommandType type = CommandType.fromString(firstWord);
 
         if (type.equals(CommandType.UNKNOWN)) {
-            String aliasCommand = aliasList.getCommand(firstWord);
-            type = CommandType.fromString(aliasCommand);
+            try {
+                Alias aliasCommand = aliasList.findAlias(firstWord);
+                type = CommandType.fromString(aliasCommand.getOriginalCommand());
+                command = aliasCommand.refactorCommandToOriginal(command);
+            } catch (ZhongliException e) {
+                type = CommandType.fromString("");
+            }
+
         }
 
         return switch (type) {

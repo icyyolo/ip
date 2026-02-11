@@ -47,7 +47,7 @@ public class Alias {
      *
      */
     public String convertToText() {
-        return this.getAlias() + "|" + this.getOriginalCommand();
+        return this.getAlias() + "|" + this.getOriginalCommand() + "\n";
     }
 
     /**

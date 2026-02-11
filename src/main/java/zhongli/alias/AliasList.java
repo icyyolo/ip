@@ -57,6 +57,31 @@ public class AliasList {
     }
 
     /**
+     * Checks if the index given is within the array size.
+     *
+     * @param index - the index the user want to access.
+     * @throws ZhongliException - if the index is not within the range, or there is no items in the array.
+     *
+     */
+    public void checkValidRange(int index) throws ZhongliException {
+        if (aliases.isEmpty()) {
+            throw new ZhongliException("The list is empty, please add some tasks before deleting");
+        } else if (index < 0 || index >= aliases.size()) {
+            throw new ZhongliException("This index does not exist. The range should be between 1 and " + getSize());
+        }
+    }
+
+    public Alias getAlias(int index) throws ZhongliException {
+        checkValidRange(index);
+        assert index >= 0 : "Index should not be less than 0";
+        return this.aliases.get(index);
+    }
+
+    public int getSize() {
+        return this.aliases.size();
+    }
+
+    /**
      * Find the correct alias object, given the alias string
      * Throws an exception if the alias object is not found
      *

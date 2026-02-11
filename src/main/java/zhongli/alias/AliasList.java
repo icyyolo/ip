@@ -9,7 +9,7 @@ import zhongli.zhongliexception.ZhongliException;
  *
  */
 public class AliasList {
-    private ArrayList<Alias> aliases;
+    private final ArrayList<Alias> aliases;
 
     public AliasList() {
         this.aliases = new ArrayList<>();
@@ -21,6 +21,30 @@ public class AliasList {
 
     public void addAlias(Alias alias) {
         this.aliases.add(alias);
+    }
+
+    public int getSize() {
+        return this.aliases.size();
+    }
+
+    /**
+     * Checks if the index given is within the array size.
+     *
+     * @param index - the index the user want to access.
+     * @throws ZhongliException - if the index is not within the range, or there is no items in the array.
+     *
+     */
+    public void checkValidRange(int index) throws ZhongliException {
+        if (aliases.isEmpty()) {
+            throw new ZhongliException("The list is empty, please add some tasks before deleting");
+        } else if (index < 0 || index >= aliases.size()) {
+            throw new ZhongliException("This index does not exist. The range should be between 1 and " + getSize());
+        }
+    }
+
+    public Alias getAlias(int i) throws ZhongliException {
+        checkValidRange(i);
+        return this.aliases.get(i);
     }
 
     /**

@@ -17,6 +17,7 @@ import zhongli.command.ListTaskCommand;
 import zhongli.command.MarkCommand;
 import zhongli.command.UnmarkCommand;
 import zhongli.command.WrongCommand;
+import zhongli.storage.AliasStorage;
 import zhongli.task.Deadline;
 import zhongli.task.Event;
 import zhongli.task.Task;
@@ -279,7 +280,7 @@ public class Parser {
      * @param command - String of command entered by the user.
      * @return An implementation of the abstract command class with a method run(TaskList, Ui , Storage).
      */
-    public static Command parseCommand(String command, AliasList aliasList) {
+    public static Command parseCommand(String command, AliasList aliasList, AliasStorage aliasStorage) {
         String firstWord = command.split(" ")[0];
         CommandType type = CommandType.fromString(firstWord);
 
@@ -304,7 +305,7 @@ public class Parser {
         case FIND -> new FindCommand(command);
         case HELP -> new HelpCommand();
         case UNKNOWN -> new WrongCommand(command);
-        case ALIAS -> new AliasCommand(command, aliasList);
+        case ALIAS -> new AliasCommand(command, aliasList, aliasStorage);
         default -> new WrongCommand(command);
         };
     }

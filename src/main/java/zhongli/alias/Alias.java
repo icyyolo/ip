@@ -79,7 +79,9 @@ public class Alias {
     public static Alias parseAliasFromTextFile(String line) throws ZhongliException {
         String[] inputs = Parser.splitStringIntoTwo(line, "|", "| is missing from the line");
         String alias = inputs[0];
-        String originalCommand = inputs[1];
+        String[] commands = Parser.splitStringIntoTwo(inputs[1], "|",
+                "original command is missing from the line");
+        String originalCommand = commands[1];
 
         checkIsValidCommand(originalCommand);
 

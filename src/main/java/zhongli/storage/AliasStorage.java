@@ -35,7 +35,7 @@ public class AliasStorage extends Storage {
         while (s.hasNext()) {
             lineNum++;
             String curr = s.nextLine();
-            
+
             try {
                 Alias alias = Alias.parseAliasFromTextFile(curr);
                 aliases.add(alias);

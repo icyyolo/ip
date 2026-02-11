@@ -1,5 +1,6 @@
 package zhongli;
 
+import zhongli.alias.AliasList;
 import zhongli.command.Command;
 import zhongli.gui.Dialogue;
 import zhongli.parser.Parser;
@@ -14,10 +15,11 @@ import zhongli.ui.Ui;
  */
 public class Zhongli {
 
-    private static final String filePath = ".taskstxt";
+    private static final String taskFilePath = ".taskstxt";
     private final TaskStorage taskStorage;
     private final Ui ui;
     private final TaskList taskList;
+    private final AliasList aliasList;
 
     /**
      * Initialize the Ui, Storage and Tasklist object first.
@@ -26,8 +28,9 @@ public class Zhongli {
      */
     public Zhongli() {
         ui = new Ui();
-        taskStorage = new TaskStorage(filePath);
+        taskStorage = new TaskStorage(taskFilePath);
         taskList = this.taskStorage.initializeTaskList(ui);
+        aliasList = new AliasList();
         assert taskList != null : "Tasklist should be not be null";
     }
 
@@ -35,7 +38,7 @@ public class Zhongli {
         if (input.equals("clear")) {
             dialogue.clearChatbox();
         }
-        Command command = Parser.parseCommand(input);
+        Command command = Parser.parseCommand(input, aliasList);
         command.runGui(taskList, dialogue, taskStorage);
     }
 

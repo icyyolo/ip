@@ -15,6 +15,7 @@ public enum CommandType {
     BYE("bye", ByeCommand.getHelpDescription()),
     FIND("find", FindCommand.getHelpDescription()),
     HELP("help", HelpCommand.getHelpDescription()),
+    ALIAS("alias", AliasCommand.getHelpDescription()),
     UNKNOWN(""); // For invalid commands
 
     private final String keyword;
@@ -53,6 +54,25 @@ public enum CommandType {
                     .append("\n");
         }
         return helpMessage.toString();
+    }
+
+    /**
+     * Check if the keyword is a valid command
+     *
+     */
+    public static boolean isValidCommand(String keyword) {
+
+        if (keyword.isEmpty()) {
+            return false;
+        }
+
+        for (CommandType type : CommandType.values()) {
+            if (type.keyword.equals(keyword)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

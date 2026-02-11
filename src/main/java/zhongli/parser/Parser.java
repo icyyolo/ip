@@ -3,7 +3,9 @@ package zhongli.parser;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
+import zhongli.alias.AliasList;
 import zhongli.command.AddTaskCommand;
+import zhongli.command.AliasCommand;
 import zhongli.command.ByeCommand;
 import zhongli.command.Command;
 import zhongli.command.CommandType;
@@ -276,9 +278,14 @@ public class Parser {
      * @param command - String of command entered by the user.
      * @return An implementation of the abstract command class with a method run(TaskList, Ui , Storage).
      */
-    public static Command parseCommand(String command) {
+    public static Command parseCommand(String command, AliasList aliasList) {
         String firstWord = command.split(" ")[0];
         CommandType type = CommandType.fromString(firstWord);
+
+        if (type.equals(CommandType.UNKNOWN)) {
+            String aliasCommand = aliasList.getCommand(firstWord);
+            type = CommandType.fromString(aliasCommand);
+        }
 
         return switch (type) {
         case LIST -> new ListTaskCommand();
@@ -290,6 +297,7 @@ public class Parser {
         case FIND -> new FindCommand(command);
         case HELP -> new HelpCommand();
         case UNKNOWN -> new WrongCommand(command);
+        case ALIAS -> new AliasCommand(command, aliasList);
         default -> new WrongCommand(command);
         };
     }

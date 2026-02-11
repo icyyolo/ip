@@ -1,6 +1,7 @@
 package zhongli.alias;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import zhongli.zhongliexception.ZhongliException;
 
@@ -10,16 +11,48 @@ import zhongli.zhongliexception.ZhongliException;
  */
 public class AliasList {
     private ArrayList<Alias> aliases;
+    private HashSet<String> aliasHashSet;
 
+    /**
+     * Represents an empty alias list
+     *
+     */
     public AliasList() {
         this.aliases = new ArrayList<>();
+        this.aliasHashSet = new HashSet<>();
     }
 
+    /**
+     * Populate the alias list with an Array List of alias
+     *
+     */
     public AliasList(ArrayList<Alias> aliases) {
         this.aliases = aliases;
+        this.aliasHashSet = populateHashSetUsingAliases();
     }
 
-    public void addAlias(Alias alias) {
+    /**
+     * Populate the hashset based on alias in aliases
+     *
+     */
+    public HashSet<String> populateHashSetUsingAliases() {
+        HashSet<String> hs = new HashSet<>();
+        for (Alias alias : aliases) {
+            hs.add(alias.getAlias());
+        }
+        return hs;
+    }
+
+    /**
+     * Adds an alias to the alias list
+     * Alias needs to be unique, if not will throw an exception
+     *
+     */
+    public void addAlias(Alias alias) throws ZhongliException {
+        if (aliasHashSet.contains(alias.getAlias())) {
+            throw new ZhongliException(alias.getAlias() + " has been used.");
+        }
+        this.aliasHashSet.add(alias.getAlias());
         this.aliases.add(alias);
     }
 

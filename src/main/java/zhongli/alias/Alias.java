@@ -47,7 +47,7 @@ public class Alias {
      *
      */
     public String convertToText() {
-        return this.getAlias() + "|" + this.getOriginalCommand() + "\n";
+        return this.getAlias() + "/alias/" + this.getOriginalCommand() + "\n";
     }
 
     /**
@@ -77,14 +77,11 @@ public class Alias {
      *
      */
     public static Alias parseAliasFromTextFile(String line) throws ZhongliException {
-        String[] inputs = Parser.splitStringIntoTwo(line, "|", "| is missing from the line");
+        String[] inputs = Parser.splitStringIntoTwo(line, "/alias/", "/alias/ is missing from the line");
         String alias = inputs[0];
-        String[] commands = Parser.splitStringIntoTwo(inputs[1], "|",
-                "original command is missing from the line");
-        String originalCommand = commands[1];
-
+        String originalCommand = inputs[1].replace("/alias/", "");
         checkIsValidCommand(originalCommand);
-
+        System.out.println();
         return new Alias(alias, originalCommand);
     }
 

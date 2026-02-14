@@ -299,6 +299,7 @@ public class Parser {
         case UNKNOWN -> new WrongCommand(command);
         case ALIAS -> new AliasCommand(command, aliasList, aliasStorage);
         case ADDPRODUCT -> new AddProductCommand(command, productList);
+        case LISTPRODUCT -> new ListProductCommand(productList);
         default -> new WrongCommand(command);
         };
     }

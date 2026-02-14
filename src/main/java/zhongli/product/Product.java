@@ -28,5 +28,9 @@ public class Product {
     }
 
 
+    @Override
+    public String toString() {
+        return this.name + " (Quantity: " + this.quantity + ").";
+    }
 
 }

@@ -5,19 +5,24 @@ import java.time.LocalDate;
 
 import zhongli.alias.Alias;
 import zhongli.alias.AliasList;
+import zhongli.command.AddProductCommand;
 import zhongli.command.AddTaskCommand;
 import zhongli.command.AliasCommand;
 import zhongli.command.ByeCommand;
 import zhongli.command.Command;
 import zhongli.command.CommandType;
 import zhongli.command.DeleteCommand;
+import zhongli.command.DeleteProductCommand;
 import zhongli.command.FindCommand;
 import zhongli.command.HelpCommand;
+import zhongli.command.ListProductCommand;
 import zhongli.command.ListTaskCommand;
 import zhongli.command.MarkCommand;
 import zhongli.command.UnmarkCommand;
 import zhongli.command.WrongCommand;
+import zhongli.product.ProductList;
 import zhongli.storage.AliasStorage;
+import zhongli.storage.ProductStorage;
 import zhongli.task.Deadline;
 import zhongli.task.Event;
 import zhongli.task.Task;
@@ -280,7 +285,9 @@ public class Parser {
      * @param command - String of command entered by the user.
      * @return An implementation of the abstract command class with a method run(TaskList, Ui , Storage).
      */
-    public static Command parseCommand(String command, AliasList aliasList, AliasStorage aliasStorage) {
+    public static Command parseCommand(
+            String command, AliasList aliasList, AliasStorage aliasStorage,
+            ProductList productList, ProductStorage productStorage) {
         String firstWord = command.split(" ")[0];
         CommandType type = CommandType.fromString(firstWord);
 
@@ -306,6 +313,9 @@ public class Parser {
         case HELP -> new HelpCommand();
         case UNKNOWN -> new WrongCommand(command);
         case ALIAS -> new AliasCommand(command, aliasList, aliasStorage);
+        case ADDPRODUCT -> new AddProductCommand(command, productList, productStorage);
+        case LISTPRODUCT -> new ListProductCommand(productList);
+        case DELETEPRODUCT -> new DeleteProductCommand(command, productList, productStorage);
         default -> new WrongCommand(command);
         };
     }

@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image zhongliImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     private Zhongli zhongli;
     private Dialogue dialogue;
@@ -47,7 +47,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void displayWelcomeMessage() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getZhongliDialog(Ui.getWelcomeMessage(), dukeImage)
+                DialogBox.getZhongliDialog(Ui.getWelcomeMessage(), zhongliImage)
         );
     }
 

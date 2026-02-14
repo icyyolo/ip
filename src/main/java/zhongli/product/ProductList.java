@@ -73,7 +73,8 @@ public class ProductList {
         for (int i = 0; i < this.getSize(); i++) {
             list.append(i + 1)
                     .append(") ")
-                    .append(this.products.get(i).toString());
+                    .append(this.products.get(i).toString())
+                    .append("\n");
         }
         return list.toString();
     }

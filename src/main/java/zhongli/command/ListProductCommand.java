@@ -5,6 +5,10 @@ import zhongli.product.ProductList;
 import zhongli.storage.TaskStorage;
 import zhongli.tasklist.TaskList;
 
+/**
+ * Represents a list product command
+ *
+ */
 public class ListProductCommand extends Command {
     private static final String helpDescription =
             "Lists all products stored so far";

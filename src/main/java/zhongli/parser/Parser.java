@@ -12,6 +12,7 @@ import zhongli.command.ByeCommand;
 import zhongli.command.Command;
 import zhongli.command.CommandType;
 import zhongli.command.DeleteCommand;
+import zhongli.command.DeleteProductCommand;
 import zhongli.command.FindCommand;
 import zhongli.command.HelpCommand;
 import zhongli.command.ListProductCommand;
@@ -313,6 +314,7 @@ public class Parser {
         case ALIAS -> new AliasCommand(command, aliasList, aliasStorage);
         case ADDPRODUCT -> new AddProductCommand(command, productList);
         case LISTPRODUCT -> new ListProductCommand(productList);
+        case DELETEPRODUCT -> new DeleteProductCommand(command, productList);
         default -> new WrongCommand(command);
         };
     }

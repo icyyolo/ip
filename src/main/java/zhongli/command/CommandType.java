@@ -18,6 +18,7 @@ public enum CommandType {
     ALIAS("alias", AliasCommand.getHelpDescription()),
     ADDPRODUCT("addproduct", AddProductCommand.getHelpDescription()),
     LISTPRODUCT("listproduct", ListProductCommand.getHelpDescription()),
+    DELETEPRODUCT("deleteproduct", DeleteProductCommand.getHelpDescription()),
     UNKNOWN(""); // For invalid commands
 
     private final String keyword;

@@ -6,6 +6,7 @@ import zhongli.gui.Dialogue;
 import zhongli.parser.Parser;
 import zhongli.product.ProductList;
 import zhongli.storage.AliasStorage;
+import zhongli.storage.ProductStorage;
 import zhongli.storage.TaskStorage;
 import zhongli.tasklist.TaskList;
 import zhongli.ui.Ui;
@@ -19,10 +20,14 @@ public class Zhongli {
 
     private static final String taskFilePath = ".taskstxt";
     private static final String aliasFilePath = ".aliasestxt";
+    private static final String productsFilePath = ".productstxt";
 
     private final TaskStorage taskStorage;
     private final AliasStorage aliasStorage;
+    private final ProductStorage productStorage;
+
     private final Ui ui;
+
     private final TaskList taskList;
     private final AliasList aliasList;
     private final ProductList productList;
@@ -36,9 +41,10 @@ public class Zhongli {
         ui = new Ui();
         taskStorage = new TaskStorage(taskFilePath);
         aliasStorage = new AliasStorage(aliasFilePath);
+        productStorage = new ProductStorage(productsFilePath);
         taskList = this.taskStorage.initializeTaskList(ui);
         aliasList = this.aliasStorage.initializeAliasList(ui);
-        productList = new ProductList();
+        productList = this.productStorage.initializeProductList(ui);
         assert taskList != null : "Tasklist should be not be null";
     }
 
@@ -46,7 +52,7 @@ public class Zhongli {
         if (input.equals("clear")) {
             dialogue.clearChatbox();
         }
-        Command command = Parser.parseCommand(input, aliasList, aliasStorage, productList);
+        Command command = Parser.parseCommand(input, aliasList, aliasStorage, productList, productStorage);
         command.runGui(taskList, dialogue, taskStorage);
     }
 

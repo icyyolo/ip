@@ -22,6 +22,7 @@ import zhongli.command.UnmarkCommand;
 import zhongli.command.WrongCommand;
 import zhongli.product.ProductList;
 import zhongli.storage.AliasStorage;
+import zhongli.storage.ProductStorage;
 import zhongli.task.Deadline;
 import zhongli.task.Event;
 import zhongli.task.Task;
@@ -286,7 +287,7 @@ public class Parser {
      */
     public static Command parseCommand(
             String command, AliasList aliasList, AliasStorage aliasStorage,
-            ProductList productList) {
+            ProductList productList, ProductStorage productStorage) {
         String firstWord = command.split(" ")[0];
         CommandType type = CommandType.fromString(firstWord);
 
@@ -312,9 +313,9 @@ public class Parser {
         case HELP -> new HelpCommand();
         case UNKNOWN -> new WrongCommand(command);
         case ALIAS -> new AliasCommand(command, aliasList, aliasStorage);
-        case ADDPRODUCT -> new AddProductCommand(command, productList);
+        case ADDPRODUCT -> new AddProductCommand(command, productList, productStorage);
         case LISTPRODUCT -> new ListProductCommand(productList);
-        case DELETEPRODUCT -> new DeleteProductCommand(command, productList);
+        case DELETEPRODUCT -> new DeleteProductCommand(command, productList, productStorage);
         default -> new WrongCommand(command);
         };
     }

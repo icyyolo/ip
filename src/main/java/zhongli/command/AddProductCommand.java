@@ -1,9 +1,12 @@
 package zhongli.command;
 
+import java.io.IOException;
+
 import zhongli.gui.Dialogue;
 import zhongli.parser.Parser;
 import zhongli.product.Product;
 import zhongli.product.ProductList;
+import zhongli.storage.ProductStorage;
 import zhongli.storage.TaskStorage;
 import zhongli.tasklist.TaskList;
 import zhongli.zhongliexception.ZhongliException;
@@ -17,15 +20,17 @@ public class AddProductCommand extends Command {
 
     private final String command;
     private final ProductList productList;
+    private final ProductStorage productStorage;
 
     /**
      * Represents a command to add product
      *
      */
-    public AddProductCommand(String command, ProductList productList) {
+    public AddProductCommand(String command, ProductList productList, ProductStorage productStorage) {
         super();
         this.command = command;
         this.productList = productList;
+        this.productStorage = productStorage;
     }
 
     /**
@@ -36,10 +41,15 @@ public class AddProductCommand extends Command {
         String name;
         try {
             String[] addArr = Parser.splitStringIntoTwo(
-                    this.command, "add", "Missing add command");
-            name = addArr[1];
+                    this.command, "addproduct", "Missing add command");
+            name = addArr[1].strip();
         } catch (ZhongliException e) {
             dialogue.displayError(e.getMessage());
+            return;
+        }
+
+        if (name.isEmpty()) {
+            dialogue.displayError("Name cannot be empty");
             return;
         }
 
@@ -58,6 +68,13 @@ public class AddProductCommand extends Command {
 
         Product newProduct = new Product(name, quantity);
         productList.addProduct(newProduct);
+        try {
+            productStorage.writeProductListToFile(productList);
+        } catch (IOException e) {
+            dialogue.displayError(e.getMessage());
+            return;
+        }
+
         dialogue.displayMessage("Successfully added product");
     }
 

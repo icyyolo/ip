@@ -25,21 +25,21 @@ To install, just follow these 5 steps:
 
 # Commands Summary
 
-| Commands                    | Format                                                |
-|-----------------------------|-------------------------------------------------------|
-| [todo](#Adding-a-Todo-task) | todo <description>                                    |
-| deadline                    | deadline <description> /by <end-date>                 |
-| event                       | event <description> /from <start-date> /to <end-date> |
-| list                        | list                                                  |
-| mark                        | mark <task number>                                    |
-| unmark                      | unmark <task number>                                  |
-| delete                      | delete <task number>                                  |
-| find                        | find <phrase>                                         |
-| help                        | help                                                  |
-| alias                       | alias <original command> <new alias>                  | 
-| addproduct                  | addproduct <name> /item <quantity                     |
-| listproduct                 | listproduct                                           |
-| deleteproduct               | deleteproduct <product number>                        |
+| Commands                                       | Format                                                |
+|------------------------------------------------|-------------------------------------------------------|
+| [todo](#adding-a-todo-task-todo)               | todo <description>                                    |
+| [deadline](#adding-a-deadline-task-deadline)   | deadline <description> /by <end-date>                 |
+| [event](#adding-an-event-task-event)           | event <description> /from <start-date> /to <end-date> |
+| [list](#listing-all-tasks-list)                | list                                                  |
+| [mark](#mark-task-as-done-mark)                | mark <task number>                                    |
+| [unmark](#mark-task-as-not-done-unmark)        | unmark <task number>                                  |
+| [delete](#delete-a-task-delete)                | delete <task number>                                  |
+| [find](#find-a-task-find)                      | find <phrase>                                         |
+| [help](#list-all-available-commands-help)      | help                                                  |
+| [alias](#create-shorter-commands-alias)        | alias <original command> <new alias>                  | 
+| [addproduct](#add-products-addproduct)         | addproduct <name> /item <quantity                     |
+| [listproduct](#view-products-listproduct)      | listproduct                                           |
+| [deleteproduct](#delete-product-deleteproduct) | deleteproduct <product number>                        |
 
 
 ## Adding a Todo task: `todo`
@@ -53,6 +53,7 @@ Examples:
 - todo finish cs2103t ip
 
 Expected Output:
+
 ![Add Todo task](addTodo.png)
 
 ## Adding a Deadline task: `deadline`
@@ -65,6 +66,7 @@ Examples:
 - deadline finish 2109s capstone /by 2026-04-16
 
 Expected Output:
+
 ![Add Deadline task](addDeadline.png)
 
 ## Adding an Event task: `event`
@@ -78,6 +80,7 @@ Examples:
 - event study for midterms /from 2026-02-28 /to 2026-03-05
 
 Expected Output:
+
 ![Add Event task](addEvent.png)
 
 ## Listing all tasks: `list`
@@ -87,6 +90,7 @@ Lists all tasks in task list
 Format: `list`
 
 Expected Output
+
 ![List task](listTask.png)
 
 ## Mark task as done: `mark`
@@ -99,6 +103,7 @@ Example:
 - mark 4
 
 Expected Output
+
 ![Mark task](markTask.png)
 
 ## Mark task as NOT done: `unmark`
@@ -110,6 +115,7 @@ Example:
 - unmark 4
 
 Expected Output
+
 ![Unmark Task](unmarkTask.png)
 
 ## Delete a task: `delete`
@@ -121,6 +127,7 @@ Example:
 - delete 5
 
 Expected Output
+
 ![Deletes Task](deleteTask.png)
 
 ## Find a task: `find`
@@ -133,6 +140,7 @@ Example:
 - find study for
 
 Expected Output
+
 ![Find Task](findTask.png)
 
 ## List all available commands: `help`
@@ -161,6 +169,7 @@ Example:
 - addproduct water 100
 
 Expected Output:
+
 ![Add Product](addProduct.png)
 
 ## View products: `listproduct`

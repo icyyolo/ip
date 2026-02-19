@@ -14,8 +14,8 @@ public class Dialogue {
 
     private final VBox dialogContainer;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/zhongli.jpg"));
 
     /**
      * Represents the dialogue, the messages of the GUI

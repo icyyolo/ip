@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Image zhongliImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image zhongliImage = new Image(this.getClass().getResourceAsStream("/images/zhongli.jpg"));
 
     private Zhongli zhongli;
     private Dialogue dialogue;

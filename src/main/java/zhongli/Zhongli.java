@@ -32,6 +32,9 @@ public class Zhongli {
     private final AliasList aliasList;
     private final ProductList productList;
 
+    private boolean hasExit;
+
+
     /**
      * Initialize the Ui, Storage and Tasklist object first.
      * Then, enter the main loop
@@ -46,6 +49,8 @@ public class Zhongli {
         aliasList = this.aliasStorage.initializeAliasList(ui);
         productList = this.productStorage.initializeProductList(ui);
         assert taskList != null : "Tasklist should be not be null";
+
+        hasExit = false;
     }
 
     public void getGui(String input, Dialogue dialogue) {
@@ -54,6 +59,11 @@ public class Zhongli {
         }
         Command command = Parser.parseCommand(input, aliasList, aliasStorage, productList, productStorage);
         command.runGui(taskList, dialogue, taskStorage);
+        hasExit = command.getIsExit();
+    }
+
+    public boolean getHasExit() {
+        return this.hasExit;
     }
 
     public static void main(String[] args) {

@@ -22,6 +22,7 @@ public class ByeCommand extends Command {
     public void runGui(TaskList taskList, Dialogue dialogue, TaskStorage storage) {
         assert dialogue != null : "gui is null";
         dialogue.displayMessage(Ui.displayGoodbyeMessage());
+        this.setIsExit(true);
     }
 
     public static String getHelpDescription() {

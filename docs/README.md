@@ -24,21 +24,22 @@ To install, just follow these 5 steps:
 - [ ] Deletion of alias
 
 # Commands Summary
-| Commands      | Format                                                  |
-|---------------|---------------------------------------------------------|
-| todo          | `todo <description>`                                    |
-| deadline      | `deadline <description> /by <end-date>`                 |
-| event         | `event <description> /from <start-date> /to <end-date>` |
-| list          | `list`                                                  |
-| mark          | `mark <task number>`                                    |
-| unmark        | `unmark <task number>`                                  |
-| delete        | `delete <task number>`                                  |
-| find          | `find <phrase>`                                         |
-| help          | `help`                                                  |
-| alias         | `alias <original command> <new alias>`                  | 
-| addproduct    | `addproduct <name> /item <quantity>`                    |
-| listproduct   | `listproduct`                                           |
-| deleteproduct | `deleteproduct <product number>`                        |
+
+| Commands                    | Format                                                |
+|-----------------------------|-------------------------------------------------------|
+| [todo](#Adding-a-Todo-task) | todo <description>                                    |
+| deadline                    | deadline <description> /by <end-date>                 |
+| event                       | event <description> /from <start-date> /to <end-date> |
+| list                        | list                                                  |
+| mark                        | mark <task number>                                    |
+| unmark                      | unmark <task number>                                  |
+| delete                      | delete <task number>                                  |
+| find                        | find <phrase>                                         |
+| help                        | help                                                  |
+| alias                       | alias <original command> <new alias>                  | 
+| addproduct                  | addproduct <name> /item <quantity                     |
+| listproduct                 | listproduct                                           |
+| deleteproduct               | deleteproduct <product number>                        |
 
 
 ## Adding a Todo task: `todo`

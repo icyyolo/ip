@@ -10,7 +10,8 @@ import javafx.stage.Stage;
 import zhongli.gui.MainWindow;
 
 /**
- * Represents a main class
+ * The JavaFX application launcher for Zhongli. Initializes the GUI by loading the main window
+ * from FXML and setting up the primary stage with the application logic controller.
  *
  */
 public class Main extends Application {

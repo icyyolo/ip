@@ -14,8 +14,8 @@ import zhongli.ui.Ui;
 import zhongli.zhongliexception.ZhongliException;
 
 /**
- * Represents a storage class to handle alias objects.
- * It can read from file, and write to file.
+ * Manages persistent storage of command aliases. Handles reading aliases from and writing
+ * aliases to a text file, with error handling for malformed alias entries.
  *
  */
 public class AliasStorage extends Storage {
@@ -24,6 +24,14 @@ public class AliasStorage extends Storage {
         super(filePath);
     }
 
+    /**
+     * Reads aliases from the storage file and parses them into Alias objects.
+     * Skips any lines that fail to parse and logs the error with the corresponding line number.
+     *
+     * @param ui The UI object used to display error messages.
+     * @return An ArrayList of successfully parsed Alias objects.
+     * @throws FileNotFoundException If the storage file cannot be found or accessed.
+     */
     private ArrayList<Alias> getAliasesFromFile(Ui ui) throws FileNotFoundException {
         assert ui != null : "ui is null";
         File file = super.readFile(filePath, ui);
@@ -48,8 +56,11 @@ public class AliasStorage extends Storage {
     }
 
     /**
-     * Formats the file from the given filePath and transform it into an ALias List object
+     * Reads aliases from the storage file and returns them as an AliasList object.
+     * If the file cannot be found, an empty AliasList is returned and an error message is displayed.
      *
+     * @param ui The UI object used to display error messages.
+     * @return An AliasList containing all successfully loaded aliases.
      */
     public AliasList initializeAliasList(Ui ui) {
         ArrayList<Alias> aliases = new ArrayList<>();
@@ -64,8 +75,11 @@ public class AliasStorage extends Storage {
     }
 
     /**
-     * Write the alias in aliasList to the file
+     * Writes all aliases from the provided AliasList to the storage file.
+     * Overwrites the existing file content. Skips any aliases that fail to convert to text format.
      *
+     * @param aliasList The AliasList containing aliases to be persisted.
+     * @throws IOException If an IO error occurs while writing to the file.
      */
     public void writeAliasListToFile(AliasList aliasList) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath, false);

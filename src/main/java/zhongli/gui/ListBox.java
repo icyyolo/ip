@@ -12,7 +12,10 @@ import zhongli.tasklist.TaskList;
 import zhongli.zhongliexception.ZhongliException;
 
 /**
- * Represents a list box component for displaying tasks in a formatted list.
+ * A visual component for displaying a list of tasks with a title header.
+ * Each task is rendered as a formatted row within a container. Loads its layout from FXML
+ * and populates the task display from a provided TaskList.
+ *
  */
 public class ListBox extends VBox {
     @FXML
@@ -21,9 +24,12 @@ public class ListBox extends VBox {
     private VBox taskContainer;
 
     /**
-     * Represents a list box for displaying tasks
-     * THe title will be the title of this list
+     * Constructs a ListBox with the specified title and tasks.
+     * Loads the list box layout from FXML, sets the title, and populates the task container
+     * with visual representations of each task in the provided TaskList.
      *
+     * @param title The title text to display at the top of the list box.
+     * @param tasks The TaskList containing tasks to display in the list.
      */
     public ListBox(String title, TaskList tasks) {
         try {
@@ -43,7 +49,11 @@ public class ListBox extends VBox {
     }
 
     /**
-     * Populates the task container with label items.
+     * Populates the task container by creating a visual row for each task in the provided list.
+     * Each task row is positioned with its index number starting from 1.
+     * Skips any tasks that fail to create their visual representation.
+     *
+     * @param tasks The TaskList whose tasks will be displayed.
      */
     private void populateItems(TaskList tasks) {
         taskContainer.getChildren().clear();
@@ -62,8 +72,9 @@ public class ListBox extends VBox {
     }
 
     /**
-     * Sets the title of the list.
+     * Sets the title text of the list box.
      *
+     * @param title The new title text to display.
      */
     public void setTitle(String title) {
         assert title != null : "title is null";

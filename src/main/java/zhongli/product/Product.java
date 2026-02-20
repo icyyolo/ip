@@ -4,17 +4,20 @@ import zhongli.parser.Parser;
 import zhongli.zhongliexception.ZhongliException;
 
 /**
- * Represents a product class containing id name and quantity
+ * Represents a product with a name and quantity. Provides functionality to parse products
+ * from text file format and convert products back to text format for persistence.
  *
  */
-
 public class Product {
+    private static final String textFileItemSplitter = "/item/";
+
     private final String name;
     private int quantity;
 
     /**
-     * Initialize a product with name
+     * Constructs a Product with the specified name and an initial quantity of zero.
      *
+     * @param name The name of the product.
      */
     public Product(String name) {
         this.name = name;
@@ -22,8 +25,10 @@ public class Product {
     }
 
     /**
-     * Initialize a product with name and quantity
+     * Constructs a Product with the specified name and quantity.
      *
+     * @param name The name of the product.
+     * @param quantity The quantity of the product in stock.
      */
     public Product(String name, int quantity) {
         this.name = name;
@@ -37,11 +42,17 @@ public class Product {
     }
 
     /**
-     * Transform a line in the text file to its corresponding product
+     * Parses a product from a text file line in the format "name/item/quantity".
+     * The product name is stripped of leading and trailing whitespace.
      *
+     * @param line The text file line to parse.
+     * @return A Product object created from the parsed line.
+     * @throws ZhongliException If the name is empty, the quantity cannot be parsed as an integer,
+     *                          or the line does not contain the "/item/" delimiter.
      */
     public static Product parseProductFromTextFile(String line) throws ZhongliException {
-        String[] inputs = Parser.splitStringIntoTwo(line, "/item/", "/item missing from the line");
+        String[] inputs = Parser.splitStringIntoTwo(line, textFileItemSplitter,
+                " " + textFileItemSplitter + " missing from the line");
         String name = inputs[0].strip();
         if (name.isEmpty()) {
             throw new ZhongliException("Name cannot be empty");
@@ -56,7 +67,12 @@ public class Product {
         return new Product(name, quantity);
     }
 
+    /**
+     * Converts the product to its text file representation in the format "name/item/quantity".
+     *
+     * @return The product as a formatted text string suitable for file storage.
+     */
     public String convertToText() {
-        return this.name + "/item/" + this.quantity + "\n";
+        return this.name + textFileItemSplitter + this.quantity + "\n";
     }
 }

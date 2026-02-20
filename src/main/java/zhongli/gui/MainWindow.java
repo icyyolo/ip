@@ -56,14 +56,17 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
-        dialogue.addUserMessage(input);
-        zhongli.getGui(input, dialogue);
-        userInput.clear();
         if (zhongli.getHasExit()) {
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
-            pause.setOnFinished(e -> Platform.exit());
-            Platform.exit();
+            pause.setOnFinished(event -> {
+                Platform.exit();
+            });
+            pause.play();
+        } else {
+            String input = userInput.getText();
+            dialogue.addUserMessage(input);
+            zhongli.getGui(input, dialogue);
+            userInput.clear();
         }
 
     }

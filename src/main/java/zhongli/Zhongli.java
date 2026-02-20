@@ -12,8 +12,9 @@ import zhongli.tasklist.TaskList;
 import zhongli.ui.Ui;
 
 /**
- * Represents a Zhongli class, which is the main class
- * to run the command line application
+ * Represents the main application class for Zhongli, a command-line task management system.
+ * Manages initialization of storage, user interface, and task/alias/product lists, and coordinates
+ * command execution through the application lifecycle.
  *
  */
 public class Zhongli {
@@ -36,8 +37,8 @@ public class Zhongli {
 
 
     /**
-     * Initialize the Ui, Storage and Tasklist object first.
-     * Then, enter the main loop
+     * Initializes the UI, storage systems, and in-memory lists by loading
+     * data from persistent storage files. Sets up the application ready for command processing.
      *
      */
     public Zhongli() {
@@ -53,6 +54,14 @@ public class Zhongli {
         hasExit = false;
     }
 
+    /**
+     * Processes the given user input command and executes it through the graphical interface.
+     * Clears the chat box before parsing if the input is "clear", then parses the command
+     * and runs it with the current application state.
+     *
+     * @param input The raw user input string to be processed.
+     * @param dialogue The dialogue interface component to display results and updates.
+     */
     public void getGui(String input, Dialogue dialogue) {
         if (input.equals("clear")) {
             dialogue.clearChatbox();

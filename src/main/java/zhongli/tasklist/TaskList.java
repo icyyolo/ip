@@ -7,22 +7,33 @@ import zhongli.task.Task;
 import zhongli.zhongliexception.ZhongliException;
 
 /**
- * Represents an ArrayList of tasks.
+ * Manages a collection of tasks stored in an ArrayList. Provides functionality to add, retrieve,
+ * and delete tasks, as well as search for tasks matching a given pattern.
  *
  */
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs an empty TaskList.
+     *
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList with the provided ArrayList of tasks.
+     * If the provided ArrayList is null, an empty ArrayList is used instead.
+     *
+     * @param tasks The ArrayList of tasks to initialize the list with.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = Objects.requireNonNullElseGet(tasks, ArrayList::new);
     }
 
     /**
-     * Returns the size of the task list.
+     * Returns the number of tasks in task list.
      *
      */
     public int getSize() {
@@ -38,11 +49,11 @@ public class TaskList {
     }
 
     /**
-     * Checks if the index given is within the array size.
+     * Validates that the given index is within the valid range of the task list.
+     * Throws an exception if the list is empty or the index is out of bounds.
      *
-     * @param index - the index the user want to access.
-     * @throws ZhongliException - if the index is not within the range, or there is no items in the array.
-     *
+     * @param index The index to validate.
+     * @throws ZhongliException If the list is empty or the index is outside the range [0, size).
      */
     public void checkValidRange(int index) throws ZhongliException {
         if (isEmpty()) {
@@ -62,7 +73,7 @@ public class TaskList {
     }
 
     /**
-     * Get the task at the index in the array.
+     * Returns the task at the specified index in the list.
      *
      * @param index - to retrieve the task from the array.
      * @return task object at the index in the array.
@@ -75,7 +86,7 @@ public class TaskList {
     }
 
     /**
-     * Delete the task at the index in the array.
+     * Removes the task at the specified index from the list.
      *
      * @param index - to delete the task from the array.
      * @throws ZhongliException - if the index is invalid.
@@ -87,8 +98,10 @@ public class TaskList {
     }
 
     /**
-     * Returns all tasks whose description contains the String regex
+     * Returns a new TaskList containing all tasks whose description contains the specified search pattern.
      *
+     * @param regex The search pattern to match against task descriptions.
+     * @return A new TaskList with all matching tasks.
      */
     public TaskList getMatchingTask(String regex) {
         TaskList res = new TaskList();

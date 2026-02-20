@@ -13,8 +13,8 @@ import zhongli.ui.Ui;
 import zhongli.zhongliexception.ZhongliException;
 
 /**
- * Represents a storage class to handle product objects.
- * It can read from file, and write to file.
+ * Manages persistent storage of products. Handles reading products from and writing
+ * products to a text file, with error handling for malformed product entries.
  *
  */
 public class ProductStorage extends Storage {
@@ -23,6 +23,14 @@ public class ProductStorage extends Storage {
         super(filePath);
     }
 
+    /**
+     * Reads products from the storage file and parses them into Product objects.
+     * Skips any lines that fail to parse and logs the error with the corresponding line number.
+     *
+     * @param ui The UI object used to display error messages.
+     * @return An ArrayList of successfully parsed Product objects.
+     * @throws FileNotFoundException If the storage file cannot be found or accessed.
+     */
     private ArrayList<Product> getProductsFromFile(Ui ui) throws FileNotFoundException {
         File file = super.readFile(filePath, ui);
         Scanner s = new Scanner(file);
@@ -46,8 +54,11 @@ public class ProductStorage extends Storage {
     }
 
     /**
-     * Formats the file from the given filePath and transform it into an Product List object
+     * Reads products from the storage file and returns them as a ProductList object.
+     * If the file cannot be found, an empty ProductList is returned and an error message is displayed.
      *
+     * @param ui The UI object used to display error messages.
+     * @return A ProductList containing all successfully loaded products.
      */
     public ProductList initializeProductList(Ui ui) {
         ArrayList<Product> products = new ArrayList<>();
@@ -62,8 +73,11 @@ public class ProductStorage extends Storage {
     }
 
     /**
-     * Write the products in product list to the file
+     * Writes all products from the provided ProductList to the storage file.
+     * Overwrites the existing file content. Skips any products that fail to convert to text format.
      *
+     * @param productList The ProductList containing products to be persisted.
+     * @throws IOException If an IO error occurs while writing to the file.
      */
     public void writeProductListToFile(ProductList productList) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath, false);

@@ -14,8 +14,8 @@ import zhongli.ui.Ui;
 import zhongli.zhongliexception.ZhongliException;
 
 /**
- * Represents a storage class to handle task objects.
- * It can read from file, and write to file.
+ * Manages persistent storage of tasks. Handles reading tasks from and writing tasks to a text file,
+ * with error handling for malformed task entries and IO operations.
  *
  */
 public class TaskStorage extends Storage {
@@ -25,13 +25,12 @@ public class TaskStorage extends Storage {
     }
 
     /**
-     * Read the file given by filePath and transform each line in the file into a valid task object.
-     * The task objects will be stored in an array list.
-     * If the line is not valid, it will display the line number that has an error, along with the error message.
+     * Reads tasks from the storage file and parses them into Task objects.
+     * Skips any lines that fail to parse and logs the error with the corresponding line number.
      *
-     * @param ui - UI object to display error messages / invalid lines in the text file to the user.
-     * @return ArrayList of Task read from the file.
-     * @throws FileNotFoundException - If the file does not exist.
+     * @param ui The UI object used to display error messages.
+     * @return An ArrayList of successfully parsed Task objects.
+     * @throws FileNotFoundException If the storage file cannot be found or accessed.
      */
     private ArrayList<Task> getTasksFromFile(Ui ui) throws FileNotFoundException {
         assert ui != null : "ui is null";
@@ -58,10 +57,11 @@ public class TaskStorage extends Storage {
     }
 
     /**
-     * Formats the file from the given filePath and transform it into a TaskList object.
+     * Reads tasks from the storage file and returns them as a TaskList object.
+     * If the file cannot be found, an empty TaskList is returned and an error message is displayed.
      *
-     * @param ui - UI to display any error message if any.
-     * @return TaskList object filled with tasks read from the file.
+     * @param ui The UI object used to display error messages.
+     * @return A TaskList containing all successfully loaded tasks.
      */
     public TaskList initializeTaskList(Ui ui) {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -76,10 +76,11 @@ public class TaskStorage extends Storage {
     }
 
     /**
-     * Write the tasks in taskList to the file.
+     * Writes all tasks from the provided TaskList to the storage file.
+     * Overwrites the existing file content. Skips any tasks that fail to convert to text format.
      *
-     * @param taskList - TaskList object with all the tasks objects.
-     * @throws IOException - If there is error with IO operation, like writing to the file.
+     * @param taskList The TaskList containing tasks to be persisted.
+     * @throws IOException If an IO error occurs while writing to the file.
      */
     public void writeTaskListToFile(TaskList taskList) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath, false);

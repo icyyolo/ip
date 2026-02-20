@@ -30,21 +30,20 @@ import zhongli.task.ToDo;
 import zhongli.zhongliexception.ZhongliException;
 
 /**
- * Represents a parser class
- * It transforms a string to its respective objects.
- * If there is any error, it will return a ZhongliException
+ * Parses various input formats into their corresponding object representations.
+ * Handles parsing of dates, strings, tasks, and commands, with validation and error handling
+ * for invalid formats. Supports special keywords and aliases for command flexibility.
  *
  */
 public class Parser {
 
     /**
-     * Returns a LocalDate object given the String dateText.
-     * Some special keywords include,
-     * "now" -> returns the current Date.
+     * Parses a date string into a LocalDate object. Supports the special keyword "now"
+     * which returns the current date, and standard ISO format (YYYY-MM-DD).
      *
-     * @param dateText - A string formatted in LocalDate format (YYYY-MM-DD) / special keywords
-     * @return A LocalDate object formatted from the string given
-     * @throws ZhongliException If dateText does not match the format of LocalDate object
+     * @param dateText A string in ISO date format (YYYY-MM-DD) or the keyword "now".
+     * @return A LocalDate object parsed from the input string.
+     * @throws ZhongliException If the dateText does not match ISO format or any other valid format.
      */
     public static LocalDate parseDate(String dateText) throws ZhongliException {
         // Special cases:
@@ -61,14 +60,13 @@ public class Parser {
     }
 
     /**
-     * Splits the string into 2 based on first occurrence of the string regex.
-     * Returns the array of 2 elements.
+     * Splits a string into two parts at the first occurrence of the specified delimiter.
      *
-     * @param input - String to split into 2.
-     * @param regex - Phrase to split string by.
-     * @param errorMsg - Message to display if regex is not found.
-     * @return - Array of 2 elements which are before and after regex.
-     * @throws ZhongliException - If regex is not found in the string.
+     * @param input The string to split.
+     * @param regex The delimiter to split by.
+     * @param errorMsg The error message to display if the delimiter is not found.
+     * @return An array of two elements: the substring before and after the delimiter.
+     * @throws ZhongliException If the delimiter is not found in the input string.
      */
     public static String[] splitStringIntoTwo(String input, String regex, String errorMsg) throws ZhongliException {
         assert regex != null : "regex is null";
@@ -82,11 +80,11 @@ public class Parser {
     }
 
     /**
-     * Checks if the string is empty.
+     * Validates that a string is not empty, throwing an exception if it is.
      *
-     * @param input - String to be checked.
-     * @param errorMsg - Message to display if input is empty.
-     * @throws ZhongliException - If input is empty.
+     * @param input The string to validate.
+     * @param errorMsg The error message to throw if the string is empty.
+     * @throws ZhongliException If the input string is empty.
      */
     private static void checkStringIsEmpty(String input, String errorMsg) throws ZhongliException {
         assert errorMsg != null : "errorMsg is null";
@@ -96,14 +94,14 @@ public class Parser {
     }
 
     /**
-     * Process the string read from the text file into a Task object.
-     * Check if the task should be mark or not.
-     * If there is no indication of the task being mark, it is an invalid string.
-     * The text will be parsed to the correct parse function to transform it into a task.
+     * Parses a task from a text file line into a Task object. Determines the task type from
+     * the first word and validates the presence of either "/mark" or "/unmark" indicators
+     * to establish the task's completion status.
      *
-     * @param line - String read from the text file.
-     * @return task - after parsing from the correct parse function.
-     * @throws ZhongliException - If String is invalid after it parse.
+     * @param line A line from the text file containing task data.
+     * @return A Task object (ToDo, Deadline, or Event) parsed from the file.
+     * @throws ZhongliException If the line format is invalid, task type is unrecognized,
+     *                          or both/neither "/mark" and "/unmark" are present.
      */
     public static Task parseTaskFromTextFile(String line) throws ZhongliException {
         String typeOfTask = line.split(" ")[0].toLowerCase();
@@ -124,14 +122,12 @@ public class Parser {
     }
 
     /**
-     * Process the string given by the user into a Task object.
-     * Checks which type of task is the input.
-     * If the first word does not identify which task it is, it will throw an exception.
-     * The text will be parses into the correct parse function.
+     * Parses user input into a Task object. Determines the task type from the first word
+     * and delegates to the appropriate parsing method.
      *
-     * @param line - String entered by user.
-     * @return task - after parsing from the correct parse function.
-     * @throws ZhongliException - If String does not identify the task, or error in the respective parse function.
+     * @param line A string entered by the user containing task creation information.
+     * @return A Task object (ToDo, Deadline, or Event) parsed from the input.
+     * @throws ZhongliException If the task type is unrecognised or the input format is invalid.
      */
     public static Task parseTaskFromInput(String line) throws ZhongliException {
         String typeOfTask = line.split(" ")[0].toLowerCase();
@@ -145,11 +141,11 @@ public class Parser {
     }
 
     /**
-     * Formate the string to exclude "/mark" or "/unmark" at the end.
+     * Removes the "/mark" or "/unmark" indicator from a string by splitting at the first occurrence.
      *
-     * @param input - String that you want to exclude /mark or /unmark
-     * @param isDone - Boolean to check for mark or unmark
-     * @return String without /mark or /unmark
+     * @param input The string to process.
+     * @param isDone Boolean flag indicating whether to remove "/mark" (true) or "/unmark" (false).
+     * @return The input string with the mark/unmark indicator removed.
      */
     public static String formatTextToExcludeIsMark(String input, boolean isDone) {
         return isDone
@@ -158,10 +154,11 @@ public class Parser {
     }
 
     /**
-     * Transform the string input from user input into a valid ToDo Object.
-     * It will checks that the string contains a non-empty description.
+     * Parses user input into a ToDo object. Validates that a description is present and non-empty.
      *
-     * @throws ZhongliException if the description of todo is empty.
+     * @param input A string entered by the user in the format "todo <description>".
+     * @return A ToDo object created from the input.
+     * @throws ZhongliException If the todo keyword is missing or the description is empty.
      */
     public static ToDo parseToDo(String input) throws ZhongliException {
         String[] toDoArr = splitStringIntoTwo(input, "todo", "Missing Description of ToDo");
@@ -173,11 +170,13 @@ public class Parser {
     }
 
     /**
-     * Transform the string input from text file into a valid ToDo Object.
-     * It will checks that the string contains a non-empty description.
-     * It will also mark or unmark the ToDo object respectively.
+     * Parses a text file line into a ToDo object and sets its completion status.
+     * Removes the mark/unmark indicator before parsing, then applies the appropriate completion state.
      *
-     * @throws ZhongliException if the description of todo is empty.
+     * @param input A line from the text file in the format "todo <description> /mark" or "/unmark".
+     * @param isDone Boolean indicating whether the task should be marked as complete.
+     * @return A ToDo object with the completion status set accordingly.
+     * @throws ZhongliException If the input format is invalid or the description is empty.
      */
     private static ToDo parseToDo(String input, Boolean isDone) throws ZhongliException {
         ToDo toDo = parseToDo(formatTextToExcludeIsMark(input, isDone));
@@ -190,12 +189,13 @@ public class Parser {
     }
 
     /**
-     * Transform the string input from user input into a valid deadline object.
-     * It will check the format of the string is correct (Inclusive of a "/by" phrase).
-     * It will check that both the description and endTime are not empty.
-     * It will check that endTime can be converted into a LocalDate Object.
+     * Parses user input into a Deadline object. Validates the presence of the "/by" delimiter
+     * and ensures both the description and deadline date are non-empty and correctly formatted.
      *
-     * @throws ZhongliException if the input does not follow the format.
+     * @param input A string entered by the user in the format "deadline <description> /by <date>".
+     * @return A Deadline object created from the input.
+     * @throws ZhongliException If the format is invalid, required fields are missing,
+     *                          or the date cannot be parsed.
      */
     public static Deadline parseDeadline(String input) throws ZhongliException {
         String[] descriptionArr = splitStringIntoTwo(input, "deadline", "Missing Description of Deadline");
@@ -213,13 +213,13 @@ public class Parser {
     }
 
     /**
-     * Transform the string input from text file into a valid deadline object.
-     * It will check the format of the string is correct (Inclusive of a "/by" phrase).
-     * It will check that both the description and endTime are not empty.
-     * It will check that endTime can be converted into a LocalDate Object.
-     * It will then mark/unmark the deadline object respectively.
+     * Parses a text file line into a Deadline object and sets its completion status.
+     * Removes the mark/unmark indicator before parsing, then applies the appropriate completion state.
      *
-     * @throws ZhongliException if the input does not follow the format.
+     * @param input A line from the text file in the format "deadline <description> /by <date> /mark" or "/unmark".
+     * @param isDone Boolean indicating whether the deadline should be marked as complete.
+     * @return A Deadline object with the completion status set accordingly.
+     * @throws ZhongliException If the format is invalid or required fields are missing.
      */
     private static Deadline parseDeadline(String input, boolean isDone) throws ZhongliException {
         Deadline deadline = parseDeadline(formatTextToExcludeIsMark(input, isDone));
@@ -232,12 +232,13 @@ public class Parser {
     }
 
     /**
-     * Transform the string input from user input into a valid event object.
-     * It will check the format of the string is correct (Inclusive of a "/from" and "/to" phrase).
-     * It will check that the description, startTime and endTime are not empty.
-     * It will check that both startTime and endTime can be converted into a LocalDate Object.
+     * Parses user input into an Event object. Validates the presence of "/from" and "/to" delimiters
+     * and ensures the description, start time, and end time are all non-empty and correctly formatted.
      *
-     * @throws ZhongliException if the input does not follow the format.
+     * @param input A string entered by the user in the format "event <description> /from <date> /to <date>".
+     * @return An Event object created from the input.
+     * @throws ZhongliException If the format is invalid, required fields are missing,
+     *                          or the dates cannot be parsed.
      */
     public static Event parseEvent(String input) throws ZhongliException {
         String[] eventArr = splitStringIntoTwo(input, "event", "Missing Description of Event");
@@ -261,13 +262,13 @@ public class Parser {
     }
 
     /**
-     * Transform the string input from the text file into a valid event object.
-     * It will check the format of the string is correct (Inclusive of a "/from" and "/to" phrase).
-     * It will check that the description, startTime and endTime are not empty.
-     * It will check that both startTime and endTime can be converted into a LocalDate Object.
-     * It will then mark/unmark the event object respectively.
+     * Parses a text file line into an Event object and sets its completion status.
+     * Removes the mark/unmark indicator before parsing, then applies the appropriate completion state.
      *
-     * @throws ZhongliException if the input does not follow the format.
+     * @param input A line from the text file in the format "event <description> /from <date> /to <date> /mark" or "/unmark".
+     * @param isDone Boolean indicating whether the event should be marked as complete.
+     * @return An Event object with the completion status set accordingly.
+     * @throws ZhongliException If the format is invalid or required fields are missing.
      */
     private static Event parseEvent(String input, boolean isDone) throws ZhongliException {
         Event event = parseEvent(formatTextToExcludeIsMark(input, isDone));
@@ -280,10 +281,16 @@ public class Parser {
     }
 
     /**
-     * Transform the String command into its respective Command class.
+     * Parses a command string into the appropriate Command object. Identifies the command type
+     * from the first word and handles command aliases by checking the alias list. Returns a
+     * corresponding Command implementation or a WrongCommand if the command is unrecognised.
      *
-     * @param command - String of command entered by the user.
-     * @return An implementation of the abstract command class with a method run(TaskList, Ui , Storage).
+     * @param command A string containing the command entered by the user.
+     * @param aliasList The list of command aliases to resolve command shortcuts.
+     * @param aliasStorage The storage object for persisting alias changes.
+     * @param productList The list of products available in the application.
+     * @param productStorage The storage object for persisting product changes.
+     * @return A Command object representing the parsed command ready for execution.
      */
     public static Command parseCommand(
             String command, AliasList aliasList, AliasStorage aliasStorage,

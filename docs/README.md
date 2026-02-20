@@ -43,7 +43,8 @@ To install, just follow these 5 steps:
 
 
 ## Adding a Todo task: `todo`
-<a name="todo"></a>
+[back to commands table](#commands-summary)
+
 Adds a todo task to the task list
 
 Format: `todo <description>`
@@ -57,7 +58,8 @@ Expected Output:
 ![Add Todo task](addTodo.png)
 
 ## Adding a Deadline task: `deadline`
-<a name="deadline"></a>
+[back to commands table](#commands-summary)
+
 Adds a deadline task to the task list
 
 Format: `deadline <description> /by <end-date>`
@@ -70,7 +72,8 @@ Expected Output:
 ![Add Deadline task](addDeadline.png)
 
 ## Adding an Event task: `event`
-<a name="event"></a>
+[back to commands table](#commands-summary)
+
 Adds an event task to the task list
 
 Format: `event <description> /from <start-date> /to <end-date>`
@@ -84,7 +87,8 @@ Expected Output:
 ![Add Event task](addEvent.png)
 
 ## Listing all tasks: `list`
-<a name="list"></a>
+[back to commands table](#commands-summary)
+
 Lists all tasks in task list
 
 Format: `list`
@@ -94,7 +98,8 @@ Expected Output
 ![List task](listTask.png)
 
 ## Mark task as done: `mark`
-<a name="mark"></a>
+[back to commands table](#commands-summary)
+
 Mark a task as done
 
 Format: `mark <task number>`
@@ -107,6 +112,8 @@ Expected Output
 ![Mark task](markTask.png)
 
 ## Mark task as NOT done: `unmark`
+[back to commands table](#commands-summary)
+
 Mark a task as *NOT* done
 
 Format: `unmark <task number>`
@@ -119,6 +126,8 @@ Expected Output
 ![Unmark Task](unmarkTask.png)
 
 ## Delete a task: `delete`
+[back to commands table](#commands-summary)
+
 Deletes a task from the task list
 
 Format: `delete <task number>`
@@ -131,6 +140,8 @@ Expected Output
 ![Deletes Task](deleteTask.png)
 
 ## Find a task: `find`
+[back to commands table](#commands-summary)
+
 Find a task given a phrase from the task list
 
 Format: `find <phrase>`
@@ -144,11 +155,15 @@ Expected Output
 ![Find Task](findTask.png)
 
 ## List all available commands: `help`
+[back to commands table](#commands-summary)
+
 List all available command by zhongli
 
 Format: `help`
 
 ## Create shorter commands: 'alias'
+[back to commands table](#commands-summary)
+
 Create other commands to substitute long commands
 
 Format: `alias <original command> <new alias>`
@@ -158,6 +173,8 @@ Example:
 - alias list l
 
 ## Add products: `addproduct`
+[back to commands table](#commands-summary)
+
 Add a product so zhongli can help you track it
 
 Format: `addproduct <name> /item <quantity>`
@@ -173,11 +190,15 @@ Expected Output:
 ![Add Product](addProduct.png)
 
 ## View products: `listproduct`
+[back to commands table](#commands-summary)
+
 View the products you have added
 
 Format: `listproduct`
 
 ## Delete product: `deleteproduct`
+[back to commands table](#commands-summary)
+
 Delete the product you have added
 
 Format: `deleteproduct <product number>`

@@ -1,7 +1,9 @@
 package zhongli.command;
 
 /**
- * enum of all possible command entered by user
+ * Enumeration of all valid command types recognized by the application.
+ * Each command type has an associated keyword and help message describing its usage.
+ * The UNKNOWN type represents invalid or unrecognized command input.
  *
  */
 public enum CommandType {
@@ -24,14 +26,22 @@ public enum CommandType {
     private final String keyword;
     private final String helpMessage;
 
+    /**
+     * Constructs a CommandType with the specified keyword and help message.
+     *
+     * @param keyword The command keyword string.
+     * @param helpMessage The help description for this command.
+     */
     CommandType(String keyword, String helpMessage) {
         this.keyword = keyword;
         this.helpMessage = helpMessage;
     }
 
     /**
-     * This is the case for unknown, as there is no such thing as an unknown command
+     * Constructs a CommandType with only a keyword, used for the UNKNOWN command type.
+     * The help message is initialized to an empty string.
      *
+     * @param keyword The command keyword string.
      */
     CommandType(String keyword) {
         this.keyword = keyword;
@@ -42,6 +52,13 @@ public enum CommandType {
         return keyword;
     }
 
+    /**
+     * Returns a formatted string containing help messages for all valid commands.
+     * Each command's keyword and help message are displayed on a separate line.
+     * The UNKNOWN command type is excluded from the output.
+     *
+     * @return A formatted string containing help information for all recognised commands.
+     */
     public static String getAllCommandsHelpMessage() {
         StringBuilder helpMessage = new StringBuilder();
         for (CommandType type : CommandType.values()) {
@@ -60,8 +77,11 @@ public enum CommandType {
     }
 
     /**
-     * Check if the keyword is a valid command
+     * Validates whether the provided keyword matches a valid command in the enumeration.
+     * Empty strings are considered invalid.
      *
+     * @param keyword The keyword string to validate.
+     * @return True if the keyword corresponds to a valid command, false otherwise.
      */
     public static boolean isValidCommand(String keyword) {
 
@@ -79,10 +99,11 @@ public enum CommandType {
     }
 
     /**
-     * Get the type of command from the keyword
-     * If the keyword is not in the enum, it is treated as a wrong keyword.
-     * It will return UNKNOWN
+     * Returns the CommandType corresponding to the provided keyword.
+     * If the keyword does not match any command in the enumeration, returns UNKNOWN.
      *
+     * @param keyword The command keyword string to look up.
+     * @return The corresponding CommandType, or UNKNOWN if the keyword is not recognized.
      */
     public static CommandType fromString(String keyword) {
         for (CommandType type : CommandType.values()) {

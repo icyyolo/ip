@@ -119,92 +119,39 @@ public class ParserTest {
         }
     }
 
-    @Test
-    public void parseTaskFromInput_invalidDeadline_exceptionThrown() {
+    public void catchZhongliException(String input, String output) {
         try {
-            Parser.parseTaskFromInput("deadline");
+            Parser.parseTaskFromInput(input);
             fail();
         } catch (ZhongliException e) {
-            assertEquals("Missing /by command", e.getMessage());
-        } catch (Exception e) {
-            fail();
-        }
-
-        try {
-            Parser.parseTaskFromInput("deadline /by");
-            fail();
-        } catch (ZhongliException e) {
-            assertEquals("Description cannot be empty", e.getMessage());
-        } catch (Exception e) {
-            fail();
-        }
-
-        try {
-            Parser.parseTaskFromInput("deadline /by abcd");
-            fail();
-        } catch (ZhongliException e) {
-            assertEquals("Description cannot be empty", e.getMessage());
-        } catch (Exception e) {
-            fail();
-        }
-
-        try {
-            Parser.parseTaskFromInput("deadline 1234 /by abcd");
-            fail();
-        } catch (ZhongliException e) {
-            assertEquals("Text 'abcd' could not be parsed at index 0\n"
-                    + "Date Should be in this format YYYY-MM-DD", e.getMessage());
+            assertEquals(output, e.getMessage());
         } catch (Exception e) {
             fail();
         }
     }
 
     @Test
+    public void parseTaskFromInput_invalidDeadline_exceptionThrown() {
+        catchZhongliException("deadline", "Missing /by command");
+
+        catchZhongliException("deadline /by", "Description cannot be empty");
+
+        catchZhongliException("deadline /by abcd", "Description cannot be empty");
+
+        String dateError = "Text 'abcd' could not be parsed at index 0\n" + "Date Should be in this format YYYY-MM-DD";
+        catchZhongliException("deadline 1234 /by abcd", dateError);
+    }
+
+    @Test
     public void parseTaskFromInput_invalidEvent_exceptionThrown() {
-        try {
-            Parser.parseTaskFromInput("event");
-            fail();
-        } catch (ZhongliException e) {
-            assertEquals("Missing /from command", e.getMessage());
-        } catch (Exception e) {
-            fail();
-        }
+        catchZhongliException("event", "Missing /from command");
 
-        try {
-            Parser.parseTaskFromInput("event /from");
-            fail();
-        } catch (ZhongliException e) {
-            assertEquals("Missing /to command", e.getMessage());
-        } catch (Exception e) {
-            fail();
-        }
+        catchZhongliException("event /from", "Missing /to command");
 
-        try {
-            Parser.parseTaskFromInput("event /from /to");
-            fail();
-        } catch (ZhongliException e) {
-            assertEquals("Description cannot be empty", e.getMessage());
-        } catch (Exception e) {
-            fail();
-        }
+        catchZhongliException("event /from /to", "Description cannot be empty");
 
-        try {
-            Parser.parseTaskFromInput("event 1234 /from /to");
-            fail();
-        } catch (ZhongliException e) {
-            assertEquals("Start Time cannot be empty", e.getMessage());
-        } catch (Exception e) {
-            fail();
-        }
+        catchZhongliException("event 1234 /from /to", "Start Time cannot be empty");
 
-        try {
-            Parser.parseTaskFromInput("event 1234 /from now /to");
-            fail();
-        } catch (ZhongliException e) {
-            assertEquals("End Time cannot be empty", e.getMessage());
-        } catch (Exception e) {
-            fail();
-        }
-
+        catchZhongliException("event 1234 /from now /to", "End Time cannot be empty");
     }
 }

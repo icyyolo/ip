@@ -54,14 +54,18 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    private void exit_application() {
+        PauseTransition pause = new PauseTransition(Duration.millis(300));
+        pause.setOnFinished(event -> {
+            Platform.exit();
+        });
+        pause.play();
+    }
+
     @FXML
     private void handleUserInput() {
         if (zhongli.getHasExit()) {
-            PauseTransition pause = new PauseTransition(Duration.seconds(1));
-            pause.setOnFinished(event -> {
-                Platform.exit();
-            });
-            pause.play();
+            exit_application();
         } else {
             String input = userInput.getText();
             dialogue.addUserMessage(input);
@@ -69,5 +73,8 @@ public class MainWindow extends AnchorPane {
             userInput.clear();
         }
 
+        if (zhongli.getHasExit()) {
+            exit_application();
+        }
     }
 }

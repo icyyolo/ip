@@ -48,7 +48,7 @@ public class Product {
         }
         int quantity;
         try {
-            quantity = Integer.parseInt(inputs[0]);
+            quantity = Integer.parseInt(inputs[1]);
         } catch (NumberFormatException e) {
             throw new ZhongliException("Item cannot be converted to a number");
         }

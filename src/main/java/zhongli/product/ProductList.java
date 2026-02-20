@@ -69,7 +69,16 @@ public class ProductList {
      *
      */
     public String listProduct() {
+        String emptyListMessage = "The product list is empty, add products using the addproduct command.";
+        String notEmptyListMessage = "Here the product in your list: \n";
         StringBuilder list = new StringBuilder();
+
+        if (this.isEmpty()) {
+            list.append(emptyListMessage);
+        } else {
+            list.append(notEmptyListMessage);
+        }
+
         for (int i = 0; i < this.getSize(); i++) {
             list.append(i + 1)
                     .append(") ")

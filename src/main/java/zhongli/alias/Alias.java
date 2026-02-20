@@ -5,10 +5,9 @@ import zhongli.parser.Parser;
 import zhongli.zhongliexception.ZhongliException;
 
 /**
- * Represents an alias class
- * which is an alternative name for a command
- *
- * It is optional for a command to have an alias
+ * Represents an alternative name for a command. Each alias maps a user-defined shorthand
+ * to an original command keyword. Provides functionality to validate, parse, and convert
+ * aliases to and from text file format.
  *
  */
 public class Alias {
@@ -17,8 +16,10 @@ public class Alias {
     private final String originalCommand;
 
     /**
-     * Represents an alias class which gets the alternative name of a command
+     * Constructs an Alias that maps the specified alias name to an original command.
      *
+     * @param alias The shorthand alias name.
+     * @param originalCommand The original command keyword this alias represents.
      */
     public Alias(String alias, String originalCommand) {
         this.alias = alias;
@@ -37,22 +38,31 @@ public class Alias {
         return this.originalCommand;
     }
 
+    /**
+     * Replaces the first occurrence of this alias with its original command in the provided
+     * command string. Used to convert user input containing the alias into the original command.
+     *
+     * @param currCommand The command string containing the alias to replace.
+     * @return The command string with the alias replaced by the original command.
+     */
     public String refactorCommandToOriginal(String currCommand) {
         return currCommand.replaceFirst(this.alias, this.originalCommand);
     }
 
     /**
-     * Returns the text to be inserted into the text file
-     * alias + "|" + original command
+     * Converts the alias to its text file representation in the format "alias/alias/originalCommand".
      *
+     * @return The alias formatted as a text file line suitable for persistent storage.
      */
     public String convertToText() {
         return this.getAlias() + "/alias/" + this.getOriginalCommand() + "\n";
     }
 
     /**
-     * Check that alias has no space in the string
+     * Validates that the provided alias string contains no whitespace characters.
      *
+     * @param alias The alias string to validate.
+     * @throws ZhongliException If the alias contains any spaces.
      */
     public static void checkStringHasNoSpace(String alias) throws ZhongliException {
         if (alias.contains(" ")) {
@@ -61,9 +71,10 @@ public class Alias {
     }
 
     /**
-     * Checks the command if it exists in CommandType enum
-     * Throws an error if command is not found
+     * Validates that the provided command string is a recognized command keyword in the system.
      *
+     * @param command The command string to validate.
+     * @throws ZhongliException If the command is not a valid recognized keyword.
      */
     public static void checkIsValidCommand(String command) throws ZhongliException {
         if (!CommandType.isValidCommand(command)) {
@@ -72,9 +83,13 @@ public class Alias {
     }
 
     /**
-     * Transform a line in the text file to its corresponding alias
-     * Throws an error when the regex is missing or when the original command is not valid
+     * Parses an alias from a text file line in the format "alias/alias/originalCommand".
+     * Validates that the original command is a recognised keyword before creating the alias.
      *
+     * @param line A line from the text file containing the alias definition.
+     * @return An Alias object parsed from the file line.
+     * @throws ZhongliException If the line format is invalid, the delimiter is missing,
+     *                          or the original command is not a valid keyword.
      */
     public static Alias parseAliasFromTextFile(String line) throws ZhongliException {
         String[] inputs = Parser.splitStringIntoTwo(line, "/alias/", "/alias/ is missing from the line");
@@ -86,12 +101,13 @@ public class Alias {
     }
 
     /**
-     * Transform a command from the user to its corresponding alias
-     * Throws an error when the orignal command is not valid
+     * Parses an alias from user input in the format "originalCommand aliasName".
+     * Validates that the alias contains no spaces and the original command is a valid keyword.
      *
-     * @param line
-     * @return
-     * @throws ZhongliException
+     * @param line A command line from the user in the format "originalCommand aliasName".
+     * @return An Alias object created from the user input.
+     * @throws ZhongliException If the format is invalid, the alias contains spaces,
+     *                          or the original command is not a valid keyword.
      */
     public static Alias parseAliasFromCommand(String line) throws ZhongliException {
         String[] inputs = Parser.splitStringIntoTwo(line, " ",

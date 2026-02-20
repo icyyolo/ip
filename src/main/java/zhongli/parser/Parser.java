@@ -156,7 +156,7 @@ public class Parser {
     /**
      * Parses user input into a ToDo object. Validates that a description is present and non-empty.
      *
-     * @param input A string entered by the user in the format "todo <description>".
+     * @param input A string entered by the user in the format "todo <description/>"
      * @return A ToDo object created from the input.
      * @throws ZhongliException If the todo keyword is missing or the description is empty.
      */
@@ -173,7 +173,7 @@ public class Parser {
      * Parses a text file line into a ToDo object and sets its completion status.
      * Removes the mark/unmark indicator before parsing, then applies the appropriate completion state.
      *
-     * @param input A line from the text file in the format "todo <description> /mark" or "/unmark".
+     * @param input A line from the text file in the format "todo <description/> /mark" or "/unmark".
      * @param isDone Boolean indicating whether the task should be marked as complete.
      * @return A ToDo object with the completion status set accordingly.
      * @throws ZhongliException If the input format is invalid or the description is empty.
@@ -192,7 +192,7 @@ public class Parser {
      * Parses user input into a Deadline object. Validates the presence of the "/by" delimiter
      * and ensures both the description and deadline date are non-empty and correctly formatted.
      *
-     * @param input A string entered by the user in the format "deadline <description> /by <date>".
+     * @param input A string entered by the user in the format "deadline <description/> /by <date/>".
      * @return A Deadline object created from the input.
      * @throws ZhongliException If the format is invalid, required fields are missing,
      *                          or the date cannot be parsed.
@@ -216,7 +216,7 @@ public class Parser {
      * Parses a text file line into a Deadline object and sets its completion status.
      * Removes the mark/unmark indicator before parsing, then applies the appropriate completion state.
      *
-     * @param input A line from the text file in the format "deadline <description> /by <date> /mark" or "/unmark".
+     * @param input A line from the text file in the format "deadline <description/> /by <date/> /mark" or "/unmark".
      * @param isDone Boolean indicating whether the deadline should be marked as complete.
      * @return A Deadline object with the completion status set accordingly.
      * @throws ZhongliException If the format is invalid or required fields are missing.
@@ -235,7 +235,7 @@ public class Parser {
      * Parses user input into an Event object. Validates the presence of "/from" and "/to" delimiters
      * and ensures the description, start time, and end time are all non-empty and correctly formatted.
      *
-     * @param input A string entered by the user in the format "event <description> /from <date> /to <date>".
+     * @param input A string entered by the user in the format "event <description/> /from <date/> /to <date/>".
      * @return An Event object created from the input.
      * @throws ZhongliException If the format is invalid, required fields are missing,
      *                          or the dates cannot be parsed.
@@ -265,7 +265,8 @@ public class Parser {
      * Parses a text file line into an Event object and sets its completion status.
      * Removes the mark/unmark indicator before parsing, then applies the appropriate completion state.
      *
-     * @param input A line from the text file in the format "event <description> /from <date> /to <date> /mark" or "/unmark".
+     * @param input A line from the text file in the format "event <description/> /from <date/> /to <date/> /mark"
+     *              or "/unmark".
      * @param isDone Boolean indicating whether the event should be marked as complete.
      * @return An Event object with the completion status set accordingly.
      * @throws ZhongliException If the format is invalid or required fields are missing.

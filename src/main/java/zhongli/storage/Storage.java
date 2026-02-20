@@ -6,8 +6,8 @@ import java.io.IOException;
 import zhongli.ui.Ui;
 
 /**
- * Represents a storage class to handle input from terminal
- * and writing to text file operations
+ * Base class for managing persistent file storage operations. Provides functionality to read and
+ * create storage files, with error handling for IO and security exceptions.
  *
  */
 public class Storage {
@@ -15,8 +15,9 @@ public class Storage {
     protected final String filePath;
 
     /**
-     * Represents a storage class to read / write file based on the file path
+     * Constructs a Storage object with the specified file path.
      *
+     * @param filePath The file path where data will be read from or written to.
      */
     public Storage(String filePath) {
         assert filePath != null : "filePath is null";
@@ -24,12 +25,12 @@ public class Storage {
     }
 
     /**
-     * Read the file from the filePath.
-     * If the file does not exist, it will create a new file.
+     * Reads the file at the specified file path, creating a new file if it does not exist.
+     * Handles IO and security exceptions by displaying error messages through the provided UI.
      *
-     * @param filePath - the path to the file.
-     * @param ui - UI object to display error messages to the user.
-     * @return File specified by the filePath String.
+     * @param filePath The path to the file to read or create.
+     * @param ui The UI object used to display error messages to the user.
+     * @return The File object representing the file at the specified path.
      */
     protected File readFile(String filePath, Ui ui) {
         File file = new File(filePath);
